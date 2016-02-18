@@ -1,4 +1,4 @@
-#!/usr/bin/env python 
+#!/usr/bin/env python
 import ROOT,os,sys,getopt,time
 import shipunit as u
 import shipRoot_conf
@@ -6,13 +6,13 @@ from ShipGeoConfig import ConfigRegistry
 debug = 0  # 1 print weights and field
            # 2 make overlap check
 # Default HNL parameters
-theHNLmass = 1.0*u.GeV
+theHNLmass = 1.6*u.GeV
 #theHNLcouplings = [1.e-8, 1.e-8, 1.e-8] # may not correspond to ctau=54km
 theHNLcouplings = [0.447e-9, 7.15e-9, 1.88e-9] # ctau=53.3km
 
 mcEngine     = "TGeant4"
 simEngine    = "Pythia8"  # "Genie" # Ntuple
-nEvents      = 100 
+nEvents      = 100
 firstEvent   = 0
 inclusive    = "c"    # True = all processes if "c" only ccbar -> HNL, if "b" only bbar -> HNL
 deepCopy     = False  # False = copy only stable particles to stack, except for HNL events
@@ -42,9 +42,9 @@ except getopt.GetoptError:
         # print help information and exit:
         print ' enter --Pythia8 to generate events with Pythia8 (-A b: signal from b, -A c: signal from c (default)  or -A inclusive)'
         print ' or    --Genie for reading and processing neutrino interactions '
-        print ' or    --Pythia6 for muon nucleon scattering'  
-        print ' or    --PG for particle gun'  
-        print '       --MuonBack to generate events from muon background file, --Cosmics=0 for cosmic generator data'  
+        print ' or    --Pythia6 for muon nucleon scattering'
+        print ' or    --PG for particle gun'
+        print '       --MuonBack to generate events from muon background file, --Cosmics=0 for cosmic generator data'
         print '       --mass or -m to set HNL mass'
         print '       --couplings \'U2e,U2mu,U2tau\' or -c \'U2e,U2mu,U2tau\' to set list of HNL couplings'
         sys.exit()
@@ -95,7 +95,7 @@ for o, a in opts:
             defaultInputFile = False
         if o in ("-o", "--output"):
             outputDir = a
-        if o in ("-Y"): 
+        if o in ("-Y"):
             dy = float(a)
         if o in ("--tankDesign"): 
             dv = int(a)
@@ -108,7 +108,7 @@ for o, a in opts:
         if o in ("-c", "--couplings", "--coupling"):
             theHNLcouplings = [float(c) for c in a.split(",")]
 
-if (simEngine == "Genie" or simEngine == "nuRadiography") and defaultInputFile: 
+if (simEngine == "Genie" or simEngine == "nuRadiography") and defaultInputFile:
   inputFile = "/eos/ship/data/GenieEvents/genie-nu_mu.root"
             # "/eos/ship/data/GenieEvents/genie-nu_mu_bar.root"
 if simEngine == "muonDIS" and defaultInputFile:
@@ -135,12 +135,12 @@ ship_geo = ConfigRegistry.loadpy("$FAIRSHIP/geometry/geometry_config.py", Yheigh
 tag = simEngine+"-"+mcEngine
 if charmonly: tag = simEngine+"CharmOnly-"+mcEngine
 if eventDisplay: tag = tag+'_D'
-if dy: tag = str(dy)+'.'+tag 
+if dy: tag = str(dy)+'.'+tag
 if not os.path.exists(outputDir):
   os.makedirs(outputDir)
 outFile = "%s/ship.%s.root" % (outputDir, tag)
 
-# rm older files !!! 
+# rm older files !!!
 for x in os.listdir(outputDir):
   if not x.find(tag)<0: os.system("rm %s/%s" % (outputDir, x) )
 # Parameter file name
@@ -158,8 +158,8 @@ timer.Start()
 run = ROOT.FairRunSim()
 run.SetName(mcEngine)  # Transport engine
 run.SetOutputFile(outFile)  # Output file
-run.SetUserConfig("g4Config.C") # user configuration file default g4Config.C 
-rtdb = run.GetRuntimeDb() 
+run.SetUserConfig("g4Config.C") # user configuration file default g4Config.C
+rtdb = run.GetRuntimeDb()
 # -----Create geometry----------------------------------------------
 # import shipMuShield_only as shipDet_conf # special use case for an attempt to convert active shielding geometry for use with FLUKA
 # import shipTarget_only as shipDet_conf
@@ -168,11 +168,13 @@ modules = shipDet_conf.configure(run,ship_geo)
 # -----Create PrimaryGenerator--------------------------------------
 primGen = ROOT.FairPrimaryGenerator()
 if simEngine == "Pythia8":
- primGen.SetTarget(ship_geo.target.z0, 0.) 
+ primGen.SetTarget(ship_geo.target.z0, 0.)
 # -----Pythia8--------------------------------------
  if HNL:
   P8gen = ROOT.HNLPythia8Generator()
   import pythia8_conf
+  P8gen.SetLmin (30000)
+  P8gen.SetLmax(130000)
   pythia8_conf.configure(P8gen,theHNLmass,theHNLcouplings,inclusive,deepCopy)
   P8gen.SetSmearBeam(1*u.cm) # finite beam size
   P8gen.SetParameters("ProcessLevel:all = off")
@@ -191,7 +193,7 @@ if simEngine == "Pythia8":
  primGen.AddGenerator(P8gen)
 if simEngine == "Pythia6":
 # set muon interaction close to decay volume
- primGen.SetTarget(ship_geo.target.z0+ship_geo.muShield.length, 0.) 
+ primGen.SetTarget(ship_geo.target.z0+ship_geo.muShield.length, 0.)
 # -----Pythia6-------------------------
  test = ROOT.TPythia6() # don't know any other way of forcing to load lib
  P6gen = ROOT.tPythia6Generator()
@@ -199,17 +201,17 @@ if simEngine == "Pythia6":
  P6gen.SetTarget("gamma/mu+","n0") # default "gamma/mu-","p+"
  primGen.AddGenerator(P6gen)
 # -----Particle Gun-----------------------
-if simEngine == "PG": 
+if simEngine == "PG":
   myPgun = ROOT.FairBoxGenerator(22,1)
   myPgun.SetPRange(10,10.2)
   myPgun.SetPhiRange(0, 360) # // Azimuth angle range [degree]
   myPgun.SetThetaRange(0,0) # // Polar angle in lab system range [degree]
-  myPgun.SetXYZ(0.*u.cm, 0.*u.cm, 0.*u.cm) 
+  myPgun.SetXYZ(0.*u.cm, 0.*u.cm, 0.*u.cm)
   primGen.AddGenerator(myPgun)
   run.SetGenerator(primGen)
 # -----muon DIS Background------------------------
 if simEngine == "muonDIS":
- primGen.SetTarget(0., 0.) 
+ primGen.SetTarget(0., 0.)
  DISgen = ROOT.MuDISGenerator()
  # from nu_tau detector to tracking station 2
  # mu_start, mu_end =  ship_geo.tauMS.zMSC,ship_geo.TrackStation2.z
@@ -218,7 +220,7 @@ if simEngine == "muonDIS":
  mu_start, mu_end = ship_geo.Chamber1.z-ship_geo.chambers.Tub1length-10.*u.cm,ship_geo.TrackStation1.z
  print 'MuDIS position info input=',mu_start, mu_end
  DISgen.SetPositions(ship_geo.target.z0, mu_start, mu_end)
- DISgen.Init(inputFile,firstEvent) 
+ DISgen.Init(inputFile,firstEvent)
  primGen.AddGenerator(DISgen)
  nEvents = min(nEvents,DISgen.GetNevents())
  print 'Generate ',nEvents,' with DIS input', ' first event',firstEvent
@@ -239,7 +241,7 @@ if simEngine == "Nuage":
  nZcells = ntt -1
  startx = -ship_geo.NuTauTarget.xdim/2 + nXcells*ship_geo.NuTauTarget.BrX
  endx = -ship_geo.NuTauTarget.xdim/2 + (nXcells+1)*ship_geo.NuTauTarget.BrX
- starty = -ship_geo.NuTauTarget.ydim/2 + nYcells*ship_geo.NuTauTarget.BrY 
+ starty = -ship_geo.NuTauTarget.ydim/2 + nYcells*ship_geo.NuTauTarget.BrY
  endy = - ship_geo.NuTauTarget.ydim/2 + (nYcells+1)*ship_geo.NuTauTarget.BrY
  startz = ship_geo.EmuMagnet.zC - ship_geo.NuTauTarget.zdim/2 + ntt *ship_geo.NuTauTT.TTZ + nZcells * ship_geo.NuTauTarget.CellW
  endz = ship_geo.EmuMagnet.zC - ship_geo.NuTauTarget.zdim/2 + ntt *ship_geo.NuTauTT.TTZ + nZcells * ship_geo.NuTauTarget.CellW + ship_geo.NuTauTarget.BrZ
@@ -255,7 +257,7 @@ if simEngine == "Genie":
 # Genie
  primGen.SetTarget(0., 0.) # do not interfere with GenieGenerator
  Geniegen = ROOT.GenieGenerator()
- Geniegen.Init(inputFile,firstEvent) 
+ Geniegen.Init(inputFile,firstEvent)
  Geniegen.SetPositions(ship_geo.target.z0, ship_geo.tauMS.zMSC-5*u.m, ship_geo.TrackStation2.z)
  primGen.AddGenerator(Geniegen)
  nEvents = min(nEvents,Geniegen.GetNevents())
@@ -263,7 +265,7 @@ if simEngine == "Genie":
 if simEngine == "nuRadiography":
  primGen.SetTarget(0., 0.) # do not interfere with GenieGenerator
  Geniegen = ROOT.GenieGenerator()
- Geniegen.Init(inputFile,firstEvent) 
+ Geniegen.Init(inputFile,firstEvent)
  # Geniegen.SetPositions(ship_geo.target.z0, ship_geo.target.z0, ship_geo.MuonStation3.z)
  Geniegen.SetPositions(ship_geo.target.z0, ship_geo.tauMS.zMSC, ship_geo.MuonStation3.z)
  Geniegen.NuOnly()
@@ -273,8 +275,8 @@ if simEngine == "nuRadiography":
  pdg = ROOT.TDatabasePDG.Instance()
  pdg.AddParticle('W','Ion', 1.71350e+02, True, 0., 74, 'XXX', 1000741840)
 #
- run.SetPythiaDecayer('DecayConfigPy8.C')  # this does not work !! It insists of using DecayConfig.C 
- # this requires writing a C macro, would have been easier to do directly in python! 
+ run.SetPythiaDecayer('DecayConfigPy8.C')  # this does not work !! It insists of using DecayConfig.C
+ # this requires writing a C macro, would have been easier to do directly in python!
  # for i in [431,421,411,-431,-421,-411]:
  # ROOT.gMC.SetUserDecay(i) # Force the decay to be done w/external decayer
 if simEngine == "Ntuple":
@@ -302,7 +304,7 @@ if simEngine == "Cosmics":
  Cosmicsgen = ROOT.CosmicsGenerator()
  import CMBG_conf
  CMBG_conf.configure(Cosmicsgen, ship_geo)
- if not Cosmicsgen.Init(Opt_high): 
+ if not Cosmicsgen.Init(Opt_high):
       print "initialization of cosmic background generator failed ",Opt_high
       sys.exit(0)
  primGen.AddGenerator(Cosmicsgen)
@@ -324,7 +326,7 @@ if not deepCopy : fStack.SetEnergyCut(100.*u.MeV)
 if eventDisplay:
  # Set cuts for storing the trajectories, can only be done after initialization of run (?!)
   trajFilter = ROOT.FairTrajFilter.Instance()
-  trajFilter.SetStepSizeCut(1*u.mm);  
+  trajFilter.SetStepSizeCut(1*u.mm);
   trajFilter.SetVertexCut(-20*u.m, -20*u.m,ship_geo.target.z0-1*u.m, 20*u.m, 20*u.m, 200.*u.m)
   trajFilter.SetMomentumCutP(0.1*u.GeV)
   trajFilter.SetEnergyCut(0., 400.*u.GeV)
@@ -335,7 +337,7 @@ if ship_geo.muShieldDesign != 1:
  import geomGeant4
  geomGeant4.setMagnetField() # ('dump') for printout of mag fields
  if debug > 0: geomGeant4.printWeightsandFields()
-if inactivateMuonProcesses : 
+if inactivateMuonProcesses :
  mygMC = ROOT.TGeant4.GetMC()
  mygMC.ProcessGeantCommand("/process/inactivate muPairProd")
  mygMC.ProcessGeantCommand("/process/inactivate muBrems")
@@ -372,10 +374,10 @@ if checking4overlaps:
 timer.Stop()
 rtime = timer.RealTime()
 ctime = timer.CpuTime()
-print ' ' 
-print "Macro finished succesfully." 
+print ' '
+print "Macro finished succesfully."
 if "P8gen" in globals() : print "number of retries, events without HNL",P8gen.nrOfRetries()
-print "Output file is ",  outFile 
+print "Output file is ",  outFile
 print "Parameter file is ",parFile
 print "Real time ",rtime, " s, CPU time ",ctime,"s"
 

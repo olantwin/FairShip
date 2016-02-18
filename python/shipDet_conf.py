@@ -25,7 +25,7 @@ def posHcal(z,hfile):
  floc = os.environ["FAIRSHIP"]+"/geometry"
  f_hcal  = floc+"/"+hfile
  f_hcalz = floc+"/"+sz
- f = open(f_hcal) 
+ f = open(f_hcal)
  rewrite = True
  if sz in os.listdir(floc):
   test = os.popen("diff "+ f_hcal+ " "+ f_hcalz).read()
@@ -37,9 +37,9 @@ def posHcal(z,hfile):
       l ="ZPos="+str(z)+ "	#Position of Hcal  center	[cm]\n"
     fn.write(l)
    if not l.find("HcalZSize")<0:
-     HcalZSize = float(l[len('HcalZSize')+1:].split('#')[0]) 
+     HcalZSize = float(l[len('HcalZSize')+1:].split('#')[0])
  f.close()
- if rewrite: fn.close()  
+ if rewrite: fn.close()
  hcal = ROOT.hcal("Hcal", ROOT.kTRUE, sz)
  return hcal,HcalZSize
 def makeEcalGeoFile(z,efile):
@@ -48,7 +48,7 @@ def makeEcalGeoFile(z,efile):
  floc = os.environ["FAIRSHIP"]+"/geometry"
  f_ecal  = floc+"/"+efile
  f_ecalz = floc+"/"+sz
- f = open(f_ecal) 
+ f = open(f_ecal)
  rewrite = True
  if sz in os.listdir(floc):
   test = os.popen("diff "+ f_ecal+ " "+ f_ecalz).read()
@@ -60,7 +60,7 @@ def makeEcalGeoFile(z,efile):
       l ="ZPos="+str(z)+ "	#Position of Ecal start		[cm]\n"
     fn.write(l)
    if not l.find("EcalZSize")<0:
-     EcalZSize = float(l[len('EcalZSize')+1:].split('#')[0]) 
+     EcalZSize = float(l[len('EcalZSize')+1:].split('#')[0])
  f.close()
  if rewrite: fn.close()  
  return EcalZSize,sz
@@ -77,7 +77,7 @@ def configure(run,ship_geo):
 # -----Create media-------------------------------------------------
  run.SetMaterials("media.geo")  # Materials
 # ------------------------------------------------------------------------
-  
+
 # -----Create geometry----------------------------------------------
  cave= ROOT.ShipCave("CAVE")
  cave.SetGeometryFileName("cave.geo")
@@ -89,7 +89,7 @@ def configure(run,ship_geo):
  else:
   TargetStation = ROOT.ShipTargetStation("TargetStation",ship_geo.target.length,ship_geo.hadronAbsorber.length,
                                                         ship_geo.target.z,ship_geo.hadronAbsorber.z,ship_geo.targetOpt,ship_geo.target.sl)
-   
+
  if ship_geo.targetOpt>10:
   TargetStation.SetLayerPosMat(ship_geo.target.xy,ship_geo.target.L1,ship_geo.target.M1,ship_geo.target.L2,ship_geo.target.M2,\
   ship_geo.target.L3,ship_geo.target.M3,ship_geo.target.L4,ship_geo.target.M4,ship_geo.target.L5,ship_geo.target.M5,\
@@ -111,7 +111,6 @@ def configure(run,ship_geo):
                ship_geo.muShield.dZ7,ship_geo.muShield.dZ8,ship_geo.muShield.dXgap,ship_geo.muShield.LE,ship_geo.Yheight*4./10.) 
 
  detectorList.append(MuonShield)
-
 
  magnet_design = 2
  if ship_geo.tankDesign == 5: magnet_design = 3
@@ -198,7 +197,7 @@ def configure(run,ship_geo):
   detectorList.append(NuTauTT)
 
  if ship_geo.strawDesign > 1 :
-  Strawtubes = ROOT.strawtubes("Strawtubes", ROOT.kTRUE)    
+  Strawtubes = ROOT.strawtubes("Strawtubes", ROOT.kTRUE)
   Strawtubes.SetZpositions(ship_geo.vetoStation.z, ship_geo.TrackStation1.z, ship_geo.TrackStation2.z, ship_geo.TrackStation3.z, ship_geo.TrackStation4.z)
   Strawtubes.SetDeltazView(ship_geo.strawtubes.DeltazView)
   Strawtubes.SetInnerStrawDiameter(ship_geo.strawtubes.InnerStrawDiameter)
@@ -256,9 +255,8 @@ def configure(run,ship_geo):
  if ship_geo.muShieldDesign==6: fMagField.IncludeTarget(ship_geo.target.xy, ship_geo.target.z0, ship_geo.target.length)
  run.SetField(fMagField)
 #
- exclusionList = []
- #exclusionList = ["Muon","Ecal","Hcal","Strawtubes","TargetTrackers","NuTauTarget","HighPrecisionTrackers",\
- #                 "Veto","Magnet","MuonShield","TargetStation","MagneticSpectrometer"]
+ exclusionList = ["Muon","Ecal","Hcal","TargetTrackers","NuTauTarget","HighPrecisionTrackers",
+                 "Veto","Magnet","MuonShield","TargetStation","MagneticSpectrometer","Preshower"]
  for x in detectorList:
    if x.GetName() in exclusionList: continue
    run.AddModule(x)
