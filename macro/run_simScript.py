@@ -9,6 +9,7 @@ debug = 0  # 1 print weights and field
 theHNLmass = 1.6*u.GeV
 #theHNLcouplings = [1.e-8, 1.e-8, 1.e-8] # may not correspond to ctau=54km
 theHNLcouplings = [0.447e-9, 7.15e-9, 1.88e-9] # ctau=53.3km
+offset = 0
 
 mcEngine     = "TGeant4"
 simEngine    = "Pythia8"  # "Genie" # Ntuple
@@ -107,6 +108,8 @@ for o, a in opts:
             theHNLmass = float(a)
         if o in ("-c", "--couplings", "--coupling"):
             theHNLcouplings = [float(c) for c in a.split(",")]
+        if o in ("-l"):
+            offset = float(a)
 
 if (simEngine == "Genie" or simEngine == "nuRadiography") and defaultInputFile:
   inputFile = "/eos/ship/data/GenieEvents/genie-nu_mu.root"
@@ -168,7 +171,7 @@ modules = shipDet_conf.configure(run,ship_geo)
 # -----Create PrimaryGenerator--------------------------------------
 primGen = ROOT.FairPrimaryGenerator()
 if simEngine == "Pythia8":
- primGen.SetTarget(ship_geo.target.z0, 0.)
+ primGen.SetTarget(ship_geo.target.z0 + offset, 0.)
 # -----Pythia8--------------------------------------
  if HNL:
   P8gen = ROOT.HNLPythia8Generator()
