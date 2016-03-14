@@ -176,8 +176,8 @@ if simEngine == "Pythia8":
  if HNL:
   P8gen = ROOT.HNLPythia8Generator()
   import pythia8_conf
-  P8gen.SetLmin (30000)
-  P8gen.SetLmax(130000)
+  P8gen.SetLmin(00000)
+  P8gen.SetLmax(300000)
   pythia8_conf.configure(P8gen,theHNLmass,theHNLcouplings,inclusive,deepCopy)
   P8gen.SetSmearBeam(1*u.cm) # finite beam size
   P8gen.SetParameters("ProcessLevel:all = off")
