@@ -1,5 +1,5 @@
 # example for accessing smeared hits and fitted tracks
-import ROOT,os,sys,getopt
+import ROOT,os,sys,getopt,math
 import rootUtils as ut
 import shipunit as u
 from ShipGeoConfig import ConfigRegistry
@@ -46,7 +46,7 @@ elif inputFile[0:4] == "/eos":
   f = ROOT.TFile.Open(eospath)
   sTree = f.cbmsim
 else:
-  f = ROOT.TFile(inputFile)
+  f = ROOT.TFile.Open(inputFile)
   sTree = f.cbmsim
 
 # try to figure out which ecal geo to load
@@ -56,7 +56,7 @@ if geoFile[0:4] == "/eos":
   eospath = "root://eoslhcb.cern.ch/"+geoFile
   fgeo = ROOT.TFile.Open(eospath)
 else:  
-  fgeo = ROOT.TFile(geoFile)
+  fgeo = ROOT.TFile.Open(geoFile)
 sGeo = fgeo.FAIRGeom
 
 if not fgeo.FindKey('ShipGeo'):
@@ -147,6 +147,12 @@ ut.bookHist(h,'nrSVT','nr of hits in SVT',10,-0.5,9.5)
 ut.bookHist(h,'nrUVT','nr of hits in UVT',100,-0.5,99.5)
 ut.bookHist(h,'nrSBT','nr of hits in SBT',100,-0.5,99.5)
 ut.bookHist(h,'nrRPC','nr of hits in RPC',100,-0.5,99.5)
+all_hnl = 0
+wall_hnl = 0.
+sw = 0.
+swall = 0.
+hnls = 0
+hnlsw = 0.
 
 import TrackExtrapolateTool
 
@@ -662,6 +668,10 @@ def myEventLoop(n):
 # ---
 # loop over particles, 2-track combinations
   for HNL in sTree.Particles:
+    global all_hnl, wall_hnl, swall
+    all_hnl +=1
+    wall_hnl +=wg
+    swall +=wg**2
     t1,t2 = HNL.GetDaughter(0),HNL.GetDaughter(1) 
 # kill tracks outside fiducial volume, if enabled
     if not checkFiducialVolume(sTree,t1,dy) or not checkFiducialVolume(sTree,t2,dy) : continue
@@ -698,6 +708,10 @@ def myEventLoop(n):
     h['IP0/mass'].Fill(mass,dist)
     h['HNL'].Fill(mass)
     h['HNLw'].Fill(mass,wg)
+    global hnlsw, sw, hnls
+    hnls +=1
+    hnlsw += wg
+    sw +=wg**2
 #
     vetoDets['SBT'] = veto.SBT_decision(sTree)
     vetoDets['SVT'] = veto.SVT_decision(sTree)
@@ -839,11 +853,20 @@ for n in range(nEvents):
 makePlots()
 # output histograms
 hfile = inputFile.split(',')[0].replace('_rec','_ana')
-if hfile[0:4] == "/eos" or not inputFile.find(',')<0:
+if hfile[:4] == "/eos" or hfile[:7] == "root://" or not inputFile.find(',')<0:
 # do not write to eos, write to local directory 
   tmp = hfile.split('/')
   hfile = tmp[len(tmp)-1] 
 ROOT.gROOT.cd()
 ut.writeHists(h,hfile)
 
-
+err_hnls = math.sqrt(hnls)
+err_hnlsw = math.sqrt(sw)
+err_all_hnl = math.sqrt(all_hnl)
+err_wall_hnl = math.sqrt(swall)
+ratio =hnls.__truediv__(all_hnl) 
+wratio =hnlsw/wall_hnl 
+err_ratio = ratio*math.sqrt((err_hnls/hnls)**2+(err_all_hnl/all_hnl)**2)
+err_wratio = wratio*math.sqrt((err_hnlsw/hnlsw)**2+(err_wall_hnl/wall_hnl)**2)
+print ratio, err_ratio, wratio, err_wratio
+print hnlsw, err_hnlsw
