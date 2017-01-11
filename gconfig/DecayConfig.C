@@ -1,5 +1,0 @@
-void DecayConfig() {
-     // do nothing
-}
-
-
