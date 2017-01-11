@@ -1,0 +1,3 @@
+[submodule "Doxygen/html"]
+	path = Doxygen/html
+	url = git@github.com:olantwin/FairShip.git
