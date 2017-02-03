@@ -1065,6 +1065,15 @@ void veto::ConstructGeometry()
       VetoTimeDet->SetLineColor(kMagenta-10);
       top->AddNode(VetoTimeDet, 1, new TGeoTranslation(0, 0, fTub1z-fTub1length-10.*cm));
       AddSensitiveVolume(VetoTimeDet);
+
+      InitMedium("lead");
+      TGeoMedium *lead = gGeoManager->GetMedium("lead");
+
+      TGeoVolume *shield = gGeoManager->MakeBox("Shield", lead, 120, 250, 10);
+      shield->SetLineColor(kRed);
+      top->AddNode(shield, 1, new TGeoTranslation(0, 0, -2575));
+      AddSensitiveVolume(shield);
+
    // make the entrance window
       // add floor:
       Double_t Length = zStartMagVol - zStartDecayVol - 1.8*m; 
