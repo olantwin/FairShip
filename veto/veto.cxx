@@ -1068,6 +1068,11 @@ void veto::ConstructGeometry()
       top->AddNode(shield, 1, new TGeoTranslation(0, 0, -2575));
       AddSensitiveVolume(shield);
 
+      TGeoVolume *shield2 = gGeoManager->MakeBox("Shield2", lead, 120, 350, 2.5);
+      shield2->SetLineColor(kRed);
+      top->AddNode(shield2, 1, new TGeoTranslation(0, 0, -3495));
+      AddSensitiveVolume(shield2);
+
    // make the entrance window
       // add floor:
       Double_t Length = zStartMagVol - zStartDecayVol - 1.8*m; 
