@@ -8,14 +8,17 @@
 #include "TString.h"                    // for TString
 #include "TGeoBBox.h"
 #include "TGeoTrd1.h"
+#include "TGeoArb8.h"
 #include "TGeoCompositeShape.h"
 #include "TGeoBoolNode.h"
 #include "TGeoTube.h"
+#include "TRegexp.h"
 #include "TGeoMaterial.h"
 #include "FairGeoInterface.h"
 #include "FairGeoMedia.h"
 #include "FairGeoBuilder.h"
 #include <iostream>                     // for operator<<, basic_ostream, etc
+#include <cassert>
 
 Double_t cm = 1;
 Double_t m = 100 * cm;
@@ -124,6 +127,10 @@ void ShipMuonShield::CreateMagnet(TString magnetName,TGeoMedium* medium,TGeoVolu
 				  Double_t HmainSideMag, Double_t HmainSideMag2,
 				  Double_t gap,Double_t gap2, Double_t Z, Bool_t NotMagnet)
   {
+    auto *translation = new TGeoTranslation{"tr_"+magnetName,0,0,Z};
+    translation->RegisterYourself();
+    TGeoVolume* magnet = new TGeoVolumeAssembly(magnetName);
+
     Double_t coil_gap,coil_gap2;
     Int_t color[4] = {45,31,30,38};
 
@@ -187,25 +194,12 @@ void ShipMuonShield::CreateMagnet(TString magnetName,TGeoMedium* medium,TGeoVolu
     };
 
     // Use symmetries to define remaining magnets
-    std::array<Double_t, 16> cornersMainR, cornersMainSideR, cornersCLTA,
-	cornersCRBA, cornersCRTA, cornersTR, cornersBL, cornersBR;
-    for (int i = 0; i < 16; ++i) {
-      cornersMainR[i] = -cornersMainL[i];
-      cornersMainSideR[i] = -cornersMainSideL[i];
-      cornersCRTA[i] = -cornersCLBA[i];
-      cornersBR[i] = -cornersTL[i];
-    }
+    std::array<Double_t, 16> cornersCLTA;
     // Need to change order as corners need to be defined clockwise
     for (int i = 0, j = 4; i < 8; ++i) {
       j = (11 - i) % 8;
       cornersCLTA[2 * j] = cornersCLBA[2 * i];
       cornersCLTA[2 * j + 1] = -cornersCLBA[2 * i + 1];
-      cornersTR[2 * j] = -cornersTL[2 * i];
-      cornersTR[2 * j + 1] = cornersTL[2 * i + 1];
-    }
-    for (int i = 0; i < 16; ++i) {
-      cornersCRBA[i] = -cornersCLTA[i];
-      cornersBL[i] = -cornersTR[i];
     }
 
     TString str1L = "_MiddleMagL";
@@ -221,37 +215,54 @@ void ShipMuonShield::CreateMagnet(TString magnetName,TGeoMedium* medium,TGeoVolu
     TString str10 = "_MagBotLeft";
     TString str11 = "_MagBotRight";
 
-    switch (fieldDirection){
+    auto reflectionXY = new TGeoRotation{"rxy"};
+    reflectionXY->ReflectX(true);
+    reflectionXY->ReflectY(true);
+    reflectionXY->RegisterYourself();
+    auto reflectionY = new TGeoRotation{"ry"};
+    reflectionY->ReflectY(false);
+    reflectionY->RegisterYourself();
+    auto reflectionX = new TGeoRotation{"rx"};
+    reflectionX->ReflectX(true);
+    reflectionX->RegisterYourself();
+    TGeoVolume* TL; // Primary
+    TGeoArb8* MainL, *MainSideL, *CLBA; // Primary
+    TGeoVolume* TR; // Mirrored
+    TGeoArb8* CLTA; // Mirrored
+    TGeoVolume *Main, *SideL; // Composite
+    TGeoCompositeShape* Main_shape, *SideL_shape;
 
-    case FieldDirection::up: 
-      CreateArb8(magnetName + str1L, medium, dZ, cornersMainL, color[0], fields[0], tShield,  0, 0, Z);
-      CreateArb8(magnetName + str1R, medium, dZ, cornersMainR, color[0], fields[0], tShield,  0, 0, Z);
-      CreateArb8(magnetName + str2, medium, dZ, cornersMainSideL, color[1], fields[1], tShield,  0, 0, Z);
-      CreateArb8(magnetName + str3, medium, dZ, cornersMainSideR, color[1], fields[1], tShield,  0, 0, Z);
-      CreateArb8(magnetName + str4, medium, dZ, cornersCLBA, color[1], fields[1], tShield,  0, 0, Z);
-      CreateArb8(magnetName + str5, medium, dZ, cornersCLTA, color[1], fields[1], tShield,  0, 0, Z);
-      CreateArb8(magnetName + str6, medium, dZ, cornersCRTA, color[1], fields[1], tShield,  0, 0, Z);
-      CreateArb8(magnetName + str7, medium, dZ, cornersCRBA, color[1], fields[1], tShield,  0, 0, Z);
-      CreateArb8(magnetName + str8, medium, dZ, cornersTL, color[3], fields[3], tShield,  0, 0, Z);
-      CreateArb8(magnetName + str9, medium, dZ, cornersTR, color[2], fields[2], tShield,  0, 0, Z);
-      CreateArb8(magnetName + str10, medium, dZ, cornersBL, color[2], fields[2], tShield,  0, 0, Z);
-      CreateArb8(magnetName + str11, medium, dZ, cornersBR, color[3], fields[3], tShield,  0, 0, Z);
-      break;
-    case FieldDirection::down:
-      CreateArb8(magnetName + str1L, medium, dZ, cornersMainL, color[1], fields[1], tShield,  0, 0, Z);
-      CreateArb8(magnetName + str1R, medium, dZ, cornersMainR, color[1], fields[1], tShield,  0, 0, Z);
-      CreateArb8(magnetName + str2, medium, dZ, cornersMainSideL, color[0], fields[0], tShield,  0, 0, Z);
-      CreateArb8(magnetName + str3, medium, dZ, cornersMainSideR, color[0], fields[0], tShield,  0, 0, Z);
-      CreateArb8(magnetName + str4, medium, dZ, cornersCLBA, color[0], fields[0], tShield,  0, 0, Z);
-      CreateArb8(magnetName + str5, medium, dZ, cornersCLTA, color[0], fields[0], tShield,  0, 0, Z);
-      CreateArb8(magnetName + str6, medium, dZ, cornersCRTA, color[0], fields[0], tShield,  0, 0, Z);
-      CreateArb8(magnetName + str7, medium, dZ, cornersCRBA, color[0], fields[0], tShield,  0, 0, Z);
-      CreateArb8(magnetName + str8, medium, dZ, cornersTL, color[2], fields[2], tShield,  0, 0, Z);
-      CreateArb8(magnetName + str9, medium, dZ, cornersTR, color[3], fields[3], tShield,  0, 0, Z);
-      CreateArb8(magnetName + str10, medium, dZ, cornersBL, color[3], fields[3], tShield,  0, 0, Z);
-      CreateArb8(magnetName + str11, medium, dZ, cornersBR, color[2], fields[2], tShield,  0, 0, Z);
-      break;
-    }
+    int index = (fieldDirection == FieldDirection::up)? 0:1;
+    MainL = new TGeoArb8(magnetName + str1L, dZ, cornersMainL.data());
+    Main_shape = new  TGeoCompositeShape{magnetName + "_MiddleMag_shape", TString::Format("(%s+%s:%s)",MainL->GetName(), MainL->GetName(), reflectionXY->GetName())};
+    Main = new TGeoVolume(magnetName + "_MiddleMag", Main_shape, medium);
+    Main->SetLineColor(color[index]);
+    Main->SetField(fields[index]);
+    magnet->AddNode(Main,1);
+    MainSideL = new TGeoArb8(magnetName + str2, dZ, cornersMainSideL.data());
+    CLBA = new TGeoArb8(magnetName + str4, dZ, cornersCLBA.data());
+    CLTA = new TGeoArb8(magnetName + str5, dZ, cornersCLTA.data());
+    SideL_shape = new  TGeoCompositeShape{magnetName + "_MagSide_shape", TString::Format("(%s+%s+%s)", MainSideL->GetName(), CLBA->GetName(), CLTA->GetName())};
+    SideL = new TGeoVolume(magnetName + "_MagSide", SideL_shape, medium);
+    index = (fieldDirection == FieldDirection::up)? 1:0;
+    SideL->SetLineColor(color[index]);
+    SideL->SetField(fields[index]);
+    magnet->AddNode(SideL,1);
+    magnet->AddNode(SideL,2, reflectionXY);
+    index = (fieldDirection == FieldDirection::up)? 3:2;
+    TL = gGeoManager->MakeArb8(magnetName + str8, medium, dZ, cornersTL.data());
+    TL->SetLineColor(color[index]);
+    TL->SetField(fields[index]);
+    magnet->AddNode(TL,1);
+    magnet->AddNode(TL,2,reflectionXY);
+    index = (fieldDirection == FieldDirection::up)? 2:3;
+    TR = gGeoManager->MakeArb8(magnetName + str9, medium, dZ, cornersTL.data());
+    TR->SetLineColor(color[index]);
+    TR->SetField(fields[index]);
+    magnet->AddNode(TR,1,reflectionX);
+    magnet->AddNode(TR,2,reflectionY);
+    tShield->AddNode(magnet, 1, translation);
+// TODO figure out whether transformations affect the fields!
   }
 
 Int_t ShipMuonShield::Initialize(std::vector<TString> &magnetName,
@@ -459,30 +470,58 @@ void ShipMuonShield::ConstructGeometry()
 		   gapIn[nM],gapOut[nM],Z[nM],1);
       }
 
-      TGeoTranslation* mag1 = new TGeoTranslation("mag1",0,0,Z[0]-(zEndOfAbsorb + (dZ1+dZ2)));
-      TGeoTranslation* mag2 = new TGeoTranslation("mag2",0,0,Z[1]-(zEndOfAbsorb + (dZ1+dZ2)));
+      TGeoTranslation* abs_translation = new TGeoTranslation("abs_tr",0,0,-(zEndOfAbsorb + (dZ1+dZ2)));
             
-      mag1->RegisterYourself();
-      mag2->RegisterYourself();
-
       TGeoTube *abs = new TGeoTube("absorber", 0, 400, (dZ1 + dZ2 - 15));
       const std::vector<TString> absorber_magnets = {"MagnAbsorb1",
 						     "MagnAbsorb2"};
-      const std::vector<TString> magnet_components = {
-	  "_MiddleMagL", "_MiddleMagR",  "_MagRetL",    "_MagRetR",
-	  "_MagCLB",     "_MagCLT",      "_MagCRT",     "_MagCRB",
-	  "_MagTopLeft", "_MagTopRight", "_MagBotLeft", "_MagBotRight",
-      };
+
       TString absorber_magnet_components;
-      for (auto &&magnet_component : magnet_components) {
-	// format: "-<magnetName>_<magnet_component>:<translation>"
-	absorber_magnet_components +=
-	    ("-" + absorber_magnets[0] + magnet_component + ":" +
-	     mag1->GetName());
-	absorber_magnet_components +=
-	    ("-" + absorber_magnets[1] + magnet_component + ":" +
-	     mag2->GetName());
+      for (auto && magnet_name : absorber_magnets) {
+	auto magnet = tShield->GetNode(magnet_name + "_1");
+	magnet->Print();
+	auto *translation = new TGeoTranslation{
+	    *dynamic_cast<TGeoTranslation *>(magnet->GetMatrix())};
+	translation->SetName("tr_" + TString{magnet->GetName()} + "_relToAbs");
+	translation->Add(abs_translation);
+	translation->RegisterYourself();
+	auto components = magnet->GetNodes();
+	TString magnet_components;
+	for (auto &&it = components->MakeIterator();
+	     auto &&component = dynamic_cast<TGeoNodeMatrix *>(it->Next());) {
+	  TGeoShape *shape = component->GetVolume()->GetShape();
+	  if (shape->IsComposite()) {
+	    TString composite_shape_name = shape->GetTitle();
+	    composite_shape_name =
+		composite_shape_name(1, composite_shape_name.Length() - 2);
+	    auto *reflexion = component->GetMatrix();
+	    if (magnet_components != "")
+	      magnet_components += "+";
+	    if (TString{reflexion->GetName()} == "Identity") {
+	      magnet_components += composite_shape_name;
+	    } else {
+	      TString shape_name;
+	      Ssiz_t from = 0;
+	      while (composite_shape_name.Tokenize(shape_name, from, "+")) {
+		magnet_components +=
+		    (shape_name + ":" + TString{reflexion->GetName()});
+	      }
+	    }
+	  } else {
+	    TString shape_name = shape->GetName();
+	    auto *reflexion = component->GetMatrix();
+	    if (magnet_components != "")
+	      magnet_components += "+";
+	    magnet_components +=
+		(shape_name + ":" + TString{reflexion->GetName()});
+	  }
+	}
+	auto *magnet_shape =
+	    new TGeoCompositeShape(magnet_name + "_shape", magnet_components);
+	absorber_magnet_components += ("-" + magnet_name + "_shape" + ":" +
+				       TString{translation->GetName()});
       }
+
       TGeoCompositeShape *absorberShape = new TGeoCompositeShape(
 	  "Absorber", "absorber" + absorber_magnet_components); // cutting out
 								// magnet parts
