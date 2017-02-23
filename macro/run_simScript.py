@@ -37,7 +37,7 @@ dv           = 5 # 4=TP elliptical tank design, 5 = optimized conical rectangula
 ds           = 7 # 5=TP muon shield, 6=magnetized hadron, 7=short magnet design 
 charm        = 0 # !=0 create charm detector instead of SHiP
 
-inactivateMuonProcesses = False   # provisionally for making studies of various muon background sources
+inactivateMuonProcesses = True   # provisionally for making studies of various muon background sources
 checking4overlaps = False
 if debug>1 : checking4overlaps = True
 phiRandom   = False  # only relevant for muon background generator
@@ -401,12 +401,18 @@ if inactivateMuonProcesses :
  mygMC.ProcessGeantCommand("/process/inactivate muPairProd")
  mygMC.ProcessGeantCommand("/process/inactivate muBrems")
  mygMC.ProcessGeantCommand("/process/inactivate muIoni")
- mygMC.ProcessGeantCommand("/particle/select mu+")
- mygMC.ProcessGeantCommand("/particle/process/dump")
- import G4processes
- gProcessTable = G4processes.G4ProcessTable.GetProcessTable()
- procmu = gProcessTable.FindProcess('muIoni','mu+')
- procmu.SetVerboseLevel(2)
+ mygMC.ProcessGeantCommand("/process/inactivate msc")
+ mygMC.ProcessGeantCommand("/process/inactivate Decay")
+ mygMC.ProcessGeantCommand("/process/inactivate CoulombScat")
+ mygMC.ProcessGeantCommand("/process/inactivate muonNuclear")
+ mygMC.ProcessGeantCommand("/process/inactivate StepLimiter")
+ mygMC.ProcessGeantCommand("/process/inactivate specialCutForMuon")
+ # mygMC.ProcessGeantCommand("/particle/select mu+")
+ # mygMC.ProcessGeantCommand("/particle/process/dump")
+ # import G4processes
+ # gProcessTable = G4processes.G4ProcessTable.GetProcessTable()
+ # procmu = gProcessTable.FindProcess('muIoni','mu+')
+ # procmu.SetVerboseLevel(2)
 # -----Start run----------------------------------------------------
 run.Run(nEvents)
 # -----Runtime database---------------------------------------------
