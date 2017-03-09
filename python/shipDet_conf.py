@@ -79,7 +79,7 @@ def configure(run,ship_geo):
    ship_geo.cave.floorHeightMuonShield = 5*u.m
    ship_geo.cave.floorHeightTankA   = 4.5*u.m
    ship_geo.cave.floorHeightTankB   = 2.*u.m
- latestShipGeo = ConfigRegistry.loadpy("$FAIRSHIP/geometry/geometry_config.py",Yheight = ship_geo.Yheight/u.m, tankDesign = ship_geo.tankDesign, muShieldDesign = ship_geo.muShieldDesign)
+ latestShipGeo = ConfigRegistry.loadpy("$FAIRSHIP/geometry/geometry_config.py",Yheight = ship_geo.Yheight/u.m, tankDesign = ship_geo.tankDesign, muShieldDesign = ship_geo.muShieldDesign, muShieldGeo = ship_geo.muShieldGeo)
 # -----Create media-------------------------------------------------
  run.SetMaterials("media.geo")  # Materials
 # ------------------------------------------------------------------------
@@ -90,7 +90,7 @@ def configure(run,ship_geo):
  else: cave.SetGeometryFileName("caveWithAir.geo")
  detectorList.append(cave)
 
- if ship_geo.muShieldDesign==6 or ship_geo.muShieldDesign==7: # magnetized hadron absorber defined in ShipMuonShield 
+ if ship_geo.muShieldDesign in [6, 7, 8]:  # magnetized hadron absorber defined in ShipMuonShield 
   TargetStation = ROOT.ShipTargetStation("TargetStation",ship_geo.target.length,
                                                         ship_geo.target.z,ship_geo.targetOpt,ship_geo.target.sl)
  else:
@@ -112,13 +112,15 @@ def configure(run,ship_geo):
  elif ship_geo.muShieldDesign==2:
   MuonShield = ROOT.ShipMuonShield("MuonShield",ship_geo.muShieldDesign,"ShipMuonShield",ship_geo.muShield.z,ship_geo.muShield.dZ0,ship_geo.muShield.dZ1,\
                ship_geo.muShield.dZ2,ship_geo.muShield.dZ3,ship_geo.muShield.dZ4,ship_geo.muShield.dZ5,ship_geo.muShield.dZ6,ship_geo.muShield.LE) 
- elif ship_geo.muShieldDesign==3 or ship_geo.muShieldDesign==4 or ship_geo.muShieldDesign==5 or ship_geo.muShieldDesign==6 or ship_geo.muShieldDesign==7 :
+ elif ship_geo.muShieldDesign in [3, 4, 5, 6, 7]:
   MuonShield = ROOT.ShipMuonShield("MuonShield",ship_geo.muShieldDesign,"ShipMuonShield",ship_geo.muShield.z,ship_geo.muShield.dZ0,ship_geo.muShield.dZ1,\
                ship_geo.muShield.dZ2,ship_geo.muShield.dZ3,ship_geo.muShield.dZ4,ship_geo.muShield.dZ5,ship_geo.muShield.dZ6,\
                ship_geo.muShield.dZ7,ship_geo.muShield.dZ8,ship_geo.muShield.dXgap,ship_geo.muShield.LE,ship_geo.Yheight*4./10., ship_geo.cave.floorHeightMuonShield) 
+ elif ship_geo.muShieldDesign == 8:
+  # TODO use new constructor
+  MuonShield = ROOT.ShipMuonShield(ship_geo.muShieldGeo)
 
  detectorList.append(MuonShield)
-
 
  magnet_design = 2
  if ship_geo.tankDesign == 5: magnet_design = 3

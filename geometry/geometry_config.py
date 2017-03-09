@@ -1,4 +1,5 @@
 import shipunit as u
+import ROOT as r
 from ShipGeoConfig import AttrDict, ConfigRegistry
 # the following params should be passed through 'ConfigRegistry.loadpy' method
 # muShieldDesign = 5  # 1=passive 2=active 5=TP design 6=magnetized hadron absorber
@@ -11,11 +12,14 @@ from ShipGeoConfig import AttrDict, ConfigRegistry
 # tankDesign = 5 #  4=TP, elliptical shape, 5=rectangular, conical
 if "muShieldDesign" not in globals():
     muShieldDesign = 5
+if "muShieldGeo" not in globals():
+    muShieldGeo = None
 if "nuTargetDesign" not in globals():
     nuTargetDesign = 1
 if "nuTauTPDesign" not in globals():
     nuTauTPDesign = 1
-    if muShieldDesign == 7: nuTauTPDesign=0
+    if muShieldDesign in [7,8]:
+       nuTauTPDesign = 0
 if "targetOpt" not in globals():
     targetOpt = 17
 if "strawDesign" not in globals():
@@ -217,6 +221,27 @@ with ConfigRegistry.register_config("basic") as c:
         c.muShield.dZ6 = 2.4*u.m + zGap
         c.muShield.dZ7 = 3.0*u.m + zGap
         c.muShield.dZ8 = 2.35*u.m + zGap
+        c.muShield.dXgap = 0.*u.m
+        c.muShield.length = 2*(c.muShield.dZ1+c.muShield.dZ2+c.muShield.dZ3+c.muShield.dZ4+c.muShield.dZ5+c.muShield.dZ6
+                         +c.muShield.dZ7+c.muShield.dZ8) + c.muShield.LE  # leave some space for nu-tau 
+        c.muShield.z  =  -c.decayVolume.length/2.-c.muShield.length/2.
+
+    if muShieldDesign == 8:
+       if muShieldGeo:
+        c.muShieldGeo = muShieldGeo
+        print "Load geo"
+        f = r.TFile.Open(muShieldGeo)
+        params = r.TVectorD()
+        params.Read('params')
+        f.Close()
+        c.muShield.dZ1 = params[0]
+        c.muShield.dZ2 = params[1]
+        c.muShield.dZ3 = params[2]
+        c.muShield.dZ4 = params[3]
+        c.muShield.dZ5 = params[4]
+        c.muShield.dZ6 = params[5]
+        c.muShield.dZ7 = params[6]
+        c.muShield.dZ8 = params[7]
         c.muShield.dXgap = 0.*u.m
         c.muShield.length = 2*(c.muShield.dZ1+c.muShield.dZ2+c.muShield.dZ3+c.muShield.dZ4+c.muShield.dZ5+c.muShield.dZ6
                          +c.muShield.dZ7+c.muShield.dZ8 ) + c.muShield.LE  # leave some space for nu-tau 
