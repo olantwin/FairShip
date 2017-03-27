@@ -410,6 +410,7 @@ TGeoVolume* veto::MakeSegments(Int_t seg,Double_t dz,Double_t dx_start,Double_t 
       TString nm;
       nm = "T"; nm += seg;
       TGeoVolumeAssembly *tTankVol = new TGeoVolumeAssembly(nm);
+      if (seg == 4) return tTankVol;
       //Assume ~1 m between ribs, calculate number of ribs
       Double_t dist =  0.8*m; //with Napoli design: 0.8 m
       Int_t nribs = 2+dz*2./dist  ;
@@ -1290,15 +1291,10 @@ void veto::ConstructGeometry()
       InitMedium("lead");
       TGeoMedium *lead = gGeoManager->GetMedium("lead");
 
-      TGeoVolume *shield = gGeoManager->MakeBox("Shield", lead, 120, 250, 10);
+      TGeoVolume *shield = gGeoManager->MakeBox("Shield", vac, 1000 - 0.01, 900 - 0.01 , 1);
       shield->SetLineColor(kRed);
-      top->AddNode(shield, 1, new TGeoTranslation(0, 0, -2575));
+      top->AddNode(shield, 1, new TGeoTranslation(0, +100, +3068));
       AddSensitiveVolume(shield);
-
-      TGeoVolume *shield2 = gGeoManager->MakeBox("Shield2", lead, 120, 350, 2.5);
-      shield2->SetLineColor(kRed);
-      top->AddNode(shield2, 1, new TGeoTranslation(0, 0, -3495));
-      AddSensitiveVolume(shield2);
 
    // make the entrance window
       // add floor:
