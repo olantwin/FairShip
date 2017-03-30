@@ -156,7 +156,7 @@ void ShipMagnet::ConstructGeometry()
     Double_t magnetIncrease = 100.*cm;
     // magnet yoke
     Double_t bradius = fDy/2.;
-    TGeoBBox *magyoke1 = new TGeoBBox("magyoke1", fDx+0.7*m, bradius+1.2*m, Yokel);
+    TGeoBBox *magyoke1 = new TGeoBBox("magyoke1", fDx+1.2*m, bradius+1.2*m, Yokel);
     TGeoBBox *magyoke2 = new TGeoBBox("magyoke2", fDx-0.3*m, bradius+0.2*m, Yokel+0.01*cm);
     
     TGeoCompositeShape *magyokec = new TGeoCompositeShape("magyokec", "magyoke1-magyoke2");

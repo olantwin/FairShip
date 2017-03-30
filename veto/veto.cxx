@@ -1072,7 +1072,7 @@ void veto::ConstructGeometry()
 
       TGeoVolume *shield = gGeoManager->MakeBox("Shield", vac, 1000 - 0.01, 900 - 0.01 , 1);
       shield->SetLineColor(kRed);
-      top->AddNode(shield, 1, new TGeoTranslation(0, +100, +3068));
+      top->AddNode(shield, 1, new TGeoTranslation(0, +100, +3308));
       AddSensitiveVolume(shield);
 
    // make the entrance window
