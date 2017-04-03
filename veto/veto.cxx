@@ -1291,7 +1291,7 @@ void veto::ConstructGeometry()
       InitMedium("lead");
       TGeoMedium *lead = gGeoManager->GetMedium("lead");
 
-      TGeoVolume *shield = gGeoManager->MakeBox("Shield", vac, 1000 - 0.01, 900 - 0.01 , 1);
+      TGeoVolume *shield = gGeoManager->MakeBox("Shield", Sens, 1000 - 0.01, 900 - 0.01 , 1);
       shield->SetLineColor(kRed);
       top->AddNode(shield, 1, new TGeoTranslation(0, +100, +3068));
       AddSensitiveVolume(shield);
