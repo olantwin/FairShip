@@ -1027,11 +1027,7 @@ void veto::ConstructGeometry()
     InitMedium("Concrete");
     TGeoMedium *concrete  =gGeoManager->GetMedium("Concrete");
     InitMedium("steel");
-    TGeoMedium *polypropylene = gGeoManager->GetMedium("polypropylene");
-    InitMedium("polypropylene");
     TGeoMedium *St =gGeoManager->GetMedium("steel");
-    InitMedium("vacuums");
-    TGeoMedium *vac =gGeoManager->GetMedium("vacuums");
     InitMedium("Aluminum");
     TGeoMedium *Al =gGeoManager->GetMedium("Aluminum");
     InitMedium("ShipSens");
@@ -1062,10 +1058,10 @@ void veto::ConstructGeometry()
    // Add veto-timing sensitive plane before vacuum tube, same size as entrance window
       Double_t dx1 = slopex*(zpos - zFocusX);
       Double_t dy  = slopey*(zpos - zFocusY);
-      TGeoVolume *VetoTimeDet = gGeoManager->MakeBox("VetoTimeDet",Sens,dx1,dy,10.*mm);
-      VetoTimeDet->SetLineColor(kMagenta-10);
-      top->AddNode(VetoTimeDet, 1, new TGeoTranslation(0, 0, fTub1z-fTub1length-10.*cm));
-      AddSensitiveVolume(VetoTimeDet);
+      TGeoVolume *Tracker = gGeoManager->MakeBox("Tracker",Sens,1000.-0.01,900.-0.01,1.);
+      Tracker->SetLineColor(kMagenta-10);
+      top->AddNode(Tracker, 1, new TGeoTranslation(0, +100, fT1z));
+      AddSensitiveVolume(Tracker);
    // make the entrance window
       // add floor:
       Double_t Length = zStartMagVol - zStartDecayVol - 1.8*m; 
@@ -1073,64 +1069,17 @@ void veto::ConstructGeometry()
       TGeoVolume *floor = new TGeoVolume("floor1",box,concrete);
       floor->SetLineColor(11);
       tDecayVol->AddNode(floor, 0, new TGeoTranslation(0, -10*m+floorHeightA/2.,Length/2.));
-      //entrance lid
-      TGeoVolume* T1Lid = MakeLidSegments(1,dx1,dy);
-      tDecayVol->AddNode(T1Lid, 1, new TGeoTranslation(0, 0, zpos - zStartDecayVol+f_LidThickness/2.1));
-
-      TGeoVolume* seg1 = MakeSegments(1,fTub1length,dx1,dy,slopex,slopey,floorHeightA);
-      tDecayVol->AddNode(seg1, 1, new TGeoTranslation(0, 0, fTub1z - zStartDecayVol));
-
-      dx1 = slopex*(fTub2z -fTub2length - zFocusX);
-      dy  = slopey*(fTub2z -fTub2length - zFocusY);
-      TGeoVolume* seg2 = MakeSegments(2,fTub2length,dx1,dy,slopex,slopey,floorHeightA);
-      tDecayVol->AddNode(seg2, 1, new TGeoTranslation(0, 0, fTub2z - zStartDecayVol));
-
       Length = fTub6z+fTub6length-fTub2z-fTub2length; 
       box = new TGeoBBox("box2",  10 * m, floorHeightB/2., Length/2.);
       floor = new TGeoVolume("floor2",box,concrete);
       floor->SetLineColor(11);
       tMaGVol->AddNode(floor, 0, new TGeoTranslation(0, -10*m+floorHeightB/2., Length/2.-2*fTub3length));
-
-      //Between T1 and T2: not conical, size of T2
-      dx1 = slopex*(fTub4z -fTub4length - zFocusX);
-      dy =  slopey*(fTub4z -fTub4length - zFocusY);
-      TGeoVolume* seg3 = MakeSegments(3,fTub3length,dx1,dy,0.,0.,floorHeightB);
-      tMaGVol->AddNode(seg3, 1, new TGeoTranslation(0, 0, fTub3z - zStartMagVol));
-
-      dx1 = slopex*(fTub4z -fTub4length - zFocusX);
-      dy  = slopey*(fTub4z -fTub4length - zFocusY);
-      TGeoVolume* seg4 = MakeSegments(4,fTub4length,dx1,dy,slopex,slopey,floorHeightB);
-      tMaGVol->AddNode(seg4, 1, new TGeoTranslation(0, 0, fTub4z - zStartMagVol));
-
-      //Between T3 and T4: not conical, size of T4
-      dx1 = slopex*(fTub6z - fTub6length - zFocusX);
-      dy =  slopey*(fTub6z - fTub6length - zFocusY);
-      TGeoVolume* seg5 = MakeSegments(5,fTub5length,dx1,dy,0.,0.,floorHeightB);
-      tMaGVol->AddNode(seg5, 1, new TGeoTranslation(0, 0, fTub5z - zStartMagVol));
-
-      dx1 = slopex*(fTub6z -fTub6length - zFocusX);
-      dy = slopey*(fTub6z -fTub6length - zFocusY);
-      TGeoVolume* seg6 = MakeSegments(6,fTub6length,dx1,dy,slopex,slopey,floorHeightB);
-      tMaGVol->AddNode(seg6, 1, new TGeoTranslation(0, 0, fTub6z - zStartMagVol));
-
-   // make the exit window
-      Double_t dx2 = slopex*(fTub6z +fTub6length - zFocusX);
-      TGeoVolume *T6Lid = gGeoManager->MakeBox("T6Lid",supportMedOut,dx2,dy,f_LidThickness/2.);
-      T6Lid->SetLineColor(18);
-      tMaGVol->AddNode(T6Lid, 1, new TGeoTranslation(0, 0,fTub6z+fTub6length+f_LidThickness/2.+0.1*cm - zStartMagVol));
-      //finisMakeSeh assembly and position
       TGeoShapeAssembly* asmb = dynamic_cast<TGeoShapeAssembly*>(tDecayVol->GetShape());
       Double_t totLength = asmb->GetDZ();
       top->AddNode(tDecayVol, 1, new TGeoTranslation(0, 0,zStartDecayVol+totLength));
       asmb = dynamic_cast<TGeoShapeAssembly*>(tMaGVol->GetShape());
       totLength = asmb->GetDZ();
       top->AddNode(tMaGVol, 1, new TGeoTranslation(0, 0,zStartMagVol+totLength));
-
-      //Add one more sensitive plane after vacuum tube for timing
-      TGeoVolume *TimeDet = gGeoManager->MakeBox("TimeDet",Sens,dx2,dy,15.*mm);
-      TimeDet->SetLineColor(kMagenta-10);
-      top->AddNode(TimeDet, 1, new TGeoTranslation(0, 0, fTub6z+fTub6length+10.*cm));
-      AddSensitiveVolume(TimeDet);
     }   
     else if (fDesign==4){
     // design 4: elliptical double walled tube with LiSci in between
