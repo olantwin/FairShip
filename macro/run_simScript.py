@@ -43,6 +43,7 @@ dv           = 5 # 4=TP elliptical tank design, 5 = optimized conical rectangula
 ds           = 7 # 5=TP muon shield, 6=magnetized hadron, 7=short magnet design 
 nud          = 1 # 0=TP, 1=new magnet option for short muon shield, 2= no magnet surrounding neutrino detector
 charm        = 0 # !=0 create charm detector instead of SHiP
+geofile = None
 
 inactivateMuonProcesses = False   # provisionally for making studies of various muon background sources
 checking4overlaps = False
@@ -52,7 +53,7 @@ followMuon  = False   # only transport muons for a fast muon only background est
 nuRadiography = False # misuse GenieGenerator for neutrino radiography and geometry timing test
 Opt_high = None # switch for cosmic generator
 try:
-        opts, args = getopt.getopt(sys.argv[1:], "D:FHPu:n:i:f:c:hqv:s:l:A:Y:i:m:co:t",[\
+        opts, args = getopt.getopt(sys.argv[1:], "D:FHPu:n:i:f:g:c:hqv:s:l:A:Y:i:m:co:t",[\
                                    "PG","Pythia6","Pythia8","Genie","MuDIS","Ntuple","Nuage","MuonBack","FollowMuon",\
                                    "Cosmics=","nEvents=", "display", "seed=", "firstEvent=", "phiRandom", "mass=", "couplings=", "coupling=", "epsilon=",\
                                    "output=","tankDesign=","muShieldDesign=","NuRadio","test",\
@@ -121,6 +122,8 @@ for o, a in opts:
             if a.lower() == "none": inputFile = None
             else: inputFile = a
             defaultInputFile = False
+        if o in ("-g",):
+            geofile = a
         if o in ("-o", "--output",):
             outputDir = a
         if o in ("-Y",): 
@@ -181,7 +184,7 @@ shipRoot_conf.configure(DarkPhoton)      # load basic libraries, prepare atexit 
 # - strawDesign    = 4  # simplistic tracker design,  4=sophisticated straw tube design, horizontal wires (default)
 # - HcalOption     = -1 # no hcal,  0=hcal after muon,  1=hcal between ecal and muon (default)
 # - preshowerOption = 0 # no preshower, default. 1= simple preshower 
-if charm == 0: ship_geo = ConfigRegistry.loadpy("$FAIRSHIP/geometry/geometry_config.py", Yheight = dy, tankDesign = dv, muShieldDesign = ds, nuTauTargetDesign=nud)
+if charm == 0: ship_geo = ConfigRegistry.loadpy("$FAIRSHIP/geometry/geometry_config.py", Yheight = dy, tankDesign = dv, muShieldDesign = ds, nuTauTargetDesign=nud, muShieldGeo=geofile)
 else: ship_geo = ConfigRegistry.loadpy("$FAIRSHIP/geometry/charm-geometry_config.py")
 
 # switch off magnetic field to measure muon flux
