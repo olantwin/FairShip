@@ -30,13 +30,15 @@ ShipMuonShield::ShipMuonShield() : FairModule("ShipMuonShield", "") {}
 ShipMuonShield::ShipMuonShield(TString geofile)
   : FairModule("MuonShield", "ShipMuonShield")
 {
+  // TODO use other constructor once parameters extracted
   fGeofile = geofile;
   auto f = TFile::Open(geofile, "read");
   TVectorT<Double_t> params;
   params.Read("params");
-  Double_t Z, LE = 10.*m, floor = 5. *m;
+  Double_t LE = 10. * m, floor = 5. * m;
   fDesign = 8;
   fField = 1.8;
+  dZ0 = 1 * m;
   dZ1 = params[0];
   dZ2 = params[1];
   dZ3 = params[2];
@@ -49,7 +51,10 @@ ShipMuonShield::ShipMuonShield(TString geofile)
 
   fFloor = floor;
 
-  zEndOfAbsorb = Z - fMuonShieldLength / 2.;
+  Double_t Z = -25 * m - fMuonShieldLength / 2.;
+
+  zEndOfAbsorb = Z + dZ0 - fMuonShieldLength / 2.;
+  zEndOfAbsorb -= dZ0;
 }
 
 ShipMuonShield::ShipMuonShield(const char* name, const Int_t Design, const char* Title,
@@ -96,7 +101,7 @@ ShipMuonShield::ShipMuonShield(const char* name, const Int_t Design, const char*
  fFloor = (fDesign >= 7) ? floor : 0;
 
  zEndOfAbsorb = Z + dZ0 - fMuonShieldLength/2.;
- if(fDesign==6||fDesign==7){zEndOfAbsorb = Z - fMuonShieldLength/2.;}
+ if(fDesign>=6){zEndOfAbsorb = Z - fMuonShieldLength/2.;}
  fSupport = true;
 }
 
@@ -671,7 +676,7 @@ void ShipMuonShield::ConstructGeometry()
       TGeoBBox *box3    = new TGeoBBox("box3", 15*m, 15*m,dZD/2.);
       TGeoBBox *box4    = new TGeoBBox("box4", 10*m, 10*m,dZD/2.);
 
-      if ((fDesign == 7 || fDesign == 8) && fFloor > 0) {
+      if (fDesign >= 7 && fFloor > 0) {
 	// Only add floor for new shield
 	TGeoBBox *box5 = new TGeoBBox("shield_floor", 10 * m, fFloor / 2.,
 				      fMuonShieldLength / 2.);
