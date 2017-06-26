@@ -65,10 +65,15 @@ class ShipMuonShield : public FairModule
 		  Double_t (&gapIn)[9], Double_t (&gapOut)[9],
 		  Double_t (&Z)[9]);
 
-  void CreateMagnet(const char* magnetName,TGeoMedium* medium,TGeoVolume *tShield,TGeoUniformMagField *fields[4],const char* fieldDirection,
+  void CreateMagnet(const char* magnetName,TGeoMedium* medium,TGeoVolume *tShield,TGeoUniformMagField *fields[8],const char* fieldDirection,
 				  Double_t dX, Double_t dY, Double_t dX2, Double_t dY2, Double_t dZ,
 				  Double_t middleGap,Double_t middleGap2,
 				  Double_t HmainSideMag, Double_t HmainSideMag2,
+				  Double_t gap,Double_t gap2, Double_t Z,Bool_t NotMagnet);
+  void CreateMagnetNew(const char* magnetName,TGeoMedium* medium,TGeoVolume *tShield,TGeoUniformMagField *fields[8],const char* fieldDirection,
+				  Double_t dX, Double_t dY, Double_t dX2, Double_t dY2, Double_t dZ,
+				  Double_t middleGap,Double_t middleGap2,
+				  Double_t &dYout, Double_t &dYout2,
 				  Double_t gap,Double_t gap2, Double_t Z,Bool_t NotMagnet);
 };
 

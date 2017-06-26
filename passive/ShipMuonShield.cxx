@@ -135,8 +135,6 @@ void ShipMuonShield::CreateArb8(const char* arbName, TGeoMedium* medium,Double_t
   magF->SetField(magField);
   tShield->AddNode(magF, 1, new TGeoTranslation(x_translation, y_translation, z_translation ));
 }
-
-
 void ShipMuonShield::CreateMagnet(const char* magnetName,TGeoMedium* medium,TGeoVolume *tShield,TGeoUniformMagField *fields[4],const char* fieldDirection,
 				  Double_t dX, Double_t dY, Double_t dX2, Double_t dY2, Double_t dZ,
 				  Double_t middleGap,Double_t middleGap2,
@@ -229,6 +227,168 @@ void ShipMuonShield::CreateMagnet(const char* magnetName,TGeoMedium* medium,TGeo
 	CreateArb8(strcat(magnetId,str10), medium, dZ, cornersBL,color[2],fields[3],tShield,1,0, 0, Z);			strcpy(magnetId,magnetName);
 	CreateArb8(strcat(magnetId,str11), medium, dZ, cornersBR,color[0],fields[2],tShield,1,0, 0, Z);
       } else {cout<<" Field direction has been set incorrect! Choose ""up"" or ""down"" direction "<<endl;}}
+  }
+
+
+void ShipMuonShield::CreateMagnetNew(const char* magnetName,TGeoMedium* medium,TGeoVolume *tShield,TGeoUniformMagField *fields[8],const char* fieldDirection,
+				  Double_t dX, Double_t dYin, Double_t dX2, Double_t dYin2, Double_t dZ,
+				  Double_t mG,Double_t mG2,
+				  Double_t &dYout, Double_t &dYout2,
+				  Double_t gap,Double_t gap2, Double_t Z, Bool_t NotMagnet)
+//mG : is the gap between magnets if the middle magnet is split, not used, i.e. mG=0, for design 7.
+  {
+    Int_t color[8] = {30,31,38,45,33,34,42,46};
+
+    Double_t eps = 0.001*m; // gap between different Arb8 block, not for x=0 joint!
+    Double_t Cw=0.2*m; //Horizontal/vertical space for Coil-space at top (bot) of magnet
+    //for magnets inside absorber: no space for coil needed, i.e.
+    if (magnetName[4]=='A'){
+      Cw=eps;
+    }
+    
+    //calculate some distances assuming 45 degree box for making coil space.
+    Double_t tY=(TMath::Sqrt(2)-1.)*dX;
+    Double_t tY2=(TMath::Sqrt(2)-1.)*dX2;
+    Double_t tX=dX+Cw+tY+gap;
+    Double_t tX2=dX2+Cw+tY2+gap2;
+    Double_t dY=dYin;
+    Double_t dY2=dYin2;
+    if (fieldDirection == "down") {
+      //we want the "outside" field to have a real height dY, hence correct dY for Coil width
+      dY=dYin+Cw;
+      dY2=dYin2+Cw;
+    }
+    //built in some protection in case height to small for mitred joints
+    if (tY>(dY-Cw-eps)) dY=tY+Cw+eps;
+    if (tY2>(dY2-Cw-eps)) dY2=tY2+Cw+eps;
+
+    //tricky part: for supports modify the height input...
+    dYout=dY+eps;
+    dYout2=dY2+eps;
+
+    const char* str1L ="_MiddleMagL";
+    const char* str1R ="_MiddleMagR";
+    const char* str2 ="_MagRetL";
+    const char* str3 ="_MagRetR";
+    const char* str4 ="_MagCLB";
+    const char* str5 ="_MagCLT";
+    const char* str6 ="_MagCRT";
+    const char* str7 ="_MagCRB";
+    const char* str8 ="_MagTopLeft";
+    const char* str9 ="_MagTopRight";
+    const char* str10 ="_MagBotLeft";
+    const char* str11 ="_MagBotRight";
+
+    if (Cw>gap | Cw>gap2) {
+    Double_t cornerMainL[16] = {0.,-dY-dX+eps,    0., dY+dX-eps,    dX,dY-eps ,   dX,-dY+eps ,
+                                0.,-dY2-dX2+eps , 0., dY2+dX2-eps , dX2,dY2-eps , dX2,-dY2+eps };
+    Double_t cornerMainR[16] = {0.,dY+dX-eps, 0.,-dY-dX+eps, -dX,-dY+eps, -dX,dY+eps, 
+				0.,dY2+dX2-eps, 0.,-dY2-dX2+eps, -dX2,-dY2+eps, -dX2,dY2+eps}; 
+                               
+    Double_t cornerMainSideL[16] = {dX+gap,-dY+Cw+eps, dX+gap,dY-Cw-eps, 2*dX+gap,dY-Cw-tY-eps, 2*dX+gap,-dY+Cw+tY+eps,
+                                    dX2+gap2,-dY2+Cw+eps, dX2+gap2,dY2-Cw-eps, 2*dX2+gap2,dY2-Cw-tY2-eps, 2*dX2+gap2,-dY2+Cw+tY2+eps};                                    
+    Double_t cornerMainSideR[16] = {-dX-gap,dY-Cw-eps, -dX-gap,-dY+Cw+eps, -2*dX-gap,-dY+Cw+tY+eps, -2*dX-gap,dY-Cw-tY-eps,
+				    -dX2-gap2,dY2-Cw-eps, -dX2-gap2,-dY2+Cw+eps, -2*dX2-gap2,-dY2+Cw+tY2+eps, -2*dX2-gap2,dY2-Cw-tY2-eps};
+
+    Double_t cornersCLBA[16] = {dX+gap,-dY+Cw-eps, 2*dX+gap, -dY+Cw+tY-eps, 2*dX+tX,-dY-dX+eps, dX+Cw+gap, -dY+eps,
+                                dX2+gap2,-dY2+Cw-eps, 2*dX2+gap2, -dY2+Cw+tY2-eps, 2*dX2+tX2,-dY2-dX2+eps, dX2+Cw+gap2, -dY2+eps};
+    Double_t cornersCLTA[16] = {dX+gap,dY-Cw+eps, dX+Cw+gap,dY-eps, 2*dX+tX,dY+dX-eps, 2*dX+gap,dY-Cw-tY+eps,
+                                dX2+gap2,dY2-Cw+eps, dX2+Cw+gap2,dY2-eps, 2*dX2+tX2,dY2+dX2-eps, 2*dX2+gap2,dY2-Cw-tY2+eps};
+    Double_t cornersCRBA[16] = {-dX-gap,-dY+Cw-eps, -dX-Cw-gap,-dY+eps, -2*dX-tX,-dY-dX+eps, -2*dX-gap,-dY+Cw+tY-eps,
+                                -dX2-gap2,-dY2+Cw-eps, -dX2-Cw-gap2,-dY2+eps, -2*dX2-tX2,-dY2-dX2+eps, -2*dX2-gap2,-dY2+Cw+tY2-eps};                                
+    Double_t cornersCRTA[16] = {-dX-gap,dY-Cw+eps, -2*dX-gap,dY-Cw-tY+eps, -2*dX-tX,dY+dX-eps, -dX-Cw-gap,dY-eps,
+                                -dX2-gap2,dY2-Cw+eps, -2*dX2-gap2,dY2-Cw-tY2+eps, -2*dX2-tX2,dY2+dX2-eps, -dX2-Cw-gap2,dY2-eps};
+
+    Double_t cornersTL[16] = {0.,dY+dX+eps, 2*dX+tX,dY+dX+eps, dX+Cw+gap,dY+eps, dX,dY+eps,
+                              0.,dY2+dX2+eps, 2*dX2+tX2,dY2+dX2+eps, dX2+Cw+gap2,dY2+eps, dX2,dY2+eps};
+    Double_t cornersBL[16] = {0.,-dY-dX-eps, dX,-dY-eps, dX+Cw+gap,-dY-eps, 2*dX+tX,-dY-dX-eps, 
+                              0.,-dY2-dX2-eps, dX2,-dY2-eps, dX2+Cw+gap2,-dY2-eps, 2*dX2+tX2,-dY2-dX2-eps};
+
+    Double_t cornersTR[16] = {0.,dY+dX+eps, -dX,dY+eps, -dX-Cw-gap,dY+eps, -2*dX-tX,dY+dX+eps, 
+                              0.,dY2+dX2+eps, -dX2,dY2+eps, -dX2-Cw-gap2,dY2+eps, -2*dX2-tX2,dY2+dX2+eps};
+    Double_t cornersBR[16] = {0.,-dY-dX-eps, -2*dX-tX,-dY-dX-eps, -dX-Cw-gap,-dY-eps, -dX,-dY-eps,
+                              0.,-dY2-dX2-eps, -2*dX2-tX2,-dY2-dX2-eps, -dX2-Cw-gap2,-dY2-eps, -dX2,-dY2-eps};
+				 				 
+    char magnetId[100];
+    strcpy(magnetId,magnetName);
+    if (fieldDirection == "up") {		    
+      CreateArb8(strcat(magnetId,str1L), medium, dZ, cornerMainL,color[3],fields[0],tShield,1,0, 0, Z);			strcpy(magnetId,magnetName);
+      CreateArb8(strcat(magnetId,str1R), medium, dZ, cornerMainR,color[3],fields[0],tShield,1,0, 0, Z);			strcpy(magnetId,magnetName);
+      CreateArb8(strcat(magnetId,str2), medium, dZ, cornerMainSideL,color[1],fields[1],tShield,1,0, 0, Z);		strcpy(magnetId,magnetName);
+      CreateArb8(strcat(magnetId,str3), medium, dZ, cornerMainSideR,color[1],fields[1],tShield,1,0, 0, Z);		strcpy(magnetId,magnetName);
+      CreateArb8(strcat(magnetId,str4), medium, dZ, cornersCLBA,color[6],fields[6],tShield,1,0, 0, Z);			strcpy(magnetId,magnetName);
+      CreateArb8(strcat(magnetId,str5), medium, dZ, cornersCLTA,color[7],fields[7],tShield,1,0, 0, Z);			strcpy(magnetId,magnetName);
+      CreateArb8(strcat(magnetId,str6), medium, dZ, cornersCRTA,color[5],fields[5],tShield,1,0, 0, Z);			strcpy(magnetId,magnetName);
+      CreateArb8(strcat(magnetId,str7), medium, dZ, cornersCRBA,color[4],fields[4],tShield,1,0, 0, Z);			strcpy(magnetId,magnetName);
+      CreateArb8(strcat(magnetId,str8), medium, dZ, cornersTL,color[2],fields[3],tShield,1,0, 0, Z);			strcpy(magnetId,magnetName);
+      CreateArb8(strcat(magnetId,str9), medium, dZ, cornersTR,color[0],fields[2],tShield,1,0, 0, Z);			strcpy(magnetId,magnetName);
+      CreateArb8(strcat(magnetId,str10), medium, dZ, cornersBL,color[0],fields[2],tShield,1,0, 0, Z);			strcpy(magnetId,magnetName);
+      CreateArb8(strcat(magnetId,str11), medium, dZ, cornersBR,color[2],fields[3],tShield,1,0, 0, Z);
+    } else{
+      if (fieldDirection == "down") {
+	CreateArb8(strcat(magnetId,str1L), medium, dZ, cornerMainL,color[1],fields[1],tShield,1,0, 0, Z);		strcpy(magnetId,magnetName);
+	CreateArb8(strcat(magnetId,str1R), medium, dZ, cornerMainR,color[1],fields[1],tShield,1,0, 0, Z);		strcpy(magnetId,magnetName);
+	CreateArb8(strcat(magnetId,str2), medium, dZ, cornerMainSideL,color[3],fields[0],tShield,1,0, 0, Z);		strcpy(magnetId,magnetName);
+	CreateArb8(strcat(magnetId,str3), medium, dZ, cornerMainSideR,color[3],fields[0],tShield,1,0, 0, Z);		strcpy(magnetId,magnetName);
+	CreateArb8(strcat(magnetId,str4), medium, dZ, cornersCLBA,color[5],fields[5],tShield,1,0, 0, Z);		strcpy(magnetId,magnetName);
+	CreateArb8(strcat(magnetId,str5), medium, dZ, cornersCLTA,color[4],fields[4],tShield,1,0, 0, Z);		strcpy(magnetId,magnetName);
+	CreateArb8(strcat(magnetId,str6), medium, dZ, cornersCRTA,color[6],fields[6],tShield,1,0, 0, Z);		strcpy(magnetId,magnetName);
+	CreateArb8(strcat(magnetId,str7), medium, dZ, cornersCRBA,color[7],fields[7],tShield,1,0, 0, Z);		strcpy(magnetId,magnetName);
+	CreateArb8(strcat(magnetId,str8), medium, dZ, cornersTL,color[0],fields[2],tShield,1,0, 0, Z);			strcpy(magnetId,magnetName);
+	CreateArb8(strcat(magnetId,str9), medium, dZ, cornersTR,color[2],fields[3],tShield,1,0, 0, Z);			strcpy(magnetId,magnetName);
+	CreateArb8(strcat(magnetId,str10), medium, dZ, cornersBL,color[2],fields[3],tShield,1,0, 0, Z);			strcpy(magnetId,magnetName);
+	CreateArb8(strcat(magnetId,str11), medium, dZ, cornersBR,color[0],fields[2],tShield,1,0, 0, Z);
+      } else {cout<<" Field direction has been set incorrect! Choose ""up"" or ""down"" direction "<<endl;}}
+      }else{
+	//simpler magnet with enough sapce for the coils, hence only vertical/horizontal fields.
+    Double_t cornerMainL[16] = {0.,-dY-dX+eps,    0., dY+dX-eps,    dX,dY-eps ,   dX,-dY+eps ,
+                                0.,-dY2-dX2+eps , 0., dY2+dX2-eps , dX2,dY2-eps , dX2,-dY2+eps };
+    Double_t cornerMainR[16] = {0.,dY+dX-eps, 0.,-dY-dX+eps, -dX,-dY+eps, -dX,dY+eps, 
+				0.,dY2+dX2-eps, 0.,-dY2-dX2+eps, -dX2,-dY2+eps, -dX2,dY2+eps}; 
+                               
+    Double_t cornerMainSideL[16] = {dX+gap,dY-eps, 2*dX+gap,dY+dX-eps, 2*dX+gap,-dY-dX+eps, dX+gap,-dY+eps,
+                                    dX2+gap2,dY2-eps, 2*dX2+gap2,dY2+dX2-eps, 2*dX2+gap2,-dY2-dX2+eps, dX2+gap2,-dY2+eps};
+                                    
+    Double_t cornerMainSideR[16] = {-dX-gap,dY-eps, -dX-gap,-dY+eps, -2*dX-gap,-dY-dX+eps, -2*dX-gap,dY+dX-eps,
+                                    -dX2-gap2,dY2-eps, -dX2-gap2,-dY2+eps, -2*dX2-gap2,-dY2-dX2+eps, -2*dX2-gap2,dY2+dX2-eps};
+				    
+
+    Double_t cornersTL[16] = {0.,dY+dX+eps, 2*dX+gap,dY+dX+eps, dX+gap,dY+eps, dX,dY+eps,
+                              0.,dY2+dX2+eps, 2*dX2+gap2,dY2+dX2+eps, dX2+gap2,dY2+eps, dX2,dY2+eps};
+    Double_t cornersBL[16] = {0.,-dY-dX-eps, dX,-dY+eps, dX+gap,-dY+eps, 2*dX+gap,-dY-dX-eps, 
+                              0.,-dY2-dX2-eps, dX2,-dY2+eps, dX2+gap2,-dY2+eps, 2*dX2+gap2,-dY2-dX2-eps,};
+                              
+
+    Double_t cornersTR[16] = {0.,dY+dX+eps, -dX,dY+eps, -dX-gap,dY+eps, -2*dX-gap, dY+dX+eps, 
+                              0.,dY2+dX2+eps, -dX2,dY2+eps, -dX2-gap2,dY2+eps, -2*dX2-gap2, dY2+dX2+eps}; 
+
+    Double_t cornersBR[16] = {0.,-dY-dX-eps, -2*dX-gap,-dY-dX-eps, -dX-gap,-dY-eps, -dX,-dY-eps,
+                              0.,-dY2-dX2-eps, -2*dX2-gap2,-dY2-dX2-eps, -dX2-gap2,-dY2-eps, -dX2,-dY2-eps};
+                              
+				 				 
+    char magnetId[100];
+    strcpy(magnetId,magnetName);
+    if (fieldDirection == "up") {		    
+      CreateArb8(strcat(magnetId,str1L), medium, dZ, cornerMainL,color[3],fields[0],tShield,1,0, 0, Z);			strcpy(magnetId,magnetName);
+      CreateArb8(strcat(magnetId,str1R), medium, dZ, cornerMainR,color[3],fields[0],tShield,1,0, 0, Z);			strcpy(magnetId,magnetName);
+      CreateArb8(strcat(magnetId,str2), medium, dZ, cornerMainSideL,color[1],fields[1],tShield,1,0, 0, Z);		strcpy(magnetId,magnetName);
+      CreateArb8(strcat(magnetId,str3), medium, dZ, cornerMainSideR,color[1],fields[1],tShield,1,0, 0, Z);		strcpy(magnetId,magnetName);
+      CreateArb8(strcat(magnetId,str8), medium, dZ, cornersTL,color[2],fields[3],tShield,1,0, 0, Z);			strcpy(magnetId,magnetName);
+      CreateArb8(strcat(magnetId,str9), medium, dZ, cornersTR,color[0],fields[2],tShield,1,0, 0, Z);			strcpy(magnetId,magnetName);
+      CreateArb8(strcat(magnetId,str10), medium, dZ, cornersBL,color[0],fields[2],tShield,1,0, 0, Z);			strcpy(magnetId,magnetName);
+      CreateArb8(strcat(magnetId,str11), medium, dZ, cornersBR,color[2],fields[3],tShield,1,0, 0, Z);
+    } else{
+      if (fieldDirection == "down") {
+	CreateArb8(strcat(magnetId,str1L), medium, dZ, cornerMainL,color[1],fields[1],tShield,1,0, 0, Z);		strcpy(magnetId,magnetName);
+	CreateArb8(strcat(magnetId,str1R), medium, dZ, cornerMainR,color[1],fields[1],tShield,1,0, 0, Z);		strcpy(magnetId,magnetName);
+	CreateArb8(strcat(magnetId,str2), medium, dZ, cornerMainSideL,color[3],fields[0],tShield,1,0, 0, Z);		strcpy(magnetId,magnetName);
+	CreateArb8(strcat(magnetId,str3), medium, dZ, cornerMainSideR,color[3],fields[0],tShield,1,0, 0, Z);		strcpy(magnetId,magnetName);
+	CreateArb8(strcat(magnetId,str8), medium, dZ, cornersTL,color[0],fields[2],tShield,1,0, 0, Z);			strcpy(magnetId,magnetName);
+	CreateArb8(strcat(magnetId,str9), medium, dZ, cornersTR,color[2],fields[3],tShield,1,0, 0, Z);			strcpy(magnetId,magnetName);
+	CreateArb8(strcat(magnetId,str10), medium, dZ, cornersBL,color[2],fields[3],tShield,1,0, 0, Z);			strcpy(magnetId,magnetName);
+	CreateArb8(strcat(magnetId,str11), medium, dZ, cornersBR,color[0],fields[2],tShield,1,0, 0, Z);
+      } else {cout<<" Field direction has been set incorrect! Choose ""up"" or ""down"" direction "<<endl;}}
+      }
   }
 
 void ShipMuonShield::Initialize (const char* (&magnetName)[9],const char* (&fieldDirection)[9],
@@ -397,7 +557,15 @@ void ShipMuonShield::ConstructGeometry()
       TGeoUniformMagField *RetField     = new TGeoUniformMagField(0.,-ironField,0.);
       TGeoUniformMagField *ConRField    = new TGeoUniformMagField(-ironField,0.,0.);
       TGeoUniformMagField *ConLField    = new TGeoUniformMagField(ironField,0.,0.);
-      TGeoUniformMagField *fields[4] = {magFieldIron,RetField,ConRField,ConLField};
+      Double_t s2=1./TMath::Sqrt(2.);
+      //4x45 degree rotated fields
+      TGeoUniformMagField *FieldRot1 = new TGeoUniformMagField(s2*ironField,s2*ironField,0.);
+      TGeoUniformMagField *FieldRot2 = new TGeoUniformMagField(-s2*ironField,s2*ironField,0.);
+      TGeoUniformMagField *FieldRot3 = new TGeoUniformMagField(s2*ironField,-s2*ironField,0.);
+      TGeoUniformMagField *FieldRot4 = new TGeoUniformMagField(-s2*ironField,-s2*ironField,0.);
+
+      TGeoUniformMagField *fields[8] = {magFieldIron,RetField,ConRField,ConLField,FieldRot1,FieldRot2,FieldRot3,FieldRot4 };
+
       if(fDesign==7){
             TGeoUniformMagField *fieldsTarget[4] = {new TGeoUniformMagField(0.,0.,0.),new TGeoUniformMagField(0.,0.,0.),new TGeoUniformMagField(0.,0.,0.),new TGeoUniformMagField(0.,0.,0.)};
       }
@@ -470,22 +638,25 @@ void ShipMuonShield::ConstructGeometry()
       tShield->AddNode(absorber, 1, new TGeoTranslation(0, 0, zEndOfAbsorb + absorber_half_length + absorber_offset));
 
       for (Int_t nM = 2; nM <= (nMagnets - 1); nM++) {
-	CreateMagnet(magnetName[nM], iron, tShield, fields, fieldDirection[nM],
+        cout<<"y in  "<<magnetName[nM]<<','<<dYIn[nM]<<endl;
+        Double_t dYout,dYout2;
+	CreateMagnetNew(magnetName[nM], iron, tShield, fields, fieldDirection[nM],
 		     dXIn[nM], dYIn[nM], dXOut[nM], dYOut[nM], dZf[nM],
-		     midGapIn[nM], midGapOut[nM], HmainSideMagIn[nM],
-		     HmainSideMagOut[nM], gapIn[nM], gapOut[nM], Z[nM], nM==8);
+			midGapIn[nM], midGapOut[nM], dYout, dYout2,
+		     gapIn[nM], gapOut[nM], Z[nM], nM==8);
+        cout<<"y outnew  "<<magnetName[nM]<<','<<dYout<<endl;
 
 	if (nM==8 || !fSupport) continue;
 	// TODO split out into function/method?
-	Double_t dymax = std::max(dYIn[nM] + dXIn[nM], dYOut[nM] + dXOut[nM]);
-	Double_t dymin = std::min(dYIn[nM] + dXIn[nM], dYOut[nM] + dXOut[nM]);
+	Double_t dymax = std::max(dYout + dXIn[nM], dYout2 + dXOut[nM]);
+	Double_t dymin = std::min(dYout + dXIn[nM], dYout2 + dXOut[nM]);
 	Double_t slope =
-	    (dYIn[nM] + dXIn[nM] - dYOut[nM] - dXOut[nM]) / (2 * dZf[nM]);
+	    (dYout + dXIn[nM] - dYout2 - dXOut[nM]) / (2 * dZf[nM]);
 	Double_t w1 = 2 * dXIn[nM] + std::max(20., gapIn[nM]);
 	Double_t w2 = 2 * dXOut[nM] + std::max(20., gapOut[nM]);
 	Double_t anti_overlap = 0.1;
-	Double_t h1 = 0.5 * (dYIn[nM] + dXIn[nM] + anti_overlap - fFloor);
-	Double_t h2 = 0.5 * (dYOut[nM] + dXOut[nM] + anti_overlap - fFloor);
+	Double_t h1 = 0.5 * (dYout + dXIn[nM] + anti_overlap - fFloor);
+	Double_t h2 = 0.5 * (dYout2 + dXOut[nM] + anti_overlap - fFloor);
 	std::vector<Double_t> verticesIn = {
 	    -w1, -h1,
 	    +w1, -h1,
@@ -515,10 +686,10 @@ void ShipMuonShield::ConstructGeometry()
 	pillar1->SetLineColor(kGreen-5);
 	pillar2->SetLineColor(kGreen-5);
 	tShield->AddNode(pillar1, 1, new TGeoTranslation(
-				     0, -0.5 * (dYIn[nM] + dXIn[nM] + fFloor),
+				     0, -0.5 * (dYout + dXIn[nM] + fFloor),
 				     Z[nM] - dZf[nM] + 0.5 * m));
 	tShield->AddNode(pillar2, 1, new TGeoTranslation(
-				     0, -0.5 * (dYOut[nM] + dXOut[nM] + fFloor),
+				     0, -0.5 * (dYout2 + dXOut[nM] + fFloor),
 				     Z[nM] + dZf[nM] - 0.5 * m));
       }
           
