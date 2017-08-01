@@ -146,15 +146,11 @@ void ShipMuonShield::CreateMagnet(const char* magnetName,TGeoMedium* medium,TGeo
     Double_t Clgap,Clgap2;
     Int_t color[4] = {30,31,38,45};
 
-    if (NotMagnet) {
-      Clgap = gap;
-      Clgap2 = gap2;
-    } else {
-      Clgap = std::max(20., gap);
-      Clgap2 = std::max(20., gap2);
-      gap = std::max(2., gap);
-      gap2 = std::max(2., gap2);
-    }
+    // assuming 0.5A/mm^2 and 10000At needed, about 200cm^2 gaps are necessary
+    gap = std::ceil(std::max(100./dY, gap));
+    gap2 = std::ceil(std::max(100./dY2, gap2));
+    Clgap = gap;
+    Clgap2 = gap2;
 
     Double_t testGap = (fDesign == 5) ? 0.0 : 0.1; // gap between fields in the
 						   // corners for mitred joints
