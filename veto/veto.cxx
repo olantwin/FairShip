@@ -1060,7 +1060,7 @@ void veto::ConstructGeometry()
       Double_t dy  = slopey*(zpos - zFocusY);
       TGeoVolume *Tracker = gGeoManager->MakeBox("Tracker",Sens,1000.-0.01,900.-0.01,1.);
       Tracker->SetLineColor(kMagenta-10);
-      top->AddNode(Tracker, 1, new TGeoTranslation(0, +100, fT1z));
+      top->AddNode(Tracker, 1, new TGeoTranslation(0, +100, fT4z));
       AddSensitiveVolume(Tracker);
    // make the entrance window
       // add floor:
