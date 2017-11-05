@@ -32,16 +32,16 @@ class ShipMuonShield : public FairModule
     fSupport = supports;
     FairLogger::GetLogger()->Warning(MESSAGE_ORIGIN, "Setting supports to %s. This will not have any effect if called after the geometry has been constructed.", fSupport ? "true" : "false");
   }
-    
+
  protected:
-  
+
   Int_t  fDesign;       // design of muon shield, 1=passive, active = ...
   Double_t  fMuonShieldLength,fY,fField;
   Double_t fFloor;
   Bool_t fSupport;
   Double_t  dZ0,dZ1,dZ2,dZ3,dZ4,dZ5,dZ6,dZ7,dZ8,dXgap,zEndOfAbsorb,mag4Gap,midGapOut7,midGapOut8;
   Int_t InitMedium(TString name);
-  
+
   void CreateArb8(TString arbName, TGeoMedium *medium, Double_t dZ,
 		  std::array<Double_t, 16> corners, Int_t color,
 		  TGeoUniformMagField *magField, TGeoVolume *top,
