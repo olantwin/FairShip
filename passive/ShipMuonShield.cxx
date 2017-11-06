@@ -495,6 +495,9 @@ void ShipMuonShield::ConstructGeometry()
       absorber->SetLineColor(42); // brown / light red
       tShield->AddNode(absorber, 1, new TGeoTranslation(0, 0, zEndOfAbsorb + absorber_half_length + absorber_offset));
 
+      TGeoVolume *wall = gGeoManager->MakeBox("wall",concrete,3*m,3*m,10*cm - 1*mm);
+      tShield->AddNode(wall, 1, new TGeoTranslation(0, 0, zEndOfAbsorb + 2 * absorber_half_length + absorber_offset + 10*cm));
+
       for (Int_t nM = 2; nM <= (nMagnets - 1); nM++) {
 	CreateMagnet(magnetName[nM], iron, tShield, fields, fieldDirection[nM],
 		     dXIn[nM], dYIn[nM], dXOut[nM], dYOut[nM], dZf[nM],
