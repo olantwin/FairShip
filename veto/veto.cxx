@@ -30,8 +30,7 @@
 #include "TGeoCone.h"
 #include "TGeoMaterial.h"
 #include "TParticle.h"
-
-
+#include "ROOT/TSeq.hxx"
 
 #include <iostream>
 using std::cout;
@@ -1209,6 +1208,23 @@ void veto::ConstructGeometry()
       TimeDet->SetLineColor(kMagenta-10);
       top->AddNode(TimeDet, 1, new TGeoTranslation(0, 0, fTub6z+fTub6length+10.*cm));
       AddSensitiveVolume(TimeDet);
+
+      for (int station : ROOT::MakeSeq(1,5)) {
+         Double_t TStationz;
+         Double_t dX = 250., dY = 500.;
+         switch (station) {
+         case 1: TStationz = fT1z; break;
+         case 2: TStationz = fT2z; break;
+         case 3: TStationz = fT3z; break;
+         case 4: TStationz = fT4z; break;
+         }
+         for (auto &&i : {-1, 1}) {
+            TGeoVolume *StrawSensitivePlane =
+               gGeoManager->MakeBox(TString::Format("Straw_sensitive_plane_%d_%g", i, TStationz), Se, dX, dY, 1.);
+            top->AddNode(StrawSensitivePlane, 1, new TGeoTranslation(0, 0, TStationz + (22. * i)));
+            AddSensitiveVolume(StrawSensitivePlane);
+         }
+      }
     }
     else if (fDesign==4){
     // design 4: elliptical double walled tube with LiSci in between
