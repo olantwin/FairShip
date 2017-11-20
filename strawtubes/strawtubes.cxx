@@ -579,6 +579,7 @@ void strawtubes::ConstructGeometry()
             TGeoHMatrix *h5 = new TGeoHMatrix(c5);	
 		
 	    vac_12->AddNode(viewframe_12, statnb*10000000+vnb*1000000,h5);
+	    AddSensitiveVolume(viewframe_12);
 	    viewframe_12->SetLineColor(kRed);	 	    	 
   	  	 	
 	    for (Int_t pnb=0; pnb<2; pnb++) {
@@ -669,6 +670,7 @@ void strawtubes::ConstructGeometry()
             TGeoHMatrix *h5 = new TGeoHMatrix(c5);	
 		
 	    vac->AddNode(viewframe, statnb*10000000+vnb*1000000,h5);
+	    AddSensitiveVolume(viewframe);
 	    viewframe->SetLineColor(kRed);	 	    	 
 	          	  	 	
 	    for (Int_t pnb=0; pnb<2; pnb++) {
