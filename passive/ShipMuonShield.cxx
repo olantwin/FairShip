@@ -36,7 +36,7 @@ ShipMuonShield::ShipMuonShield(TString geofile)
   params.Read("params");
   Double_t LE = 10. * m, floor = 5. * m;
   fDesign = 8;
-  fField = 1.7;
+  fField = 1.8;
   dZ0 = 1 * m;
   dZ1 = params[0];
   dZ2 = params[1];
