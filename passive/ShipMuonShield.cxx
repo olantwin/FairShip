@@ -38,8 +38,8 @@ ShipMuonShield::ShipMuonShield(TString geofile)
   fDesign = 8;
   fField = 1.8;
   dZ0 = 1 * m;
-  dZ1 = params[0];
-  dZ2 = params[1];
+  dZ1 = 0.4 * m;
+  dZ2 = 2.31 * m;
   dZ3 = params[2];
   dZ4 = params[3];
   dZ5 = params[4];
@@ -559,7 +559,7 @@ void ShipMuonShield::ConstructGeometry()
 	};
 
 	for (Int_t nM = 0; nM < 2; nM++) {
-	  CreateMagnet(magnetName[nM], iron, tShield, fields,
+	  CreateMagnet(magnetName[nM], iron, tShield, fieldsAbsorber,
 		       fieldDirection[nM], dXIn[nM], dYIn[nM], dXOut[nM],
 		       dYOut[nM], dZf[nM], midGapIn[nM], midGapOut[nM],
 		       HmainSideMagIn[nM], HmainSideMagOut[nM], gapIn[nM],
