@@ -37,10 +37,10 @@ ShipMuonShield::ShipMuonShield(TString geofile)
   params.Read("params");
   Double_t LE = 10. * m, floor = 5. * m;
   fDesign = 8;
-  fField = 1.8;
+  fField = 1.7;
   dZ0 = 1 * m;
-  dZ1 = params[0];
-  dZ2 = params[1];
+  dZ1 = 0.4 * m;
+  dZ2 = 2.31 * m;
   dZ3 = params[2];
   dZ4 = params[3];
   dZ5 = params[4];
@@ -325,7 +325,20 @@ Int_t ShipMuonShield::Initialize(std::vector<TString> &magnetName,
 
     const int offset = 7;
 
-    for (Int_t i = 0; i < nMagnets - 1; ++i) {
+    dXIn[0] = 0.4 * m;
+    dXOut[0] = 0.40 * m;
+    gapIn[0] = 0.1 * mm;
+    dYIn[0] = 1.5 * m;
+    dYOut[0] = 1.5 * m;
+    gapOut[0] = 0.1 * mm;
+    dXIn[1] = 0.5 * m;
+    dXOut[1] = 0.5 * m;
+    gapIn[1] = 0.02 * m;
+    dYIn[1] = 1.3 * m;
+    dYOut[1] = 1.3 * m;
+    gapOut[1] = 0.02 * m;
+
+    for (Int_t i = 2; i < nMagnets - 1; ++i) {
       dXIn[i] = params[offset + i * 6 + 1];
       dXOut[i] = params[offset + i * 6 + 2];
       dYIn[i] = params[offset + i * 6 + 3];
