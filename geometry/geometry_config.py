@@ -282,8 +282,8 @@ with ConfigRegistry.register_config("basic") as c:
         params = r.TVectorD()
         params.Read('params')
         f.Close()
-        c.muShield.dZ1 = params[0]
-        c.muShield.dZ2 = params[1]
+        c.muShield.dZ1 = 0.35 * u.m + zGap
+        c.muShield.dZ2 = 2.26 * u.m + zGap
         c.muShield.dZ3 = params[2]
         c.muShield.dZ4 = params[3]
         c.muShield.dZ5 = params[4]
