@@ -50,7 +50,7 @@ nud          = globalDesigns[default]['nud'] # 0=TP, 1=new magnet option for sho
 caloDesign   = globalDesigns[default]['caloDesign'] # 0=ECAL/HCAL TP  1=ECAL/HCAL TP + preshower 2=splitCal  3=ECAL/ passive HCAL 
 strawDesign  = globalDesigns[default]['strawDesign'] # simplistic tracker design,  4=sophisticated straw tube design, horizontal wires (default), 10=2cm straw diameter for 2018 layout
 
-charm        = 0 # !=0 create charm detector instead of SHiP
+charm        = 1 # !=0 create charm detector instead of SHiP
 pID          = 22 # default for the particle gun
 geofile = None
 
@@ -492,8 +492,8 @@ import geomGeant4
 # Define extra VMC B fields not already set by the geometry definitions, e.g. a global field,
 # any field maps, or defining if any volumes feel only the local or local+global field.
 # For now, just keep the fields already defined by the C++ code, i.e comment out the fieldMaker
-if hasattr(ship_geo.Bfield,"fieldMap"):
-  fieldMaker = geomGeant4.addVMCFields(ship_geo, '', True)
+# if hasattr(ship_geo.Bfield,"fieldMap"):
+#   fieldMaker = geomGeant4.addVMCFields(ship_geo, '', True)
 
 # Print VMC fields and associated geometry objects
 if debug > 0:

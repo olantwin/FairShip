@@ -84,7 +84,8 @@ def configure(run,ship_geo):
  Scintillator.SetDistT2(ship_geo.Scintillator.DistT2)
  
  if (ship_geo.MufluxSpectrometer.muflux==False): 
-    detectorList.append(Spectrometer)
+    # detectorList.append(Spectrometer)
+    pass
  else:
     TargetStation = ROOT.MufluxTargetStation("MufluxTargetStation",ship_geo.target.length,ship_geo.hadronAbsorber.length, ship_geo.target.z,ship_geo.hadronAbsorber.z,ship_geo.targetOpt,ship_geo.target.sl)
 
@@ -96,7 +97,7 @@ def configure(run,ship_geo):
       slices_material.push_back(eval("ship_geo.target.M"+str(i)))
 
      TargetStation.SetLayerPosMat(ship_geo.target.xy,slices_length,slices_material)
-     detectorList.append(TargetStation)
+     # detectorList.append(TargetStation)
      
     detectorList.append(Scintillator)
     detectorList.append(MufluxSpectrometer)
@@ -104,7 +105,7 @@ def configure(run,ship_geo):
  MuonTagger = ROOT.MuonTagger("MuonTagger", ship_geo.MuonTagger.BX, ship_geo.MuonTagger.BY, ship_geo.MuonTagger.BZ, ship_geo.MuonTagger.zBox, ROOT.kTRUE)
  MuonTagger.SetPassiveParameters(ship_geo.MuonTagger.PX, ship_geo.MuonTagger.PY, ship_geo.MuonTagger.PTh)
  MuonTagger.SetSensitiveParameters(ship_geo.MuonTagger.SX, ship_geo.MuonTagger.SY, ship_geo.MuonTagger.STh)
- detectorList.append(MuonTagger)
+ # detectorList.append(MuonTagger)
  for x in detectorList:
   run.AddModule(x)
   
@@ -112,7 +113,7 @@ def configure(run,ship_geo):
  
  fieldfile = os.environ["FAIRSHIP"]+"/field/GoliathFieldMap.root"
  fMagField.Init(fieldfile)
- run.SetField(fMagField)   
+ # run.SetField(fMagField)   
  
 # return list of detector elements
  detElements = {}

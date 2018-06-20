@@ -6,7 +6,7 @@ with ConfigRegistry.register_config("basic") as c:
 
     c.MufluxSpectrometer = AttrDict(z = 0*u.cm)  
     # False = charm cross-section; True = muon flux measurement
-    c.MufluxSpectrometer.muflux  = True 
+    c.MufluxSpectrometer.muflux = True
     
     if "targetOpt" not in globals():
        targetOpt = 18 # add extra 20cm of tungsten as per 13/06/2017
@@ -131,7 +131,7 @@ with ConfigRegistry.register_config("basic") as c:
     c.Spectrometer = AttrDict(z = 0*u.cm)
     #Parameters for Goliath by Annarita
     c.Spectrometer.LS = 4.5*u.m
-    c.Spectrometer.TS = 3.6*u.m
+    c.Spectrometer.TS = 0.117*u.m
     c.Spectrometer.CoilR = 1*u.m
     c.Spectrometer.UpCoilH = 45*u.cm
     c.Spectrometer.LowCoilH = 30*u.cm
