@@ -806,7 +806,7 @@ t5.SetTranslation(-(ftr12ydim/2+eps-1.*cm)*cos(angle),(ftr12ydim/2+eps+plate_thi
           volDriftTube3->SetVisibility(kFALSE);
 	  //top->AddNode(volDriftTube3,3,new TGeoTranslation(0,0,4.5*m +89*cm + 2.5 * DimZ + 3.*cm));//with SA and SB
 	  //move drifttubes up so they cover the Goliath aperture, not centered on the beam
-	  top->AddNode(volDriftTube3,3,new TGeoTranslation(0,goliathcentre_to_beam*mm,z[2]));
+	  top->AddNode(volDriftTube3,3,new TGeoTranslation(22.54 * cm,goliathcentre_to_beam*mm,z[2]));
           nmview_34 = "Station_3_x";
 	  nmview_top_34="Station_3_top_x";
 	  nmview_bot_34="Station_3_bot_x";	 
