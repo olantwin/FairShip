@@ -786,7 +786,7 @@ t5.SetTranslation(-(ftr12ydim/2+eps-1.*cm)*cos(angle),(ftr12ydim/2+eps+plate_thi
       TGeoVolume *wire = new TGeoVolume("wire",wire_tube, tungsten);
       wire->SetLineColor(6);    
 
-      for (Int_t statnb=3; statnb<4; statnb++) {
+      for (Int_t statnb=3; statnb<5; statnb++) {
     
         //TGeoBBox *platebox_34 = new TGeoBBox("platebox_34", ftr34xdim/2.+1.+2*fTubes_pitch,  plate_thickness/2. , fDeltaz_view/2.);
         TGeoBBox *platebox_34 = new TGeoBBox("platebox_34", ftr34xdim/2.+fTubes_pitch/2.,  plate_thickness/2. , fDeltaz_view/2.);   
@@ -817,7 +817,7 @@ t5.SetTranslation(-(ftr12ydim/2+eps-1.*cm)*cos(angle),(ftr12ydim/2+eps+plate_thi
 	  //top->AddNode(volDriftTube4,4,new TGeoTranslation(0,0,4.5*m +286*cm + 2.5 * DimZ + 3.*cm)); //with SA and SB
 	  //top->AddNode(volDriftTube4,4,new TGeoTranslation(0,0,z[3]-(DimZ+5.8)));
 	  //move drifttubes up so they cover the Goliath aperture, not centered on the beam
-	  top->AddNode(volDriftTube4,4,new TGeoTranslation(0,goliathcentre_to_beam*mm,z[3]-(DimZ+11.6)));
+	  top->AddNode(volDriftTube4,4,new TGeoTranslation(46.75 * cm,goliathcentre_to_beam*mm,z[2]-149.6 * cm));
           nmview_34 = "Station_4_x";
 	  nmview_top_34="Station_4_top_x";
 	  nmview_bot_34="Station_4_bot_x";		  	  	  
