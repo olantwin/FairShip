@@ -37,7 +37,7 @@ ShipGoliathField.cxx
 set(LINKDEF FieldLinkDef.h)
 Set(LIBRARY_NAME ShipField)
 Set(DEPENDENCIES
-    Base 
+    Base FairLogger::FairLogger
 )
 
 GENERATE_LIBRARY()

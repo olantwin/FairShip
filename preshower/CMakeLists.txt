@@ -27,7 +27,7 @@ preshowerPoint.cxx
 Set(LINKDEF preshowerLinkDef.h)
 Set(LIBRARY_NAME preshower)
 Set(DEPENDENCIES
-    Base ShipData
+    Base ShipData FairLogger::FairLogger
 )
 
 GENERATE_LIBRARY()

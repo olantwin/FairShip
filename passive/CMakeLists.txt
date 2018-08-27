@@ -33,6 +33,6 @@ ShipGoliath.cxx
 Set(HEADERS )
 Set(LINKDEF PassiveLinkDef.h)
 Set(LIBRARY_NAME ShipPassive)
-Set(DEPENDENCIES Base GeoBase ParBase Geom Core)
+Set(DEPENDENCIES Base GeoBase ParBase Geom Core FairLogger::FairLogger)
 
 GENERATE_LIBRARY()
