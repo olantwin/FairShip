@@ -29,7 +29,7 @@ vetoHitOnTrack.cxx
 Set(LINKDEF vetoLinkDef.h)
 Set(LIBRARY_NAME veto)
 Set(DEPENDENCIES
-    Base ShipData
+    Base ShipData FairLogger::FairLogger
 )
 
 GENERATE_LIBRARY()

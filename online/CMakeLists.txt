@@ -35,7 +35,7 @@ Set(LINKDEF OnlineLinkDef.h)
 Set(LIBRARY_NAME Online)
 
 Set(DEPENDENCIES
-    Base # MbsAPI
+    Base FairLogger::FairLogger
 )
 
 GENERATE_LIBRARY()

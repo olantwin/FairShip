@@ -28,7 +28,7 @@ ShipParticle.cxx
 Set(HEADERS )
 Set(LINKDEF MCStackLinkDef.h)
 Set(LIBRARY_NAME ShipData)
-Set(DEPENDENCIES Base EG Physics Core)
+Set(DEPENDENCIES Base EG Physics Core FairLogger::FairLogger)
 
 GENERATE_LIBRARY()
 
