@@ -1,10 +1,10 @@
 #include "ShipMuonShield.h"
 
 #include "TGeoManager.h"
-#include "TObjArray.h"                  // for TObjArray
+/* #include "TObjArray.h"                  // for TObjArray */
 #include "TString.h"                    // for TString
 #include "TGeoBBox.h"
-#include "TGeoTrd1.h"
+/* #include "TGeoTrd1.h" */
 #include "TGeoCompositeShape.h"
 #include "TGeoBoolNode.h"
 #include "TGeoTube.h"
@@ -12,10 +12,9 @@
 #include "FairGeoInterface.h"
 #include "FairGeoMedia.h"
 #include "FairGeoBuilder.h"
-#include "FairRuntimeDb.h"              // for FairRuntimeDb
-#include "TVectorT.h"
+/* #include "FairRuntimeDb.h"              // for FairRuntimeDb */
 #include "TFile.h"
-#include <iostream>                     // for operator<<, basic_ostream, etc
+/* #include <iostream>                     // for operator<<, basic_ostream, etc */
 
 Double_t cm = 1;
 Double_t m = 100 * cm;
@@ -31,20 +30,20 @@ ShipMuonShield::ShipMuonShield(TString geofile)
 {
   fGeofile = geofile;
   auto f = TFile::Open(geofile, "read");
-  TVectorT<Double_t> params;
-  params.Read("params");
+  fParams.Read("params");
+  f->Close();
   Double_t LE = 10. * m, floor = 5. * m;
   fDesign = 8;
   fField = 1.7;
   dZ0 = 1 * m;
   dZ1 = 0.4 * m;
   dZ2 = 2.31 * m;
-  dZ3 = params[2];
-  dZ4 = params[3];
-  dZ5 = params[4];
-  dZ6 = params[5];
-  dZ7 = params[6];
-  dZ8 = params[7];
+  dZ3 = fParams[2];
+  dZ4 = fParams[3];
+  dZ5 = fParams[4];
+  dZ6 = fParams[5];
+  dZ7 = fParams[6];
+  dZ8 = fParams[7];
   fMuonShieldLength = 2 * (dZ1 + dZ2 + dZ3 + dZ4 + dZ5 + dZ6 + dZ7 + dZ8) + LE;
 
   fFloor = floor;
@@ -68,7 +67,7 @@ ShipMuonShield::ShipMuonShield(const char* name, const Int_t Design, const char*
      fMuonShieldLength = L1;   
     }
  if (fDesign==2 || fDesign==3 || fDesign==4 ){
-     Fatal("ShipMuonShield","Design %i not anymore supported",fDesign);
+     LOG(FATAL) << "Design " << fDesign << "  not anymore supported" << FairLogger::endl;
     }
  if (fDesign==5 || fDesign==6){
      dZ0 = L0;
@@ -105,7 +104,7 @@ ShipMuonShield::ShipMuonShield(const char* name, const Int_t Design, const char*
 }
 
 // -----   Private method InitMedium 
-Int_t ShipMuonShield::InitMedium(TString name) 
+Int_t ShipMuonShield::InitMedium(const TString& name) 
 {
    static FairGeoLoader *geoLoad=FairGeoLoader::Instance();
    static FairGeoInterface *geoFace=geoLoad->getGeoInterface();
@@ -115,14 +114,15 @@ Int_t ShipMuonShield::InitMedium(TString name)
    FairGeoMedium *ShipMedium=media->getMedium(name);
 
    if (!ShipMedium)
-     Fatal("InitMedium","Material %s not defined in media file.", name.Data());
+     LOG(FATAL) << "Material "<< name << " not defined in media file." << FairLogger::endl;
    TGeoMedium* medium=gGeoManager->GetMedium(name);
-   if (medium)
+   if (medium){
      return ShipMedium->getMediumIndex();
+   }
    return geoBuild->createMedium(ShipMedium);
 }
 
-void ShipMuonShield::CreateTube(TString tubeName, TGeoMedium *medium,
+void ShipMuonShield::CreateTube(const TString& tubeName, TGeoMedium *medium,
 				Double_t dX, Double_t dY, Double_t dZ,
 				Int_t color, TGeoVolume *tShield,
 				Double_t x_translation, Double_t y_translation,
@@ -356,10 +356,6 @@ Int_t ShipMuonShield::Initialize(std::vector<TString> &magnetName,
 	FieldDirection::down, FieldDirection::down, FieldDirection::down,
     };
 
-    auto f = TFile::Open(fGeofile, "read");
-    TVectorT<Double_t> params;
-    params.Read("params");
-
     const int offset = 7;
 
     dXIn[0] = 0.4 * m;
@@ -376,12 +372,12 @@ Int_t ShipMuonShield::Initialize(std::vector<TString> &magnetName,
     gapOut[1] = 0.02 * m;
 
     for (Int_t i = 2; i < nMagnets - 1; ++i) {
-      dXIn[i] = params[offset + i * 6 + 1];
-      dXOut[i] = params[offset + i * 6 + 2];
-      dYIn[i] = params[offset + i * 6 + 3];
-      dYOut[i] = params[offset + i * 6 + 4];
-      gapIn[i] = params[offset + i * 6 + 5];
-      gapOut[i] = params[offset + i * 6 + 6];
+      dXIn[i] = fParams[offset + i * 6 + 1];
+      dXOut[i] = fParams[offset + i * 6 + 2];
+      dYIn[i] = fParams[offset + i * 6 + 3];
+      dYOut[i] = fParams[offset + i * 6 + 4];
+      gapIn[i] = fParams[offset + i * 6 + 5];
+      gapOut[i] = fParams[offset + i * 6 + 6];
     }
 
     dZ[0] = dZ1 - zgap / 2;
@@ -680,8 +676,8 @@ void ShipMuonShield::ConstructGeometry()
 		  dA/6.,dA/6.,dA/6.,dA/6.,dZ0/3.,0,0,dA/12.,dA/12.,0,0,zEndOfAbsorb - 5.*dZ0/3.,0);
 	CreateMagnet("AbsorberStop-2",iron,tShield,fields,FieldDirection::up,
 		  dA/2.,dA/2.,dA/2.,dA/2.,dZ0*2./3.,0,0,dA/4.,dA/4.,0,0,zEndOfAbsorb - 2.*dZ0/3.,0);
-        TGeoBBox* fullAbsorber = new TGeoBBox("fullAbsorber", dA, dA, dZ0/3.);
-        TGeoBBox* cutOut = new TGeoBBox("cutout", dA/3.+20*cm, dA/3.+20*cm, dZ0/3.+0.1*mm); //no idea why to add 20cm
+        new TGeoBBox("fullAbsorber", dA, dA, dZ0/3.);
+        new TGeoBBox("cutout", dA/3.+20*cm, dA/3.+20*cm, dZ0/3.+0.1*mm); //no idea why to add 20cm
         TGeoSubtraction *subtraction = new TGeoSubtraction("fullAbsorber","cutout");
         TGeoCompositeShape *Tc = new TGeoCompositeShape("passiveAbsorberStopSubtr", subtraction);
         TGeoVolume* passivAbsorber = new TGeoVolume("passiveAbsorberStop-1",Tc, iron);
@@ -717,7 +713,7 @@ void ShipMuonShield::ConstructGeometry()
       Double_t zgap = 10;
       Double_t absorber_offset = zgap;
       Double_t absorber_half_length = (dZf[0] + dZf[1]) + zgap / 2.;
-      auto abs = new TGeoBBox("absorber", 3.95 * m, 3.4 * m, absorber_half_length);
+      new TGeoBBox("absorber", 3.95 * m, 3.4 * m, absorber_half_length);
       const std::vector<TString> absorber_magnets =
          (fDesign == 7) ? std::vector<TString>{"MagnAbsorb1", "MagnAbsorb2"} : std::vector<TString>{"MagnAbsorb2"};
       const std::vector<TString> magnet_components = fDesign == 7 ? std::vector<TString>{
@@ -749,11 +745,11 @@ void ShipMuonShield::ConstructGeometry()
       tShield->AddNode(absorber, 1, new TGeoTranslation(0, 0, zEndOfAbsorb + absorber_half_length + absorber_offset));
 
       if (fDesign > 7) {
-         auto coatBox = new TGeoBBox("coat", 10 * m - 1 * mm, 10 * m - 1 * mm, absorber_half_length);
+         new TGeoBBox("coat", 10 * m - 1 * mm, 10 * m - 1 * mm, absorber_half_length);
          auto coatShape = new TGeoCompositeShape("CoatShape", "coat-absorber");
          auto coat = new TGeoVolume("CoatVol", coatShape, concrete);
          tShield->AddNode(coat, 1, new TGeoTranslation(0, 0, zEndOfAbsorb + absorber_half_length + absorber_offset ));
-         TGeoVolume *coatWall = gGeoManager->MakeBox("CoatWall",concrete,10 * m - 1 * mm, 10 * m - 1 * mm, 7 * cm - 1 * mm);
+         TGeoVolume *coatWall = gGeoManager->MakeBox("CoatWall",concrete,10 * m - 1 * mm, 10 * m - 1 * mm, 10 * cm - 1 * mm);
          coatWall->SetLineColor(kRed);
          tShield->AddNode(coatWall, 1, new TGeoTranslation(0, 0, zEndOfAbsorb + 2*absorber_half_length + absorber_offset+7 * cm));
 
@@ -766,8 +762,6 @@ void ShipMuonShield::ConstructGeometry()
 		     HmainSideMagOut[nM], gapIn[nM], gapOut[nM], Z[nM], nM==8);
 
 	if (nM==8 || !fSupport) continue;
-	Double_t dymax = std::max(dYIn[nM] + dXIn[nM], dYOut[nM] + dXOut[nM]);
-	Double_t dymin = std::min(dYIn[nM] + dXIn[nM], dYOut[nM] + dXOut[nM]);
 	Double_t slope =
 	    (dYIn[nM] + dXIn[nM] - dYOut[nM] - dXOut[nM]) / (2 * dZf[nM]);
 	Double_t w1 = 2 * dXIn[nM] + std::max(20., gapIn[nM]);
@@ -823,8 +817,6 @@ void ShipMuonShield::ConstructGeometry()
 		   gapIn[nM],gapOut[nM],Z[nM],0);
 	}
       }
-      Double_t dX1 = dXIn[0];
-      Double_t dY = dYIn[0];
 
       // Place in origin of SHiP coordinate system as subnodes placed correctly
       top->AddNode(tShield, 1);
@@ -832,8 +824,8 @@ void ShipMuonShield::ConstructGeometry()
 // Concrete around first magnets. i.e. Tunnel
       Double_t dZ = dZ1 + dZ2;
       Double_t ZT  = zEndOfAbsorb + dZ;
-      TGeoBBox *box1    = new TGeoBBox("box1", 10*m,10*m,dZ);
-      TGeoBBox *box2    = new TGeoBBox("box2", 15*m,15*m,dZ);
+      new TGeoBBox("box1", 10*m,10*m,dZ);
+      new TGeoBBox("box2", 15*m,15*m,dZ);
       TGeoCompositeShape *compRockS = new TGeoCompositeShape("compRockS", "box2-box1");
       TGeoVolume *rockS   = new TGeoVolume("rockS", compRockS, concrete);
       rockS->SetLineColor(11);  // grey
@@ -841,8 +833,8 @@ void ShipMuonShield::ConstructGeometry()
       top->AddNode(rockS, 1, new TGeoTranslation(0, 0, ZT ));
 // Concrete around decay tunnel
       Double_t dZD =  100*m + fMuonShieldLength;
-      TGeoBBox *box3    = new TGeoBBox("box3", 15*m, 15*m,dZD/2.);
-      TGeoBBox *box4    = new TGeoBBox("box4", 10*m, 10*m,dZD/2.);
+      new TGeoBBox("box3", 15*m, 15*m,dZD/2.);
+      new TGeoBBox("box4", 10*m, 10*m,dZD/2.);
 
       if (fDesign >= 7 && fFloor > 0) {
 	// Only add floor for new shield
@@ -860,9 +852,8 @@ void ShipMuonShield::ConstructGeometry()
       rockD->SetLineColor(11);  // grey
       rockD->SetTransparency(50);
       top->AddNode(rockD, 1, new TGeoTranslation(0, 0, zEndOfAbsorb + 2*dZ + dZD/2.));
-//
     } else {
-     Fatal("ShipMuonShield","Design %i does not match implemented designs",fDesign);
+      LOG(FATAL) << "Design " << fDesign << " does not match implemented designs" << FairLogger::endl;
     }
 }
 ClassImp(ShipMuonShield)

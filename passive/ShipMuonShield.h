@@ -10,6 +10,7 @@
 #include "TGeoMedium.h"
 #include "TGeoShapeAssembly.h"
 #include "TString.h"
+#include "TVectorT.h"
 #include <vector>
 #include <array>
 
@@ -31,7 +32,7 @@ class ShipMuonShield : public FairModule
 
   void SetSupports(Bool_t supports) { 
     fSupport = supports;
-    FairLogger::GetLogger()->Warning(MESSAGE_ORIGIN, "Setting supports to %s. This will not have any effect if called after the geometry has been constructed.", fSupport ? "true" : "false");
+    LOG(WARNING) <<  "Setting supports to " << (fSupport ? "true" : "false") << ". This will not have any effect if called after the geometry has been constructed." << FairLogger::endl;
   }
     
  protected:
@@ -40,9 +41,10 @@ class ShipMuonShield : public FairModule
   TString fGeofile;
   Double_t  fMuonShieldLength,fY,fField;
   Double_t fFloor;
+  TVectorT<Double_t> fParams;
   Bool_t fSupport;
   Double_t  dZ0,dZ1,dZ2,dZ3,dZ4,dZ5,dZ6,dZ7,dZ8,dXgap,zEndOfAbsorb,mag4Gap,midGapOut7,midGapOut8;
-  Int_t InitMedium(TString name);
+  Int_t InitMedium(const TString& name);
 
   void CreateArb8(TString arbName, TGeoMedium *medium, Double_t dZ,
 		  std::array<Double_t, 16> corners, Int_t color,
@@ -50,7 +52,7 @@ class ShipMuonShield : public FairModule
 		  Double_t x_translation, Double_t y_translation,
 		  Double_t z_translation);
 
-  void CreateTube(TString tubeName, TGeoMedium *medium, Double_t dX,
+  void CreateTube(const TString &tubeName, TGeoMedium *medium, Double_t dX,
 		  Double_t dY, Double_t dZ, Int_t color, TGeoVolume *top,
 		  Double_t x_translation, Double_t y_translation,
 		  Double_t z_translation);
