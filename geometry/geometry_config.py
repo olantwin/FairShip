@@ -629,6 +629,9 @@ with ConfigRegistry.register_config("basic") as c:
 
     if nuTauTargetDesign==3:
        c.EmuMagnet.zC = c.tauMudet.zMudetC - c.tauMudet.Ztot/2 - c.EmuMagnet.GapDown - c.EmuMagnet.Z/2   
+       print 10*'*'
+       print c.EmuMagnet.zC - c.EmuMagnet.Z/2
+       print 10*'*'
        
     #tau Bricks
     c.NuTauTarget = AttrDict(z=0*u.cm)

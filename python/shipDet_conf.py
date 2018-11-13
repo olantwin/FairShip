@@ -397,7 +397,7 @@ def configure(run,ship_geo):
   if ship_geo.muShieldDesign==6: fMagField.IncludeTarget(ship_geo.target.xy, ship_geo.target.z0, ship_geo.target.length)
   run.SetField(fMagField)
 #
- exclusionList = ["Magnet", "Ecal", "Hcal", "Muon"]
+ exclusionList = ["Magnet", "Ecal", "Hcal", "Muon", "TimeDet", "EmuMagnet", "NuTauMudet", "Strawtubes", "HighPrecisionTrackers", "TargetTrackers", "NuTauTarget"]
  #exclusionList = ["Muon","Ecal","Hcal","Strawtubes","TargetTrackers","NuTauTarget","HighPrecisionTrackers",\
  #                 "Veto","Magnet","MuonShield","TargetStation","NuTauMudet","EmuMagnet", "TimeDet"]
  for x in detectorList:
