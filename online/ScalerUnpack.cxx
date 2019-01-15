@@ -80,6 +80,7 @@ Bool_t ScalerUnpack::DoUnpack(Int_t *data, Int_t size)
          LOG(INFO) << "Spill type: " << df->scalars[i] << FairLogger::endl;
          tree->Branch("spill_type", &(df->scalars[i]));
          break;
+      case 8: tree->Branch(TString::Format("SC%.2d", i), &(df->scalars[(df->scalars[i] == 0 ? 4 : i)])); break;
       default: tree->Branch(TString::Format("SC%.2d", i), &(df->scalars[i]));
       }
    }
