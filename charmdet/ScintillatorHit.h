@@ -8,7 +8,9 @@ class ScintillatorHit : public ShipHit {
 public:
    ScintillatorHit() = default;
    ~ScintillatorHit() = default;
-   ScintillatorHit(Int_t detID, Float_t digi, Float_t signal_width, uint16_t flag, uint16_t ch);
+   ScintillatorHit(Int_t detID, Float_t ftdc, uint16_t flag, uint16_t ch);
+   bool isTrailing() const { return (channel & 0x1000) == 0x1000; }
+   bool isLeading() const { return !isTrailing(); }
    int GetTDC() const { return int((channel & 0xF00) >> 8); }
    bool TDCGood() const
    {
@@ -19,17 +21,15 @@ public:
    }
    // return hardware channel (ignore edge)
    uint16_t GetChannel() const { return channel % 0x1000; }
-   bool hasTimeOverThreshold() const { return !((flags & DriftTubes::NoWidth) == DriftTubes::NoWidth); }
-   Float_t GetTimeOverThreshold() const { return time_over_threshold; }
+   /* Float_t GetWidth() const { return width; } */
 
 private:
    ScintillatorHit(const ScintillatorHit &other);
    ScintillatorHit operator=(const ScintillatorHit &other);
    uint16_t flags; ///< flag
    uint16_t channel;
-   Float_t time_over_threshold;
 
-   ClassDef(ScintillatorHit, 5)
+   ClassDef(ScintillatorHit, 4)
 };
 
 #endif
