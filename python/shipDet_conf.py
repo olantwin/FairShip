@@ -475,10 +475,9 @@ def configure(run,ship_geo):
   else :                                                      fMagField = ROOT.ShipBellField("wilfried", ship_geo.Bfield.max ,ship_geo.Bfield.z,1,ship_geo.Yheight/2.*u.m )  
   run.SetField(fMagField)
 #
- exclusionList = []
- #exclusionList = ["Muon","Ecal","Hcal","Strawtubes","TargetTrackers","NuTauTarget","HighPrecisionTrackers",\
- #                 "Veto","Magnet","MuonShield","TargetStation","NuTauMudet","EmuMagnet", "TimeDet", "UpstreamTagger"]
-
+ #exclusionList = []
+ exclusionList = ["Muon","Ecal","Hcal","Strawtubes","TargetTrackers","NuTauTarget","HighPrecisionTrackers",\
+                  "Magnet","TargetStation","NuTauMudet","EmuMagnet", "TimeDet", "UpstreamTagger"]
  for x in detectorList:
    if x.GetName() in exclusionList: continue
    run.AddModule(x)
