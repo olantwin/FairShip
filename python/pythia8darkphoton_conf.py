@@ -7,13 +7,12 @@ import darkphoton
 import proton_bremsstrahlung
 from method_logger import MethodLogger
 
-# Boundaries for production in meson decays
-# mass of the mesons
-pi0mass    = 0.1349770
-etamass    = 0.547862
-omegamass  = 0.78265
-eta1mass   = 0.95778
-
+# mass of the mesons were taken from PDG 2018
+pi0mass     = 0.1349770
+etamass     = 0.547862
+omegamass   = 0.78265
+eta1mass    = 0.95778
+rhomass     = 0.77526
 
 def addDPtoROOT(pid=9900015 ,m = 0.2, g=4.866182e-04):
     pdg = ROOT.TDatabasePDG.Instance()
@@ -42,41 +41,36 @@ def readFromAscii():
     return h
 
 def manipulatePhysics(motherMode, mass, P8gen):
-    #changes of the table, now it is deleted and we have each meson mother for each meson production
-    #print motherMode
-    if motherMode=='pi0' and pi0mass-mass>=0.0000001:
-        # use pi0 -> gamma A'
-        selectedMum = 111
-        P8gen.SetParameters("111:oneChannel = 1 1 0 22 9900015")
-        
-    elif motherMode == 'eta' and etamass-mass>=0.000001:
-        # use eta -> gamma A'
-        #print "eta"
-        selectedMum = 221
-        P8gen.SetParameters("221:oneChannel = 1 1 0 22 9900015")
-        
-    elif motherMode=="omega" and omegamass-mass>=0.00001:
-        # use omega -> pi0 A'
-        #print "omega"
-        selectedMum = 223
-        P8gen.SetParameters("223:oneChannel = 1 1 0 111 9900015")
-        
-    elif motherMode=='eta1' and eta1mass-mass>=0.00001:
-        # use eta' -> gamma A'
-        selectedMum = 331
-        P8gen.SetParameters("331:oneChannel = 1 1 0 22 9900015")
-        #should be considered also for mass < 0.188 GeV....
-        #P8gen.SetParameters("331:oneChannel = 1 1 0 223 9900015")29%BR
-        #P8gen.SetParameters("331:oneChannel = 1 1 0 113 9900015")2.75%BR
-        
-    elif motherMode=='eta11' and eta1mass-mass>=0.00001:
-        # use eta' -> gamma A'
-        selectedMum = 331
-        P8gen.SetParameters("331:oneChannel = 1 1 0 113 9900015")
-        #should be considered also for mass < 0.188 GeV....
-        #P8gen.SetParameters("331:oneChannel = 1 1 0 223 9900015")29%BR
-        #P8gen.SetParameters("331:oneChannel = 1 1 0 113 9900015")2.75%BR
-        
+    if motherMode=='pi0':
+        Epsilon=0.0000001
+        if pi0mass>=Epsilon+mass:
+            # use pi0 -> gamma A'
+            selectedMum = 111
+            P8gen.SetParameters("111:oneChannel = 1 1 0 22 9900015")
+    elif motherMode == 'eta':
+        Epsilon=0.000001
+        if etamass>=Epsilon+mass:
+            # use eta -> gamma A'
+            selectedMum = 221
+            P8gen.SetParameters("221:oneChannel = 1 1 0 22 9900015")
+    elif motherMode=="omega":
+        Epsilon=0.00001
+        if omegamass>=Epsilon+pi0mass+mass:
+            # use omega -> pi0 A'
+            selectedMum = 223
+            P8gen.SetParameters("223:oneChannel = 1 1 0 111 9900015")
+    elif motherMode=='eta1':
+        Epsilon=0.00001
+        if eta1mass>=Epsilon+mass:
+            # use eta' -> gamma A'
+            selectedMum = 331
+            P8gen.SetParameters("331:oneChannel = 1 1 0 22 9900015")
+    elif motherMode=='eta11':
+        Epsilon=0.00001
+        if eta1mass>=Epsilon+rhomass+mass:
+            # use eta' -> rho A'
+            selectedMum = 331
+            P8gen.SetParameters("331:oneChannel = 1 1 0 113 9900015")
     else:
         #print "ERROR: please enter a nicer mass, for meson production it needs to be between %3.3f and %3.3f."%(pi0Start,eta1Stop)
         return -1
@@ -105,6 +99,7 @@ def configure(P8gen, mass, epsilon, inclusive, motherMode, deepCopy=False, debug
     
         # Configuring production
         P8gen.SetParameters("SoftQCD:nonDiffractive = on")
+        #P8gen.SetParameters("SoftQCD:all = on") # will be used for Cascade secondary processes
 
     elif inclusive=="qcd":
         P8gen.SetDY()
@@ -142,9 +137,10 @@ def configure(P8gen, mass, epsilon, inclusive, motherMode, deepCopy=False, debug
         P8gen.SetParameters("Next:numberShowProcess = 0")
         P8gen.SetParameters("Next:numberShowEvent = 0")
         proton_bremsstrahlung.protonEnergy=P8gen.GetMom()
-        norm=proton_bremsstrahlung.prodRate(mass, epsilon)
-        print("A' production rate per p.o.t: \t %.8g"%norm)
-        P8gen.SetPbrem(proton_bremsstrahlung.hProdPDF(mass, epsilon, norm, 350, 1500))
+        print("proton energy: %.8g"%proton_bremsstrahlung.protonEnergy)
+        norm=proton_bremsstrahlung.prodRate(proton_bremsstrahlung.protonEnergy, mass, epsilon)
+        print("A' production rate per p.o.t: %.8g"%norm)
+        P8gen.SetPbrem(proton_bremsstrahlung.hProdPDF(proton_bremsstrahlung.protonEnergy, mass, epsilon, norm, 350, 1500))
 
     #Define dark photon
     DP_instance = darkphoton.DarkPhoton(mass,epsilon)
