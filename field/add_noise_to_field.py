@@ -18,34 +18,26 @@ def generate_file(input_fileName, output, xSpace=73, ySpace=128, zSpace=1214, st
     # (min, max, max/stepSize + 1)  in case of Z: (0, nSteps*2.5 - 2.5, nSteps)
     field = pd.read_csv(input_fileName, skiprows=1, sep ='\s+', names=['x', 'y', 'z', 'bx', 'by', 'bz'])
 
-    field_mask = field.copy()
-    field_mask[['bx', 'by', 'bz']] = field_mask[['bx', 'by', 'bz']] != 0
-
-    field_new = field.copy()
-
     if args.sidesOnly:
-        temp_by = np.array(field_new['by']).reshape([xSpace, ySpace, zSpace])
+        field_mask[['bx', 'by', 'bz']] = field[['bx', 'by', 'bz']] != 0
+        temp_by = np.array(field['by']).reshape([xSpace, ySpace, zSpace])
         temp_by = gaussian_filter(temp_by, sigma=args.sigma)
-        field_new['by'] = temp_by.reshape(-1)
-        field_new['by'] = field_new['by'] * field_mask['by']
-        rezult = field_new
+        field['by'] = temp_by.reshape(-1)
+        field['by'] = field['by'] * field_mask['by']
     else:
-        field_new[['bx', 'by', 'bz']] = 0
-        index_range = np.random.choice(field_new.index, size=args.nCores)
-        field_new.loc[index_range, 'by'] = random.uniform(-args.peak, args.peak)
-        temp_by = np.array(field_new['by']).reshape([xSpace, ySpace, zSpace])
-        temp_by = gaussian_filter(temp_by, sigma=args.sigma)
-        field_new['by'] = temp_by.reshape(-1)
-        field_new['by'] = field_new['by'] / (field_new['by'].abs().max())  # *field_mask['by']
-        field_new['by'] = field_new['by'] * field_mask['by']
-        rezult = field.copy()
-        rezult['by'] = rezult['by'] + rezult['by'] * field_new['by'] * args.fraction
+        field_new = np.zeros(len(field))
+        index_range = np.random.randint(0, len(field_new), size=args.nCores)
+        field_new[index_range] = random.uniform(-args.peak, args.peak)
+        field_new = field_new.reshape([xSpace, ySpace, zSpace])
+        field_new = gaussian_filter(field_new, sigma=args.sigma).reshape(-1)
+        field_new = field_new / (np.abs(field_new).max()) * (field[['by']] != 0).values.squeeze()
+        field['by'] = field['by'] + field['by'] * field_new * args.fraction
 
     # plot_my_hist(field_mask)
     # plot_my_hist(field)
     # plot_my_hist(field_new)
     # plot_my_hist(rezult)
-    rezult.to_csv(output, sep='\t', header=None, index=None)
+    field.to_csv(output, sep='\t', header=None, index=None)
 
 
 if __name__ == "__main__":
