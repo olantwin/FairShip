@@ -125,7 +125,7 @@ with ConfigRegistry.register_config("basic") as c:
      # envelope (46,1.2) or (46,0.9) end at T4: (100.,2.5)  London slides, https://indico.cern.ch/event/508465/contributions/2166894/    
      c.zFocusX = +10*u.m # Decision taken 15/12/2016, Physics and Detector meeting
      c.zFocusY = -5*u.m # for the moment, identical to X
-     c.xMax = 1.5 * u.m  # max horizontal width at T4
+     c.xMax = 2 * u.m  # max horizontal width at T4
      # 
      c.TrackStation4 = AttrDict(z=z4)
      zset=z4-200.*u.cm
@@ -161,7 +161,7 @@ with ConfigRegistry.register_config("basic") as c:
      c.strawtubes.YLayerOffset = 1.9*u.cm        
      c.strawtubes.YPlaneOffset = 1.3*u.cm
      c.strawtubes.FrameMaterial      = "steel"
-     c.strawtubes.FrameLateralWidth = 0.72 * u.m
+     c.strawtubes.FrameLateralWidth = 0.96 * u.m
      c.strawtubes.DeltazFrame        = 2.5*u.cm
 
     c.strawtubes.WallThickness      = 0.0039*u.cm
@@ -177,15 +177,15 @@ with ConfigRegistry.register_config("basic") as c:
     c.Bfield = AttrDict(z=c.z)
     c.Bfield.max = 0 # 1.4361*u.kilogauss  # was 1.15 in EOI
     c.Bfield.y   = c.Yheight
-    c.Bfield.x   = 1.8 * u.m
+    c.Bfield.x   = 2.4 * u.m
     c.Bfield.fieldMap = "field/MainSpectrometerField.txt"
     if c.magnetDesign>3:                          # MISIS design
-      c.Bfield.YokeWidth = 0.51 * u.m  # full width       200.*cm;
-      c.Bfield.YokeDepth = 1.05 * u.m  # half length      200 *cm;
+      c.Bfield.YokeWidth = 0.68 * u.m  # full width       200.*cm;
+      c.Bfield.YokeDepth = 1.4 * u.m  # half length      200 *cm;
       c.Bfield.CoilThick=25.*u.cm  # thickness
       VesselThick=37.*u.cm;   # full thickness
-      c.Bfield.x = 151.*u.cm+VesselThick; # half apertures
-      c.Bfield.y = 401.*u.cm+VesselThick+c.Bfield.CoilThick
+      c.Bfield.x = 201.*u.cm+VesselThick; # half apertures
+      c.Bfield.y = 301.*u.cm+VesselThick+c.Bfield.CoilThick
 
 # TimeDet
     c.TimeDet = AttrDict(z=0)
