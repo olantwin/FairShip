@@ -47,15 +47,15 @@ TimeDet::TimeDet()
     fELoss(-1),
     //
     fzPos(0),
-    fxSize(400),
-    fySize(6000),
+    fxSize(450),
+    fySize(650),
     fxBar(168),
     fyBar(6),
     fzBar(1),
     fdzBarCol(2.4),
     fdzBarRow(1.2),
     fNCol(3),
-    fNRow(182),
+    fNRow(148),
     fxCenter(0),
     fyCenter(0),
     //
@@ -81,15 +81,15 @@ TimeDet::TimeDet(const char* name, Bool_t active)
     fELoss(-1),
     //
     fzPos(0),
-    fxSize(400),
-    fySize(600),
+    fxSize(450),
+    fySize(650),
     fxBar(168),
     fyBar(6),
     fzBar(1),
     fdzBarCol(2.4),
     fdzBarRow(1.2),
     fNCol(3),
-    fNRow(182),
+    fNRow(148),
     fxCenter(0),
     fyCenter(0),
     //
@@ -268,7 +268,7 @@ void TimeDet::ConstructGeometry()
 
     fDetector->AddNode(plate, ib, new TGeoTranslation( xbar,ybar,zbar) );
     
-    //printf("%3i  %3i %2i   %8.3f %8.3f %8.3f\n",ib, irow,icol, xbar,ybar,zbar);
+    // printf("%3i  %3i %2i   %8.3f %8.3f %8.3f\n",ib, irow,icol, xbar,ybar,zbar);
   }
 
   top->AddNode(fDetector, 1, new TGeoTranslation(0,0,fzPos));
