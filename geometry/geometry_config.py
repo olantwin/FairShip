@@ -360,7 +360,7 @@ with ConfigRegistry.register_config("basic") as c:
             print("Load geo")
             f = r.TFile.Open(muShieldGeo)
             params = r.TVectorD()
-            c.params.Read('params')
+            params.Read('params')
             f.Close()
         else:
             assert scName
