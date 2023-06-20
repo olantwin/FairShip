@@ -988,7 +988,7 @@ void ShipMuonShield::ConstructGeometry()
   }
   // END
   Double_t ironField_s = fField * fieldScale[nM] * tesla;
-  TGeoUniformMagField *magFieldIron_s = new TGeoUniformMagField(0.,ironField_s,0.);
+  TGeoUniformMagField *magFieldIron_s = new TGeoUniformMagField(0.,ironField_s_SC,0.);
   TGeoUniformMagField *RetField_s     = new TGeoUniformMagField(0.,-ironField_s,0.);
   TGeoUniformMagField *ConRField_s    = new TGeoUniformMagField(-ironField_s,0.,0.);
   TGeoUniformMagField *ConLField_s    = new TGeoUniformMagField(ironField_s,0.,0.);
