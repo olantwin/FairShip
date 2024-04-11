@@ -1,8 +1,4 @@
 var searchData=
 [
-  ['bellfield',['BellField',['../classgenfit_1_1BellField.html',1,'genfit']]],
-  ['borderedbandmatrix',['BorderedBandMatrix',['../classgbl_1_1BorderedBandMatrix.html',1,'gbl']]],
-  ['box',['Box',['../classBox.html',1,'']]],
-  ['boxcontfact',['BoxContFact',['../classBoxContFact.html',1,'']]],
-  ['boxpoint',['BoxPoint',['../classBoxPoint.html',1,'']]]
+  ['block_6889',['Block',['../classstudy__GammaConv_1_1Block.html',1,'study_GammaConv.Block'],['../classstudy__muMSC_1_1Block.html',1,'study_muMSC.Block'],['../classstudy__thinTarget_1_1Block.html',1,'study_thinTarget.Block']]]
 ];
