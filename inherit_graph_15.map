@@ -1,21 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" title=" " alt="" coords="5,203,107,228"/>
-<area shape="rect" id="Node000001" href="$classNutaudetContFact.html" title=" " alt="" coords="163,5,301,31"/>
-<area shape="poly" id="edge13_Node000000_Node000001" title=" " alt="" coords="63,189,75,155,94,115,120,75,153,40,172,28,175,33,156,44,124,78,99,118,80,157,68,190"/>
-<area shape="rect" id="Node000002" href="$classShipPassiveContFact.html" title=" " alt="" coords="155,55,309,80"/>
-<area shape="poly" id="edge14_Node000000_Node000002" title=" " alt="" coords="68,189,103,139,126,112,153,89,175,78,177,83,156,94,130,116,107,142,73,192"/>
-<area shape="rect" id="Node000003" href="$classecalContFact.html" title=" " alt="" coords="179,104,285,129"/>
-<area shape="poly" id="edge15_Node000000_Node000003" title=" " alt="" coords="79,192,113,164,153,138,180,127,182,132,156,143,116,168,82,196"/>
-<area shape="rect" id="Node000004" href="$classhcalContFact.html" title=" " alt="" coords="179,153,285,179"/>
-<area shape="poly" id="edge16_Node000000_Node000004" title=" " alt="" coords="114,196,185,176,186,181,116,201"/>
-<area shape="rect" id="Node000005" href="$classmuonContFact.html" title=" " alt="" coords="175,203,289,228"/>
-<area shape="poly" id="edge17_Node000000_Node000005" title=" " alt="" coords="121,213,174,213,174,218,121,218"/>
-<area shape="rect" id="Node000006" href="$classpreshowerContFact.html" title=" " alt="" coords="159,252,305,277"/>
-<area shape="poly" id="edge18_Node000000_Node000006" title=" " alt="" coords="116,229,186,249,185,254,114,234"/>
-<area shape="rect" id="Node000007" href="$classsplitcalContFact.html" title=" " alt="" coords="169,301,295,327"/>
-<area shape="poly" id="edge19_Node000000_Node000007" title=" " alt="" coords="84,235,117,262,156,286,186,299,184,304,153,291,114,266,80,240"/>
-<area shape="rect" id="Node000008" href="$classstrawtubesContFact.html" title=" " alt="" coords="157,351,307,376"/>
-<area shape="poly" id="edge20_Node000000_Node000008" title=" " alt="" coords="73,238,107,288,130,314,156,336,180,348,178,353,153,340,126,317,103,291,69,241"/>
-<area shape="rect" id="Node000009" href="$classvetoContFact.html" title=" " alt="" coords="179,400,285,425"/>
-<area shape="poly" id="edge21_Node000000_Node000009" title=" " alt="" coords="68,240,80,273,99,312,124,352,156,385,180,399,177,403,153,389,120,355,95,315,76,276,63,242"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,81,83,108"/>
+<area shape="rect" id="node2" href="$classecalLightMap.html" title=" " alt="" coords="131,5,240,32"/>
+<area shape="rect" id="node3" href="$classecalStructure.html" title=" " alt="" coords="131,56,239,83"/>
+<area shape="rect" id="node4" href="$classhcalLightMap.html" title=" " alt="" coords="131,107,240,133"/>
+<area shape="rect" id="node5" href="$classhcalStructure.html" title=" " alt="" coords="131,157,239,184"/>
 </map>

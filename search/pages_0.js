@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['and_20commands_0',['List of options and commands',['../option_page.html',1,'index']]]
+  ['changelog_13877',['Changelog',['../md_CHANGELOG.html',1,'']]],
+  ['conditionsdb_20package_13878',['conditionsDB package',['../md_conditionsDatabase_README.html',1,'']]]
 ];

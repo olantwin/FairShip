@@ -1,9 +1,6 @@
 <map id="field/ShipCompField.h" name="field/ShipCompField.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="111,5,273,31"/>
-<area shape="rect" id="Node000002" href="$ShipCompField_8cxx.html" title=" " alt="" coords="5,79,184,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="167,41,112,81,109,76,164,37"/>
-<area shape="rect" id="Node000003" href="$ShipFieldMaker_8h.html" title=" " alt="" coords="209,79,373,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="220,36,276,76,273,81,217,41"/>
-<area shape="rect" id="Node000004" href="$ShipFieldMaker_8cxx.html" title=" " alt="" coords="201,152,380,177"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="293,118,293,152,288,152,288,118"/>
+<area shape="rect" id="node1" title=" " alt="" coords="111,5,273,32"/>
+<area shape="rect" id="node2" href="$ShipCompField_8cxx.html" title=" " alt="" coords="5,80,184,107"/>
+<area shape="rect" id="node3" href="$ShipFieldMaker_8h.html" title=" " alt="" coords="209,80,373,107"/>
+<area shape="rect" id="node4" href="$ShipFieldMaker_8cxx.html" title=" " alt="" coords="201,155,380,181"/>
 </map>
