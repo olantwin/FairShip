@@ -363,7 +363,7 @@ the ECAL geometry container
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;{</div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;  std::ifstream file(filename);</div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;  Int_t linenum;</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;  Double_t <a class="code" href="namespacereadMilleBinary.html#aa5029fee38de108bb42ce94c75edcf2f">val</a>;</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;  Double_t val;</div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;  <span class="keywordtype">string</span> buffer;</div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;  <span class="keywordtype">string</span> message;</div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;  <span class="keywordtype">string</span> variable;</div>
@@ -448,7 +448,6 @@ the ECAL geometry container
 <div class="ttc" id="aclassecalInf_html_a91b08efc9842fd1e0bdc3cbdc21aea13"><div class="ttname"><a href="classecalInf.html#a91b08efc9842fd1e0bdc3cbdc21aea13">ecalInf::AddVariable</a></div><div class="ttdeci">void AddVariable(const char *key, const char *value)</div><div class="ttdef"><b>Definition:</b> <a href="ecalInf_8cxx_source.html#l00128">ecalInf.cxx:128</a></div></div>
 <div class="ttc" id="aclassecalInf_html_ad288e55374c342c88d5c2219ba8a77d7"><div class="ttname"><a href="classecalInf.html#ad288e55374c342c88d5c2219ba8a77d7">ecalInf::InitVariables</a></div><div class="ttdeci">void InitVariables()</div><div class="ttdef"><b>Definition:</b> <a href="ecalInf_8cxx_source.html#l00324">ecalInf.cxx:324</a></div></div>
 <div class="ttc" id="anamespaceadd__noise__to__field_html_ac8c461fc99cff345995bf60fcdfefa01"><div class="ttname"><a href="namespaceadd__noise__to__field.html#ac8c461fc99cff345995bf60fcdfefa01">add_noise_to_field.str</a></div><div class="ttdeci">str</div><div class="ttdef"><b>Definition:</b> <a href="add__noise__to__field_8py_source.html#l00053">add_noise_to_field.py:53</a></div></div>
-<div class="ttc" id="anamespacereadMilleBinary_html_aa5029fee38de108bb42ce94c75edcf2f"><div class="ttname"><a href="namespacereadMilleBinary.html#aa5029fee38de108bb42ce94c75edcf2f">readMilleBinary.val</a></div><div class="ttdeci">list val</div><div class="ttdef"><b>Definition:</b> <a href="readMilleBinary_8py_source.html#l00155">readMilleBinary.py:155</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -645,8 +644,8 @@ the ECAL geometry container
 <div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;  TObjString* <a class="code" href="namespaceextractNeutrinosAndUpdateWeight.html#a47804d77c17d9de386802c99c350d7a8">key</a>;</div>
 <div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;  TIterator* iter=<a class="code" href="classecalInf.html#a82c78b561767c4d00dac514d4e5e1adc">fEcalStr</a>.MakeIterator();</div>
 <div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160; </div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;  Int_t <a class="code" href="namespaceconditionsDatabase_1_1demo_1_1drifttubeMonitoring.html#a7aedb05c47f1d0f9024ce8edc4bb9497">modules</a>=0;</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;  Int_t <a class="code" href="namespaceconditionsDatabase_1_1demo_1_1drifttubeMonitoring.html#a2ff7a13a5c5a64fb2a94b350b9eaba9d">channels</a>=0;</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;  Int_t <a class="code" href="namespaceinspectGeant4Geo.html#a7b5821cffd485ff8a225c9f2df441372">modules</a>=0;</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;  Int_t channels=0;</div>
 <div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;  Int_t <a class="code" href="namespaceShipAna.html#aa4bf87f4d17f9d38b1d8f4d009bb54b3">i</a>;</div>
 <div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;  Int_t j;</div>
 <div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;  Int_t <a class="code" href="ShipBellField_8cxx.html#a42d42dd2c682d42f11de58e34c89f895">m</a>[10];</div>
@@ -663,12 +662,12 @@ the ECAL geometry container
 <div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;      stri[0]=st[<a class="code" href="namespaceShipAna.html#aa4bf87f4d17f9d38b1d8f4d009bb54b3">i</a>];</div>
 <div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;      j=atoi(stri);</div>
 <div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;      <a class="code" href="ShipBellField_8cxx.html#a42d42dd2c682d42f11de58e34c89f895">m</a>[j]++;</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;      <span class="keywordflow">if</span> (j) <a class="code" href="namespaceconditionsDatabase_1_1demo_1_1drifttubeMonitoring.html#a7aedb05c47f1d0f9024ce8edc4bb9497">modules</a>++;</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;      <a class="code" href="namespaceconditionsDatabase_1_1demo_1_1drifttubeMonitoring.html#a2ff7a13a5c5a64fb2a94b350b9eaba9d">channels</a>+=j*j;</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;      <span class="keywordflow">if</span> (j) <a class="code" href="namespaceinspectGeant4Geo.html#a7b5821cffd485ff8a225c9f2df441372">modules</a>++;</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;      channels+=j*j;</div>
 <div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    }</div>
 <div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;  }</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;Total modules:  &quot;</span> &lt;&lt; <a class="code" href="namespaceconditionsDatabase_1_1demo_1_1drifttubeMonitoring.html#a7aedb05c47f1d0f9024ce8edc4bb9497">modules</a> &lt;&lt; endl;</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;Total channels: &quot;</span> &lt;&lt; <a class="code" href="namespaceconditionsDatabase_1_1demo_1_1drifttubeMonitoring.html#a2ff7a13a5c5a64fb2a94b350b9eaba9d">channels</a> &lt;&lt; endl;</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;Total modules:  &quot;</span> &lt;&lt; <a class="code" href="namespaceinspectGeant4Geo.html#a7b5821cffd485ff8a225c9f2df441372">modules</a> &lt;&lt; endl;</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;Total channels: &quot;</span> &lt;&lt; channels &lt;&lt; endl;</div>
 <div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;  <span class="keywordflow">for</span>(<a class="code" href="namespaceShipAna.html#aa4bf87f4d17f9d38b1d8f4d009bb54b3">i</a>=1;<a class="code" href="namespaceShipAna.html#aa4bf87f4d17f9d38b1d8f4d009bb54b3">i</a>&lt;10;<a class="code" href="namespaceShipAna.html#aa4bf87f4d17f9d38b1d8f4d009bb54b3">i</a>++)</div>
 <div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;  {</div>
 <div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="ShipBellField_8cxx.html#a42d42dd2c682d42f11de58e34c89f895">m</a>[<a class="code" href="namespaceShipAna.html#aa4bf87f4d17f9d38b1d8f4d009bb54b3">i</a>]==0) <span class="keywordflow">continue</span>;</div>
@@ -677,8 +676,7 @@ the ECAL geometry container
 <div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160; </div>
 <div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;}</div>
 <div class="ttc" id="aShipBellField_8cxx_html_a42d42dd2c682d42f11de58e34c89f895"><div class="ttname"><a href="ShipBellField_8cxx.html#a42d42dd2c682d42f11de58e34c89f895">m</a></div><div class="ttdeci">Double_t m</div><div class="ttdef"><b>Definition:</b> <a href="ShipBellField_8cxx_source.html#l00020">ShipBellField.cxx:20</a></div></div>
-<div class="ttc" id="anamespaceconditionsDatabase_1_1demo_1_1drifttubeMonitoring_html_a2ff7a13a5c5a64fb2a94b350b9eaba9d"><div class="ttname"><a href="namespaceconditionsDatabase_1_1demo_1_1drifttubeMonitoring.html#a2ff7a13a5c5a64fb2a94b350b9eaba9d">conditionsDatabase.demo.drifttubeMonitoring.channels</a></div><div class="ttdeci">dictionary channels</div><div class="ttdef"><b>Definition:</b> <a href="drifttubeMonitoring_8py_source.html#l00987">drifttubeMonitoring.py:987</a></div></div>
-<div class="ttc" id="anamespaceconditionsDatabase_1_1demo_1_1drifttubeMonitoring_html_a7aedb05c47f1d0f9024ce8edc4bb9497"><div class="ttname"><a href="namespaceconditionsDatabase_1_1demo_1_1drifttubeMonitoring.html#a7aedb05c47f1d0f9024ce8edc4bb9497">conditionsDatabase.demo.drifttubeMonitoring.modules</a></div><div class="ttdeci">modules</div><div class="ttdef"><b>Definition:</b> <a href="drifttubeMonitoring_8py_source.html#l00139">drifttubeMonitoring.py:139</a></div></div>
+<div class="ttc" id="anamespaceinspectGeant4Geo_html_a7b5821cffd485ff8a225c9f2df441372"><div class="ttname"><a href="namespaceinspectGeant4Geo.html#a7b5821cffd485ff8a225c9f2df441372">inspectGeant4Geo.modules</a></div><div class="ttdeci">modules</div><div class="ttdef"><b>Definition:</b> <a href="inspectGeant4Geo_8py_source.html#l00017">inspectGeant4Geo.py:17</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1253,12 +1251,12 @@ the ECAL geometry container
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  TObjString* value=(TObjString*)<a class="code" href="classecalInf.html#a0d3cdebc3747b38624079c5334fd7fd6">fVariables</a>-&gt;GetValue(<a class="code" href="namespaceextractNeutrinosAndUpdateWeight.html#a47804d77c17d9de386802c99c350d7a8">key</a>);</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  <span class="keywordflow">if</span> (value==NULL)</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordflow">return</span> -1111;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  Double_t <a class="code" href="namespacereadMilleBinary.html#aa5029fee38de108bb42ce94c75edcf2f">val</a>;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  Double_t val;</div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  <span class="keywordtype">char</span>* err=NULL;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  <a class="code" href="namespacereadMilleBinary.html#aa5029fee38de108bb42ce94c75edcf2f">val</a>=strtod(value-&gt;GetString(),&amp;err);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  val=strtod(value-&gt;GetString(),&amp;err);</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  <span class="keywordflow">if</span> (err[0]!=<span class="charliteral">&#39;\0&#39;</span>)</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordflow">return</span> -1111;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="namespacereadMilleBinary.html#aa5029fee38de108bb42ce94c75edcf2f">val</a>;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  <span class="keywordflow">return</span> val;</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
@@ -1288,9 +1286,9 @@ the ECAL geometry container
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    cerr &lt;&lt; <span class="stringliteral">&quot;Can&#39;t find variable named \&quot;&quot;</span> &lt;&lt; <a class="code" href="namespaceextractNeutrinosAndUpdateWeight.html#a47804d77c17d9de386802c99c350d7a8">key</a> &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span>;</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    Fatal(<span class="stringliteral">&quot;GetVariableStrict&quot;</span>,<span class="stringliteral">&quot;Exiting...&quot;</span>);</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  }</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  Double_t <a class="code" href="namespacereadMilleBinary.html#aa5029fee38de108bb42ce94c75edcf2f">val</a>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  Double_t val;</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <span class="keywordtype">char</span>* err=NULL;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <a class="code" href="namespacereadMilleBinary.html#aa5029fee38de108bb42ce94c75edcf2f">val</a>=strtod(value-&gt;GetString(),&amp;err);</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  val=strtod(value-&gt;GetString(),&amp;err);</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="keywordflow">if</span> (err[0]!=<span class="charliteral">&#39;\0&#39;</span>)</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  {</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    cerr &lt;&lt; <span class="stringliteral">&quot;Can&#39;t convert variable named \&quot;&quot;</span> &lt;&lt; <a class="code" href="namespaceextractNeutrinosAndUpdateWeight.html#a47804d77c17d9de386802c99c350d7a8">key</a> ;</div>
@@ -1298,7 +1296,7 @@ the ECAL geometry container
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    cerr &lt;&lt; value-&gt;GetString() &lt;&lt; <span class="stringliteral">&quot;\&quot;.&quot;</span> &lt;&lt; endl;</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    Fatal(<span class="stringliteral">&quot;GetVariableStrict&quot;</span>,<span class="stringliteral">&quot;Exiting...&quot;</span>);</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  }</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="namespacereadMilleBinary.html#aa5029fee38de108bb42ce94c75edcf2f">val</a>;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <span class="keywordflow">return</span> val;</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;}</div>
 </div><!-- fragment -->
 </div>

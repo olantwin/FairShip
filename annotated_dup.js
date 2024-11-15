@@ -1,36 +1,7 @@
 var annotated_dup =
 [
-    [ "conditionsDatabase", "namespaceconditionsDatabase.html", [
-      [ "databases", "namespaceconditionsDatabase_1_1databases.html", [
-        [ "mongodb", "namespaceconditionsDatabase_1_1databases_1_1mongodb.html", [
-          [ "models", "namespaceconditionsDatabase_1_1databases_1_1mongodb_1_1models.html", [
-            [ "condition", "namespaceconditionsDatabase_1_1databases_1_1mongodb_1_1models_1_1condition.html", [
-              [ "Condition", "classconditionsDatabase_1_1databases_1_1mongodb_1_1models_1_1condition_1_1Condition.html", null ]
-            ] ],
-            [ "detector", "namespaceconditionsDatabase_1_1databases_1_1mongodb_1_1models_1_1detector.html", [
-              [ "Detector", "classconditionsDatabase_1_1databases_1_1mongodb_1_1models_1_1detector_1_1Detector.html", null ]
-            ] ],
-            [ "detectorWrapper", "namespaceconditionsDatabase_1_1databases_1_1mongodb_1_1models_1_1detectorWrapper.html", [
-              [ "DetectorWrapper", "classconditionsDatabase_1_1databases_1_1mongodb_1_1models_1_1detectorWrapper_1_1DetectorWrapper.html", null ]
-            ] ]
-          ] ],
-          [ "mongodbadapter", "namespaceconditionsDatabase_1_1databases_1_1mongodb_1_1mongodbadapter.html", [
-            [ "MongoToCDBAPIAdapter", "classconditionsDatabase_1_1databases_1_1mongodb_1_1mongodbadapter_1_1MongoToCDBAPIAdapter.html", "classconditionsDatabase_1_1databases_1_1mongodb_1_1mongodbadapter_1_1MongoToCDBAPIAdapter" ]
-          ] ]
-        ] ]
-      ] ],
-      [ "factory", "namespaceconditionsDatabase_1_1factory.html", [
-        [ "APIFactory", "classconditionsDatabase_1_1factory_1_1APIFactory.html", "classconditionsDatabase_1_1factory_1_1APIFactory" ]
-      ] ],
-      [ "interface", "namespaceconditionsDatabase_1_1interface.html", [
-        [ "APIInterface", "classconditionsDatabase_1_1interface_1_1APIInterface.html", "classconditionsDatabase_1_1interface_1_1APIInterface" ]
-      ] ]
-    ] ],
     [ "darkphoton", "namespacedarkphoton.html", [
       [ "DarkPhoton", "classdarkphoton_1_1DarkPhoton.html", "classdarkphoton_1_1DarkPhoton" ]
-    ] ],
-    [ "DriftTubes", "namespaceDriftTubes.html", [
-      [ "ChannelId", "structDriftTubes_1_1ChannelId.html", "structDriftTubes_1_1ChannelId" ]
     ] ],
     [ "eventDisplay", "namespaceeventDisplay.html", [
       [ "DrawVetoDigi", "classeventDisplay_1_1DrawVetoDigi.html", "classeventDisplay_1_1DrawVetoDigi" ],
@@ -65,6 +36,9 @@ var annotated_dup =
       [ "MyTrackingActionD", "classg4Ex__gap_1_1MyTrackingActionD.html", "classg4Ex__gap_1_1MyTrackingActionD" ],
       [ "ScoreSD", "classg4Ex__gap_1_1ScoreSD.html", "classg4Ex__gap_1_1ScoreSD" ]
     ] ],
+    [ "genfit", "namespacegenfit.html", [
+      [ "FairShipFields", "classgenfit_1_1FairShipFields.html", "classgenfit_1_1FairShipFields" ]
+    ] ],
     [ "hnl", "namespacehnl.html", [
       [ "CKMmatrix", "classhnl_1_1CKMmatrix.html", "classhnl_1_1CKMmatrix" ],
       [ "constants", "classhnl_1_1constants.html", "classhnl_1_1constants" ],
@@ -73,19 +47,6 @@ var annotated_dup =
     ] ],
     [ "method_logger", "namespacemethod__logger.html", [
       [ "MethodLogger", "classmethod__logger_1_1MethodLogger.html", "classmethod__logger_1_1MethodLogger" ]
-    ] ],
-    [ "mpdalc", "namespacempdalc.html", [
-      [ "mpalloc", "interfacempdalc_1_1mpalloc.html", "interfacempdalc_1_1mpalloc" ],
-      [ "mpdealloc", "interfacempdalc_1_1mpdealloc.html", "interfacempdalc_1_1mpdealloc" ]
-    ] ],
-    [ "mpdef", "namespacempdef.html", [
-      [ "listitem", "structmpdef_1_1listitem.html", "structmpdef_1_1listitem" ]
-    ] ],
-    [ "MufluxDigi", "namespaceMufluxDigi.html", [
-      [ "MufluxDigi", "classMufluxDigi_1_1MufluxDigi.html", "classMufluxDigi_1_1MufluxDigi" ]
-    ] ],
-    [ "MufluxDigiReco", "namespaceMufluxDigiReco.html", [
-      [ "MufluxDigiReco", "classMufluxDigiReco_1_1MufluxDigiReco.html", "classMufluxDigiReco_1_1MufluxDigiReco" ]
     ] ],
     [ "rootpyPickler", "namespacerootpyPickler.html", [
       [ "IO_Wrapper", "classrootpyPickler_1_1IO__Wrapper.html", "classrootpyPickler_1_1IO__Wrapper" ],
@@ -142,15 +103,9 @@ var annotated_dup =
       [ "TTCluster", "classTTCluster_1_1TTCluster.html", "classTTCluster_1_1TTCluster" ]
     ] ],
     [ "__ecalCellWrapper", "struct____ecalCellWrapper.html", "struct____ecalCellWrapper" ],
-    [ "ALPACAGenerator", "classALPACAGenerator.html", "classALPACAGenerator" ],
-    [ "ChannelId", "structChannelId.html", "structChannelId" ],
     [ "Co3Rng", "classCo3Rng.html", "classCo3Rng" ],
     [ "CosmicsGenerator", "classCosmicsGenerator.html", "classCosmicsGenerator" ],
-    [ "DataFrame", "structDataFrame.html", "structDataFrame" ],
-    [ "DataFrameHeader", "structDataFrameHeader.html", "structDataFrameHeader" ],
     [ "DPPythia8Generator", "classDPPythia8Generator.html", "classDPPythia8Generator" ],
-    [ "DriftTubeUnpack", "classDriftTubeUnpack.html", "classDriftTubeUnpack" ],
-    [ "DummyUnpack", "classDummyUnpack.html", "classDummyUnpack" ],
     [ "ecal", "classecal.html", "classecal" ],
     [ "ecalAnalysisMaterial", "classecalAnalysisMaterial.html", "classecalAnalysisMaterial" ],
     [ "ecalAnalysisSimple", "classecalAnalysisSimple.html", "classecalAnalysisSimple" ],
@@ -192,14 +147,11 @@ var annotated_dup =
     [ "hcalPoint", "classhcalPoint.html", "classhcalPoint" ],
     [ "hcalStructure", "classhcalStructure.html", "classhcalStructure" ],
     [ "hcalStructureFiller", "classhcalStructureFiller.html", "classhcalStructureFiller" ],
-    [ "HitData", "structHitData.html", "structHitData" ],
     [ "HNLPythia8Generator", "classHNLPythia8Generator.html", "classHNLPythia8Generator" ],
     [ "Hpt", "classHpt.html", "classHpt" ],
     [ "HptPoint", "classHptPoint.html", "classHptPoint" ],
     [ "MagneticSpectrometer", "classMagneticSpectrometer.html", "classMagneticSpectrometer" ],
-    [ "Mille", "classMille.html", "classMille" ],
     [ "MuDISGenerator", "classMuDISGenerator.html", "classMuDISGenerator" ],
-    [ "MufluxTargetStation", "classMufluxTargetStation.html", "classMufluxTargetStation" ],
     [ "muon", "classmuon.html", "classmuon" ],
     [ "MuonBackGenerator", "classMuonBackGenerator.html", "classMuonBackGenerator" ],
     [ "muonContFact", "classmuonContFact.html", "classmuonContFact" ],
@@ -210,20 +162,12 @@ var annotated_dup =
     [ "NutaudetContFact", "classNutaudetContFact.html", "classNutaudetContFact" ],
     [ "NuTauMudet", "classNuTauMudet.html", "classNuTauMudet" ],
     [ "pid", "classpid.html", "classpid" ],
-    [ "PixelUnpack", "classPixelUnpack.html", "classPixelUnpack" ],
     [ "pyFairModule", "classpyFairModule.html", "classpyFairModule" ],
     [ "Pythia6Generator", "classPythia6Generator.html", "classPythia6Generator" ],
     [ "Pythia8Generator", "classPythia8Generator.html", "classPythia8Generator" ],
     [ "PyTr1Rng", "classPyTr1Rng.html", "classPyTr1Rng" ],
     [ "PyTr3Rng", "classPyTr3Rng.html", "classPyTr3Rng" ],
-    [ "RawDataHit", "structRawDataHit.html", "structRawDataHit" ],
-    [ "RawHit", "structRawHit.html", "structRawHit" ],
     [ "regression", "structregression.html", "structregression" ],
-    [ "RPCUnpack", "classRPCUnpack.html", "classRPCUnpack" ],
-    [ "ScalarFrame", "structScalarFrame.html", "structScalarFrame" ],
-    [ "ScalerUnpack", "classScalerUnpack.html", "classScalerUnpack" ],
-    [ "SciFiDataFrame", "structSciFiDataFrame.html", "structSciFiDataFrame" ],
-    [ "SciFiUnpack", "classSciFiUnpack.html", "classSciFiUnpack" ],
     [ "ShipBellField", "classShipBellField.html", "classShipBellField" ],
     [ "ShipBFieldMap", "classShipBFieldMap.html", "classShipBFieldMap" ],
     [ "ShipCave", "classShipCave.html", "classShipCave" ],
@@ -246,8 +190,6 @@ var annotated_dup =
     [ "ShipStack", "classShipStack.html", "classShipStack" ],
     [ "ShipTargetStation", "classShipTargetStation.html", "classShipTargetStation" ],
     [ "ShipTAUMagneticSpectrometer", "classShipTAUMagneticSpectrometer.html", "classShipTAUMagneticSpectrometer" ],
-    [ "ShipTdcSource", "classShipTdcSource.html", "classShipTdcSource" ],
-    [ "ShipUnpack", "classShipUnpack.html", "classShipUnpack" ],
     [ "simpleTarget", "classsimpleTarget.html", "classsimpleTarget" ],
     [ "splitcal", "classsplitcal.html", "classsplitcal" ],
     [ "splitcalCluster", "classsplitcalCluster.html", "classsplitcalCluster" ],
