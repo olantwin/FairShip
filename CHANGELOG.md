@@ -16,13 +16,15 @@ it in future.
 
 ### Fixed
 
-* Use ConstructedAt instead of remove pythonization for TClonesArray
+* Use ConstructedAt + std::swap to replace removed pythonization for TCA
 * Octant symmetry was incorrect for B_z when using field maps (reported and fixed by M. Ferro-Luzzi)
 * Tof calculation corrected in GenieGenerator.cxx, wrong units previously used.
+* Genfit measurements now give the correct detector ID
 
 ### Changed
 
 * Set Decay Volume Medium as helium (previously vacuums),can be explicitly switched to vacuum with --vacuums.
+* Medium of SST boxes will be the same as DecayVolumeMedium (previously, always vacuum)
 
 ### Removed
 
