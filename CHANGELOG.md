@@ -14,15 +14,23 @@ it in future.
 
 ### Added
 
+* New analysis toolkit prototype added as part of the 'experimental' package.
+* Simple analysis example script now available in 'examples/'
+
 ### Fixed
 
-* Use ConstructedAt instead of remove pythonization for TClonesArray
+* Use ConstructedAt + std::swap to replace removed pythonization for TCA
 * Octant symmetry was incorrect for B_z when using field maps (reported and fixed by M. Ferro-Luzzi)
 * Tof calculation corrected in GenieGenerator.cxx, wrong units previously used.
+* Genfit measurements now give the correct detector ID
 
 ### Changed
 
 * Set Decay Volume Medium as helium (previously vacuums),can be explicitly switched to vacuum with --vacuums.
+* Medium of SST boxes will be the same as DecayVolumeMedium (previously, always vacuum)
+* Don't prune tracks (before we were using the CFL option to Track::prune, see https://github.com/GenFit/GenFit/blob/e81adeb07c8643301a1d9f7ae25048557cc72dff/core/include/Track.h#L298)
+* **EventCalc LLP event generator**
+This modification to the EventCalc interface accommodates for generic N-body LLP decays.
 
 ### Removed
 
