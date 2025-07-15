@@ -1,19 +1,5 @@
 var searchData=
 [
-  ['passivelinkdef_2eh_4937',['PassiveLinkDef.h',['../PassiveLinkDef_8h.html',1,'']]],
-  ['pi0reco_2epy_4938',['pi0Reco.py',['../pi0Reco_8py.html',1,'']]],
-  ['pid_2ecxx_4939',['pid.cxx',['../pid_8cxx.html',1,'']]],
-  ['pid_2eh_4940',['pid.h',['../pid_8h.html',1,'']]],
-  ['pidlinkdef_2eh_4941',['pidLinkDef.h',['../pidLinkDef_8h.html',1,'']]],
-  ['proton_5fbremsstrahlung_2epy_4942',['proton_bremsstrahlung.py',['../proton__bremsstrahlung_8py.html',1,'']]],
-  ['pyfairmodule_2ecxx_4943',['pyFairModule.cxx',['../pyFairModule_8cxx.html',1,'']]],
-  ['pyfairmodule_2eh_4944',['pyFairModule.h',['../pyFairModule_8h.html',1,'']]],
-  ['pythia6generator_2ecxx_4945',['Pythia6Generator.cxx',['../Pythia6Generator_8cxx.html',1,'']]],
-  ['pythia6generator_2eh_4946',['Pythia6Generator.h',['../Pythia6Generator_8h.html',1,'']]],
-  ['pythia8_5fconf_2epy_4947',['pythia8_conf.py',['../pythia8__conf_8py.html',1,'']]],
-  ['pythia8_5fconf_5futils_2epy_4948',['pythia8_conf_utils.py',['../pythia8__conf__utils_8py.html',1,'']]],
-  ['pythia8darkphoton_5fconf_2epy_4949',['pythia8darkphoton_conf.py',['../pythia8darkphoton__conf_8py.html',1,'']]],
-  ['pythia8generator_2ecxx_4950',['Pythia8Generator.cxx',['../Pythia8Generator_8cxx.html',1,'']]],
-  ['pythia8generator_2eh_4951',['Pythia8Generator.h',['../Pythia8Generator_8h.html',1,'']]],
-  ['pythialist_2epy_4952',['PythiaList.py',['../PythiaList_8py.html',1,'']]]
+  ['ntuplegenerator_2ecxx_0',['NtupleGenerator.cxx',['../NtupleGenerator_8cxx.html',1,'']]],
+  ['ntuplegenerator_2eh_1',['NtupleGenerator.h',['../NtupleGenerator_8h.html',1,'']]]
 ];

@@ -77,6 +77,7 @@ var menudata={children:[
 {text:"r",url:"namespacemembers_func_r.html#index_r"},
 {text:"s",url:"namespacemembers_func_s.html#index_s"},
 {text:"t",url:"namespacemembers_func_t.html#index_t"},
+{text:"u",url:"namespacemembers_func_u.html#index_u"},
 {text:"v",url:"namespacemembers_func_v.html#index_v"},
 {text:"w",url:"namespacemembers_func_w.html#index_w"},
 {text:"y",url:"namespacemembers_func_y.html#index_y"},
@@ -201,7 +202,7 @@ var menudata={children:[
 {text:"Typedefs",url:"functions_type.html"},
 {text:"Enumerations",url:"functions_enum.html"},
 {text:"Enumerator",url:"functions_eval.html"},
-{text:"Related Functions",url:"functions_rela.html"}]}]},
+{text:"Related Symbols",url:"functions_rela.html"}]}]},
 {text:"Files",url:"files.html",children:[
 {text:"File List",url:"files.html"},
 {text:"File Members",url:"globals.html",children:[
@@ -212,6 +213,7 @@ var menudata={children:[
 {text:"f",url:"globals.html#index_f"},
 {text:"h",url:"globals.html#index_h"},
 {text:"i",url:"globals.html#index_i"},
+{text:"j",url:"globals.html#index_j"},
 {text:"k",url:"globals.html#index_k"},
 {text:"l",url:"globals.html#index_l"},
 {text:"m",url:"globals.html#index_m"},

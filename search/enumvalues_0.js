@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['down_9091',['down',['../ShipMuonShield_8h.html#a7a162bd4e07daf5d23ff100f08d1cb43a74e8333ad11685ff3bdae589c8f6e34d',1,'ShipMuonShield.h']]]
+  ['cdr_0',['CDR',['../ShipTargetStation_8h.html#ad749a6600285f6f5e62395e3fb2e888da1117f14bfc3d2eeb593d7d4eccdb09d9',1,'ShipTargetStation.h']]]
 ];
