@@ -123,6 +123,8 @@ Added</h2>
 <li>Added the hole for SND in the Muon Shield, that is created automatically if SND key is enabled (works so far for SND_design == 2)</li>
 <li>Implement vacuum in target facility</li>
 <li>Implement target helium vessel</li>
+<li>feat(python): Add z-offset to <a class="el" href="classFixedTargetGenerator.html">FixedTargetGenerator</a></li>
+<li>Add missing &ndash;FixedTarget option to <a class="el" href="run__simScript_8py.html">run_simScript.py</a></li>
 </ul>
 <h2><a class="anchor" id="autotoc_md3"></a>
 Fixed</h2>
@@ -150,6 +152,7 @@ Fixed</h2>
 <li>Fix <code>beam smearing</code>: replace incorrect Gaussian radius with proper 2D Gaussian sampling. Ensures physical consistency; radius now follows Rayleigh distribution as expected.</li>
 <li>Reconstruction: reverse nmeas &gt; 0 check to make sure 𝜒² is defined</li>
 <li>Fix: MTC geometry overlap</li>
+<li>fix(FixedTargetGenerator): Don't assume anything about the target substructure</li>
 </ul>
 <h2><a class="anchor" id="autotoc_md4"></a>
 Changed</h2>
@@ -187,6 +190,7 @@ Changed</h2>
 <li>Change EmulsionTarget detID decode function to tuple output</li>
 <li>Particle Gun has been updated: now user can set the coordinates of the PG via keys &ndash;V{x,y,z} and use &ndash;D{x,y} to uniformly smear the signal in a given x and y range</li>
 <li><a class="el" href="namespacemakeCascade.html">makeCascade</a>: Added new default target, moved to argparse</li>
+<li><a class="el" href="run__simScript_8py.html">run_simScript.py</a>: use options directly internally instead of using intermediate variables</li>
 </ul>
 <h2><a class="anchor" id="autotoc_md5"></a>
 Removed</h2>
