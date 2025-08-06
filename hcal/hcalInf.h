@@ -4,8 +4,8 @@
  ** Container of HCAL geometry parameters
  **/
 
-#ifndef HCALINF_H
-#define HCALINF_H
+#ifndef HCAL_HCALINF_H_
+#define HCAL_HCALINF_H_
 
 #include "TObjArray.h"
 #include "TString.h"
@@ -81,7 +81,7 @@ public:
 protected:
 
   /** Text file constructor **/
-  hcalInf(const char* filename);
+  explicit hcalInf(const char* filename);
   void CalculateHoleSize();
   virtual ~hcalInf();
 
@@ -159,7 +159,7 @@ inline char hcalInf::GetType(Int_t x, Int_t y) const
 {
   /** Returns the type of the module with position (x,y) **/
   if (x<0||y<0||y>fHcalStr.GetLast()) return 0;
-  TObjString* str=(TObjString*)fHcalStr.At(y);
+  TObjString* str = static_cast<TObjString*>(fHcalStr.At(y));
   if (str->GetString().Length()<x) return 0;
   char stri[2]={str->GetString()[x],0};
   return atoi(stri);
@@ -174,4 +174,4 @@ inline void hcalInf::FreeInstance()
     fInf=NULL;
   }
 }
-#endif
+#endif  // HCAL_HCALINF_H_

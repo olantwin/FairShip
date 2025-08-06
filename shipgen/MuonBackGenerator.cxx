@@ -116,7 +116,7 @@ Bool_t MuonBackGenerator::ReadEvent(FairPrimaryGenerator* cpg)
             LOGF(info, "Reading event %i", fn);
         }
         // test if we have a muon, don't look at neutrinos:
-        if (TMath::Abs(int(id)) == 13) {
+        if (TMath::Abs(static_cast<int>(id)) == 13) {
             mass = pdgBase->GetParticle(id)->Mass();
             e = TMath::Sqrt(px * px + py * py + pz * pz + mass * mass);
             tof = 0;
@@ -127,7 +127,7 @@ Bool_t MuonBackGenerator::ReadEvent(FairPrimaryGenerator* cpg)
             for (int i = 0; i < vetoPoints->GetEntries(); i++) {
                 auto* v = dynamic_cast<vetoPoint*>(vetoPoints->At(i));
                 Int_t abspid = TMath::Abs(v->PdgCode());
-                if (abspid == 13 or (not followMuons and abspid != 12 and abspid != 14)) {
+                if (abspid == 13 || (!followMuons && abspid != 12 && abspid != 14)) {
                     found = true;
                     Int_t muIndex = v->GetTrackID();
                     if (!fdownScaleDiMuon) {
@@ -201,7 +201,7 @@ Bool_t MuonBackGenerator::ReadEvent(FairPrimaryGenerator* cpg)
        for (std::pair<int, int> element : muList){
          if (element.first==i){
           wanttracking = true;
-          if (not followMuons){
+          if (!followMuons) {
               auto* v = dynamic_cast<vetoPoint*>(vetoPoints->At(element.second));
               TVector3 lpv = v->LastPoint();
               TVector3 lmv = v->LastMom();
@@ -230,8 +230,9 @@ Bool_t MuonBackGenerator::ReadEvent(FairPrimaryGenerator* cpg)
         px = pt * TMath::Cos(phi_random);
         py = pt * TMath::Sin(phi_random);
     }
-    cpg->AddTrack(int(pythiaid),px,py,pz,vx*100.,vy*100.,vz*100.,-1.,false,e,pythiaid,parentid);
-    cpg->AddTrack(int(id),px,py,pz,vx*100.,vy*100.,vz*100.,-1.,true,e,tof,w);
+    cpg->AddTrack(
+        static_cast<int>(pythiaid), px, py, pz, vx * 100., vy * 100., vz * 100., -1., false, e, pythiaid, parentid);
+    cpg->AddTrack(static_cast<int>(id), px, py, pz, vx * 100., vy * 100., vz * 100., -1., true, e, tof, w);
   }
   return kTRUE;
 }

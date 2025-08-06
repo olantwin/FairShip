@@ -66,10 +66,9 @@ void ShipGoliathField::Init(const char* fieldfile){
 
   fieldmap = TFile::Open(fieldfile);
 
-
-  TH3D* histbx= (TH3D*)fieldmap->Get("Bx");
-  TH3D* histby= (TH3D*)fieldmap->Get("By");
-  TH3D* histbz= (TH3D*)fieldmap->Get("Bz");
+  TH3D* histbx = dynamic_cast<TH3D*>(fieldmap->Get("Bx"));
+  TH3D* histby = dynamic_cast<TH3D*>(fieldmap->Get("By"));
+  TH3D* histbz = dynamic_cast<TH3D*>(fieldmap->Get("Bz"));
   xmin = histbx->GetXaxis()->GetXmin();
   xmax = histbx->GetXaxis()->GetXmax();
   ymin = histbx->GetYaxis()->GetXmin();
@@ -108,7 +107,7 @@ void ShipGoliathField::getpos(TString volname, TVector3 &vbot, TVector3 &vtop) c
    else { std::cout<<"No geomanager"<<std::endl;}
    std::cout<<"ShipGoliathField::getpos: cd to volume "<<volname<<std::endl;
    Bool_t rc = nav->cd(volname);
-   if (not rc){
+   if (!rc) {
        cout << "ShipGoliathfield::getpos, TGeoNavigator failed "<<volname<<endl;
        return;
    }

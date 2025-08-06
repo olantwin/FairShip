@@ -138,7 +138,7 @@ Bool_t  splitcal::ProcessHits(FairVolume* vol)
            fELoss,pdgCode);
 
     // Increment number of splitcal det points in TParticle
-    ShipStack* stack = (ShipStack*) gMC->GetStack();
+    ShipStack* stack = dynamic_cast<ShipStack*>(gMC->GetStack());
     stack->AddPoint(kSplitCal);
 
   }
@@ -336,7 +336,7 @@ void splitcal::ConstructGeometry()
 
       // position high precision sensitive layers
       i_nlayECAL_gas=-1000;
-      if(i_nlayECAL==ffirst_precision_layer or i_nlayECAL==fsecond_precision_layer or i_nlayECAL==fthird_precision_layer){
+      if(i_nlayECAL==ffirst_precision_layer || i_nlayECAL==fsecond_precision_layer || i_nlayECAL==fthird_precision_layer){
 	z_splitcal+=fActiveECAL_gas_Thickness/2;
 	if(i_nlayECAL==ffirst_precision_layer) i_nlayECAL_gas=0;
 	else if(i_nlayECAL==fsecond_precision_layer ){

@@ -4,8 +4,8 @@
  ** Container of ECAL geometry parameters
  **/
 
-#ifndef ECALINF_H
-#define ECALINF_H
+#ifndef ECAL_ECALINF_H_
+#define ECAL_ECALINF_H_
 
 #include "TObjArray.h"
 #include "TString.h"
@@ -80,7 +80,7 @@ public:
 protected:
 
   /** Text file constructor **/
-  ecalInf(const char* filename);
+  explicit ecalInf(const char* filename);
   void CalculateHoleSize();
   virtual ~ecalInf();
 
@@ -156,7 +156,7 @@ inline char ecalInf::GetType(Int_t x, Int_t y) const
 {
   /** Returns the type of the module with position (x,y) **/
   if (x<0||y<0||y>fEcalStr.GetLast()) return 0;
-  TObjString* str=(TObjString*)fEcalStr.At(y);
+  TObjString* str = static_cast<TObjString*>(fEcalStr.At(y));
   if (str->GetString().Length()<x) return 0;
   char stri[2]={str->GetString()[x],0};
   return atoi(stri);
@@ -171,4 +171,4 @@ inline void ecalInf::FreeInstance()
 		fInf=NULL;
 	}
 }
-#endif
+#endif  // ECAL_ECALINF_H_

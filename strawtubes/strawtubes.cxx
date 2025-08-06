@@ -172,7 +172,7 @@ Bool_t  strawtubes::ProcessHits(FairVolume* vol)
      uCrossv.Print();
     }
     // Increment number of strawtubes det points in TParticle
-    ShipStack* stack = (ShipStack*) gMC->GetStack();
+    ShipStack* stack = dynamic_cast<ShipStack*>(gMC->GetStack());
     stack->AddPoint(kStraw);
   }
   return kTRUE;
@@ -568,7 +568,7 @@ void strawtubes::StrawEndPoints(Int_t fDetectorID, TVector3 &vbot, TVector3 &vto
     path += "/";
     path += wire;
     Bool_t rc = nav->cd(path);
-    if (not rc) {
+    if (!rc) {
         LOG(warning) << "strawtubes::StrawDecode, TGeoNavigator failed" << path;
         return;
     }

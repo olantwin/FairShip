@@ -43,9 +43,9 @@ class MtcDetHit : public ShipHit
       - 123: number of the SiPM channel (0-127, 128 channels per SiPM)
   */
     Int_t GetChannelID() const { return fDetectorID; }
-    Int_t GetLayer() const { return int(fDetectorID / 1000000) % 100; }
-    Int_t GetStationType() const { return int(fDetectorID / 100000) % 10; }
-    Int_t GetSiPM() { return (int(fDetectorID / 1000) % 10); }
+    Int_t GetLayer() const { return static_cast<int>(fDetectorID / 1000000) % 100; }
+    Int_t GetStationType() const { return static_cast<int>(fDetectorID / 100000) % 10; }
+    Int_t GetSiPM() { return (static_cast<int>(fDetectorID / 1000) % 10); }
     Int_t GetSiPMChan() { return (fDetectorID % 1000); }
     Float_t GetEnergy();
     void setInvalid() { flag = false; }
@@ -65,4 +65,4 @@ class MtcDetHit : public ShipHit
     ClassDef(MtcDetHit, 4);
 };
 
-#endif
+#endif   // SND_MTC_MTCDETHIT_H_
