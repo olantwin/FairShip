@@ -68,7 +68,7 @@ var hierarchy =
       [ "ShipGeoCave", "classShipGeoCave.html", null ]
     ] ],
     [ "FairMCPoint", null, [
-      [ "MtcDetPoint", "classMtcDetPoint.html", null ],
+      [ "MTCDetPoint", "classMTCDetPoint.html", null ],
       [ "SiliconTargetPoint", "classSiliconTargetPoint.html", null ],
       [ "TTPoint", "classTTPoint.html", null ],
       [ "TargetPoint", "classTargetPoint.html", null ],
@@ -174,7 +174,7 @@ var hierarchy =
     ] ],
     [ "TObject", null, [
       [ "ShipHit", "classShipHit.html", [
-        [ "MtcDetHit", "classMtcDetHit.html", null ],
+        [ "MTCDetHit", "classMTCDetHit.html", null ],
         [ "SiliconTargetHit", "classSiliconTargetHit.html", null ],
         [ "TimeDetHit", "classTimeDetHit.html", null ],
         [ "UpstreamTaggerHit", "classUpstreamTaggerHit.html", null ],
@@ -210,5 +210,13 @@ var hierarchy =
     [ "pickle.Unpickler", null, [
       [ "rootpyPickler.Unpickler", "classrootpyPickler_1_1Unpickler.html", null ]
     ] ],
-    [ "Veto", "classVeto.html", null ]
+    [ "Veto", "classVeto.html", null ],
+    [ "ABC", null, [
+      [ "BaseDetector.BaseDetector", "classBaseDetector_1_1BaseDetector.html", [
+        [ "MTCDetector.MTCDetector", "classMTCDetector_1_1MTCDetector.html", null ],
+        [ "SBTDetector.SBTDetector", "classSBTDetector_1_1SBTDetector.html", null ],
+        [ "muonDetector.muonDetector", "classmuonDetector_1_1muonDetector.html", null ],
+        [ "timeDetector.timeDetector", "classtimeDetector_1_1timeDetector.html", null ]
+      ] ]
+    ] ]
 ];
