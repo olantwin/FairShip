@@ -108,6 +108,7 @@ it in future.
 * Fix refactoring issue that broke MTC digitization
 * Fix the condition in the sipm channel <-> fiber mapping that stopped looping over channels because of the distance between a fiber and a channel. Setting a flexible condition that depends on the aggregated channel size.
 * Add flags for `python/ScifiMapping.py`
+* Fixed SiliconTarget detector identifier.
 
 ### Changed
 
@@ -179,6 +180,7 @@ it in future.
   - Automatic format detection: new code reads both JSON (new format) and pickle (legacy format) files without user intervention
 * Change the logic of SiPM channel encoding in MTC. Now the number of SiPM is 1 and has a number of channels that fits the width of the plane. If the number of channels exceeds 1000, iterating a SiPM digit to 1 and distributing channels among new number of SiPMs.
 * Set default parameters of MTC to 60x60 cm^2 and 4 aggregated channels according to Sep 2025 CM.
+* Placement of SiliconTarget has been shifted by 10 cm to bring the final layer to within 10 cm of the MTC.
 
 ### Removed
 
@@ -211,6 +213,8 @@ it in future.
 * Remove old ecal and hcal in all of FairSHiP, affected files are notably the entire ecal and hcal directories as well as macro/run_anaEcal.py and python/shipPid.py. geometry/geometry_config.py, muonShieldOptimization/ana_ShipMuon.py, macro/ShipReco.py, macro/ShipAna.py, python/shipStrawTracking.py and python/shipPid.py.
 * Remove globalDesigns dictionary from run_simScript.py and create_field_perturbation.py, use inline defaults instead
 * Remove unused CaloDesign parameter from geometry configuration (only splitCal supported after ECAL/HCAL removal)
+* Removed unused class ShipChamber (leftover from TP design)
+* Removed unused run_simPgun.py
 
 ## 25.01
 
