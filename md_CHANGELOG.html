@@ -230,6 +230,7 @@ Changed</h2>
 <li>Integrate splitcal cluster reconstruction into <a class="el" href="namespacesplitcalDetector.html">splitcalDetector</a> class</li>
 <li>refactor(splitcal): Use value storage for both hits and clusters instead of pointer storage</li>
 <li>refactor(splitcal): Replace TVector3 with std::array and hit pointers with indices in <a class="el" href="classsplitcalCluster.html">splitcalCluster</a> for RNtuple compatibility</li>
+<li>refactor(digi): Use maximum splitting (99) for vector branches instead of no splitting (-1)</li>
 <li>Don't special case EOS paths (fix #566)</li>
 <li>Setting up the Muon shield geometry by ROOT files is completely replaced with the temporary solution of dict in the <code>geometry/geometry_config.py</code>.</li>
 <li>Set up of the shield name is now done using the <code>--shieldName</code> flag instead of <code>--scName</code>.</li>
@@ -298,6 +299,7 @@ Changed</h2>
 <h2><a class="anchor" id="autotoc_md5"></a>
 Removed</h2>
 <ul>
+<li>Remove Goliath magnet geometry and field implementation (ShipGoliath, ShipGoliathField, and associated field maps)</li>
 <li>fix: Remove unused, unrunnable shipPatRec_prev.py</li>
 <li>feat(geometry): Dropped support for old geometries without DecayVolumeMedium explicitly set(pre 24.11 release case).</li>
 <li>MS: Removed old options 7, 9, 10</li>
