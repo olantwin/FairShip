@@ -327,14 +327,6 @@ var namespaces_dup =
       [ "weightMbias", "namespaceextractNeutrinosAndUpdateWeight.html#ada8cdca68067f6a53d1115bf882b2d2c", null ],
       [ "weightMbias1GeV", "namespaceextractNeutrinosAndUpdateWeight.html#ae01b4a5fe37389f539471726e4c843a5", null ]
     ] ],
-    [ "flux_map", "namespaceflux__map.html", [
-      [ "main", "namespaceflux__map.html#a771e745091fb71f923521ce4420f4a8d", null ],
-      [ "format", "namespaceflux__map.html#afc138e0208bc3d989f39f8b7b35a9d5d", null ],
-      [ "gErrorIgnoreLevel", "namespaceflux__map.html#a0a534466aad410c85e90044a42a9fa87", null ],
-      [ "INFO", "namespaceflux__map.html#af2848c3cf881be1cf3ad06823caea97f", null ],
-      [ "level", "namespaceflux__map.html#a726a2761e1c4ab00a305c9eac20a1d6b", null ],
-      [ "log", "namespaceflux__map.html#ae0bc6aa7b464b535cb2abe8f81bcde5d", null ]
-    ] ],
     [ "g4Ex", "namespaceg4Ex.html", "namespaceg4Ex" ],
     [ "g4Ex_args", "namespaceg4Ex__args.html", "namespaceg4Ex__args" ],
     [ "g4Ex_gap", "namespaceg4Ex__gap.html", "namespaceg4Ex__gap" ],
@@ -1041,7 +1033,16 @@ var namespaces_dup =
       [ "configuredDecays", "namespacereadDecayTable.html#ac7b78e10a0805dc3d04baed8475ec3d7", null ],
       [ "pdg", "namespacereadDecayTable.html#a216e0525d0705b0b1690f178c74c2cf9", null ]
     ] ],
-    [ "rootUtils", "namespacerootUtils.html", "namespacerootUtils" ],
+    [ "rootUtils", "namespacerootUtils.html", [
+      [ "bookCanvas", "namespacerootUtils.html#af503556d7d4590fc7e05a537f76d420f", null ],
+      [ "bookHist", "namespacerootUtils.html#aac6f875685fcf5ccb0029c6a87386c0d", null ],
+      [ "bookProf", "namespacerootUtils.html#a79ba33adb72afebbbddbead98dfcc9e5", null ],
+      [ "checkFileExists", "namespacerootUtils.html#a6df9731f95a2aa0122c18f8fc6ee2f4d", null ],
+      [ "errorSummary", "namespacerootUtils.html#a2808d76ca57749e439c50d781c861ea8", null ],
+      [ "readHists", "namespacerootUtils.html#ab2eab36130015c7ae1c4b0e5ea8e9268", null ],
+      [ "reportError", "namespacerootUtils.html#af995ab99f984b0e88bb4063e431b21dc", null ],
+      [ "writeHists", "namespacerootUtils.html#a0c971276ce3f4fd851b1927c88ebd1d1", null ]
+    ] ],
     [ "rpvsusy", "namespacerpvsusy.html", "namespacerpvsusy" ],
     [ "run_ACTSTracking", "namespacerun__ACTSTracking.html", [
       [ "action", "namespacerun__ACTSTracking.html#afb76210fc78f0dc6654161d27b5e3892", null ],
@@ -1185,30 +1186,6 @@ var namespaces_dup =
       [ "pref", "namespacerun__reco.html#a9dabb00cd6b80021cf8ee4b76b1cab04", null ],
       [ "user", "namespacerun__reco.html#a006fd0bc278889d0f639c7efd723348f", null ],
       [ "xx", "namespacerun__reco.html#a7e74d79c29b7ed5cbb9ac5c9787a66dc", null ]
-    ] ],
-    [ "run_simEcal", "namespacerun__simEcal.html", [
-      [ "boxGen", "namespacerun__simEcal.html#a9645245051a6f84c94278b8a3b08e4a3", null ],
-      [ "ctime", "namespacerun__simEcal.html#a3d747177c03eb87c44d9c595fa9954ee", null ],
-      [ "deepCopy", "namespacerun__simEcal.html#a7dcbeb3ca4645f370911ec8427a54a9f", null ],
-      [ "eventDisplay", "namespacerun__simEcal.html#a29277513572e0ff17f159d46f6d8d2db", null ],
-      [ "fStack", "namespacerun__simEcal.html#ab0800c8ad9f3c1514f801b952798956e", null ],
-      [ "inclusive", "namespacerun__simEcal.html#ac1ee0bf2ab9768d44ed4fe0b23286de2", null ],
-      [ "inputFile", "namespacerun__simEcal.html#a4c5f305488612c246a0fecf3a69c882a", null ],
-      [ "kParameterMerged", "namespacerun__simEcal.html#ab4fa19e6e982f410a1d251490f6514a5", null ],
-      [ "mcEngine", "namespacerun__simEcal.html#a3671b6e7b2da13d0b28067fe7a4018ea", null ],
-      [ "momentum", "namespacerun__simEcal.html#a43b5db65045aec3156fc3ae4167610f3", null ],
-      [ "nEvents", "namespacerun__simEcal.html#a9b2fdc055f8e7394360428df78a48cc4", null ],
-      [ "outFile", "namespacerun__simEcal.html#a56d359d3461025f18f1cc3b27db6c3ad", null ],
-      [ "parFile", "namespacerun__simEcal.html#aebd2228b43b152ce70da948948a21852", null ],
-      [ "parOut", "namespacerun__simEcal.html#a266de7a37da4ec6ec2142e4df35197b9", null ],
-      [ "primGen", "namespacerun__simEcal.html#a40e2343ba1d93939a2032dccdbb625be", null ],
-      [ "rtdb", "namespacerun__simEcal.html#ab781f41883a70d5ba32dbea56c8ad313", null ],
-      [ "rtime", "namespacerun__simEcal.html#a6ed7bfbdf54bb3723ac77489693e8dda", null ],
-      [ "run", "namespacerun__simEcal.html#a4212ccae07e1b69e69c70dc1cd3f95e2", null ],
-      [ "ship_geo", "namespacerun__simEcal.html#ac51658cba900b43c08e5e8edee565674", null ],
-      [ "simEngine", "namespacerun__simEcal.html#a55debef40f0e3918141f43343277a049", null ],
-      [ "theSeed", "namespacerun__simEcal.html#a8bfdefbd6f22a794e72844a0de878dd8", null ],
-      [ "timer", "namespacerun__simEcal.html#aa5bb0c5be4c77be502fb73ea19a57e9a", null ]
     ] ],
     [ "run_simScript", "namespacerun__simScript.html", [
       [ "checkOverlapsWithGeant4", "namespacerun__simScript.html#ac6390391d3c0b2c299be2757e56f72a4", null ],
@@ -1724,11 +1701,6 @@ var namespaces_dup =
       [ "logfile", "namespacesubmitPyG4prod.html#a425b9ce028a805b9bf14bb359d842e36", null ],
       [ "nevents", "namespacesubmitPyG4prod.html#a39f1bf1b1d59db426b74d7f00ac547ad", null ],
       [ "path", "namespacesubmitPyG4prod.html#a2c8beaa3825810f733065f8b7afe52f5", null ]
-    ] ],
-    [ "tdirectory634", "namespacetdirectory634.html", [
-      [ "_TDirectory_getitem", "namespacetdirectory634.html#ad203e5406feb380dfac0076a50b68f5e", null ],
-      [ "pythonize_tdirectory", "namespacetdirectory634.html#adbc8f78dd2cf88ec72042a64cf3b4738", null ],
-      [ "_cached_items", "namespacetdirectory634.html#af2c8e0ac0cb408377aed4b01f54a391f", null ]
     ] ],
     [ "timeDetector", "namespacetimeDetector.html", "namespacetimeDetector" ],
     [ "TrackExtrapolateTool", "namespaceTrackExtrapolateTool.html", [
