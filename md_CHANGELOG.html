@@ -108,6 +108,8 @@ Changed</h2>
 <h2><a class="anchor" id="autotoc_md4"></a>
 Fixed</h2>
 <ul>
+<li>Fix <code>errorSummary</code> not printing its header (bare string expression instead of <code>print</code>)</li>
+<li>Fix <code>reportError</code>/<code>errorSummary</code> using fragile &lsquo;sys.modules[&rsquo;<b>main</b>'].log` pattern; use module-level counter instead</li>
 <li>Fix file-filtering logic to support STL branches</li>
 <li>Update <a class="el" href="classMuonBackGenerator.html">MuonBackGenerator</a> to support both TClonesArray and std::vector input formats for MCTrack and <a class="el" href="classvetoPoint.html">vetoPoint</a> branches</li>
 <li>Fix function call in <a class="el" href="run__simScript_8py.html">run_simScript.py</a> to use SetPhiRandomize instead of deprecated SetPhiRandom</li>
@@ -122,6 +124,7 @@ Removed</h2>
 <li>Remove unused functions and dead code from <a class="el" href="namespacerootUtils.html">rootUtils</a>: <code>printout</code>, <code>setAttributes</code>, <code>container_sizes</code>, <code>stripOffBranches</code>, <code>findMaximumAndMinimum</code>, <code>makeIntegralDistrib</code>, <code>PyListOfLeaves</code></li>
 <li>Remove unused <a class="el" href="namespacerootUtils.html">rootUtils</a> imports from <code><a class="el" href="dumpEvent_8py.html">dumpEvent.py</a></code> and <code><a class="el" href="extractMuonsAndUpdateWeight_8py.html">extractMuonsAndUpdateWeight.py</a></code></li>
 <li>Remove TDirectory pythonisation backport (now provided by ROOT ≥ 6.32)</li>
+<li>Remove unused legacy ShipGeo.py (superseded by <a class="el" href="namespaceShipGeoConfig.html">ShipGeoConfig</a>)</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md6"></a>
 25.12 - 2025-12-22</h1>
