@@ -99,9 +99,13 @@ $(document).ready(function(){initNavTree('md_CHANGELOG.html',''); initResizable(
 Unreleased</h1>
 <h2><a class="anchor" id="autotoc_md2"></a>
 Added</h2>
+<ul>
+<li>Add Findgenfit2.cmake module to support both upstream GenFit and the fork</li>
+</ul>
 <h2><a class="anchor" id="autotoc_md3"></a>
 Changed</h2>
 <ul>
+<li>Turn warning to debug in <a class="el" href="classMuonBackGenerator.html">MuonBackGenerator</a> to prevent overly verbose output. #1036</li>
 <li>Changed input file reading to TChain and modified <a class="el" href="run__simScript_8py.html">run_simScript.py</a> command line argument to take list of files. #1027</li>
 <li>UseGeneralProcess is only set to false when cross-sections need to be changed (in order to access GammaToMuons directly)</li>
 <li>Bump minimum ROOT version to 6.36</li>
@@ -118,6 +122,7 @@ Fixed</h2>
 <li>Fix function call in <a class="el" href="run__simScript_8py.html">run_simScript.py</a> to use SetPhiRandomize instead of deprecated SetPhiRandom</li>
 <li>Update <a class="el" href="namespacerun__fixedTarget.html">run_fixedTarget</a> to save tracks for hits in post-target sensitive plane</li>
 <li>Set correct trackIDs for <a class="el" href="classexitHadronAbsorber.html">exitHadronAbsorber</a> class</li>
+<li>Clamp random seed to PYTHIA8's maximum allowed value (900000000) to prevent out-of-range errors when using time-based seeds</li>
 </ul>
 <h2><a class="anchor" id="autotoc_md5"></a>
 Removed</h2>
@@ -130,6 +135,7 @@ Removed</h2>
 <li>Remove unused <a class="el" href="namespacerootUtils.html">rootUtils</a> imports from <code><a class="el" href="dumpEvent_8py.html">dumpEvent.py</a></code> and <code><a class="el" href="extractMuonsAndUpdateWeight_8py.html">extractMuonsAndUpdateWeight.py</a></code></li>
 <li>Remove TDirectory pythonisation backport (now provided by ROOT ≥ 6.32)</li>
 <li>Remove unused legacy ShipGeo.py (superseded by <a class="el" href="namespaceShipGeoConfig.html">ShipGeoConfig</a>)</li>
+<li>Remove unused create_field_perturbation.py script</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md6"></a>
 25.12 - 2025-12-22</h1>
@@ -538,7 +544,7 @@ Build System</h3>
 <ul>
 <li>Remove unused files for FLUKA</li>
 <li>Remove unused CMake modules</li>
-<li>Remove globalDesigns dictionary from <a class="el" href="run__simScript_8py.html">run_simScript.py</a> and <a class="el" href="create__field__perturbation_8py.html">create_field_perturbation.py</a>, use inline defaults instead</li>
+<li>Remove globalDesigns dictionary from <a class="el" href="run__simScript_8py.html">run_simScript.py</a> and create_field_perturbation.py, use inline defaults instead</li>
 <li>build(field,nutaudet): remove unnecessary ROOT_INCLUDE_DIR include</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md47"></a>
