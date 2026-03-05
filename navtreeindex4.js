@@ -1,6 +1,5 @@
 var NAVTREEINDEX4 =
 {
-"classMTCDetHit.html#aa80b19051c5eef695800f7db0d430a45":[6,0,33,9],
 "classMTCDetHit.html#ab386b001e8c86869528fb8350facae61":[6,0,33,25],
 "classMTCDetHit.html#ab928296c1f42721d6b7b91dad6de71fc":[6,0,33,15],
 "classMTCDetHit.html#ad03ffca6b808d429de707303fedf268f":[6,0,33,6],
@@ -101,12 +100,12 @@ var NAVTREEINDEX4 =
 "classMTCDetector_1_1MTCDetector.html":[5,0,53,0],
 "classMTCDetector_1_1MTCDetector.html#a3335d6637ba8bd1aeb19d80362102a41":[5,0,53,0,2],
 "classMTCDetector_1_1MTCDetector.html#a3335d6637ba8bd1aeb19d80362102a41":[6,0,7,0,2],
-"classMTCDetector_1_1MTCDetector.html#ad5ec895e4f4d4e64aad5e9c3f7d02e43":[5,0,53,0,1],
 "classMTCDetector_1_1MTCDetector.html#ad5ec895e4f4d4e64aad5e9c3f7d02e43":[6,0,7,0,1],
-"classMTCDetector_1_1MTCDetector.html#ae32ebaee7612743e9fc980c8dda59ee1":[5,0,53,0,0],
+"classMTCDetector_1_1MTCDetector.html#ad5ec895e4f4d4e64aad5e9c3f7d02e43":[5,0,53,0,1],
 "classMTCDetector_1_1MTCDetector.html#ae32ebaee7612743e9fc980c8dda59ee1":[6,0,7,0,0],
-"classMTCDetector_1_1MTCDetector.html#af79a6492f3950720f095380683b6da31":[5,0,53,0,3],
+"classMTCDetector_1_1MTCDetector.html#ae32ebaee7612743e9fc980c8dda59ee1":[5,0,53,0,0],
 "classMTCDetector_1_1MTCDetector.html#af79a6492f3950720f095380683b6da31":[6,0,7,0,3],
+"classMTCDetector_1_1MTCDetector.html#af79a6492f3950720f095380683b6da31":[5,0,53,0,3],
 "classMuDISGenerator.html":[6,0,35],
 "classMuDISGenerator.html#a0263f61092a254678c6c6cc66031ec65":[6,0,35,2],
 "classMuDISGenerator.html#a02a27ca2523fef8be266e35faa18414e":[6,0,35,13],
@@ -249,5 +248,6 @@ var NAVTREEINDEX4 =
 "classPythia8Generator.html#a595517ad652ff2458e863287770cdbf0":[6,0,40,47],
 "classPythia8Generator.html#a5c42943975a845596b93d0ce864bbc64":[6,0,40,52],
 "classPythia8Generator.html#a667fa3cbfa0010ff6b95f0287c2d8641":[6,0,40,55],
-"classPythia8Generator.html#a6cccef60f9c11c8de3e613df19421a71":[6,0,40,18]
+"classPythia8Generator.html#a6cccef60f9c11c8de3e613df19421a71":[6,0,40,18],
+"classPythia8Generator.html#a74134af826fac3ad789403d9eb60a911":[6,0,40,4]
 };

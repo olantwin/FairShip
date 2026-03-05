@@ -215,7 +215,7 @@ var NAVTREEINDEX18 =
 "namespaceShipReco.html#af216c8c8b08ff8f49fcb82220bed70c4":[5,0,81,15],
 "namespaceShipReco.html#af29bc13f95d9544b1f56ece16b06a4c6":[5,0,81,28],
 "namespaceShipReco.html#afb5b701e9d769b20a4bf56ac2b4e5600":[5,0,81,19],
-"namespaceShipUnit.html":[5,0,84],
+"namespaceShipUnit.html":[5,0,85],
 "namespaceTrackExtrapolateTool.html":[5,0,94],
 "namespaceTrackExtrapolateTool.html#a1104e7a5752dd65cba8fc8bdb76a5ce5":[5,0,94,3],
 "namespaceTrackExtrapolateTool.html#a88649c5e9feda4744213d5c7a41a94ad":[5,0,94,2],
