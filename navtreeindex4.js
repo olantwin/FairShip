@@ -249,5 +249,5 @@ var NAVTREEINDEX4 =
 "classPythia8Generator.html#af56b43879aa68df1f93d3fa5d7309244":[6,0,40,28],
 "classPythia8Generator.html#af6c553dba17223a063a3fa9a700d9869":[6,0,40,35],
 "classPythia8Generator.html#af9b0d7cc138e3e2cc6b19ead232a248a":[6,0,40,53],
-"classSBTDetector_1_1SBTDetector.html":[5,0,72,0]
+"classSBTDetector_1_1SBTDetector.html":[6,0,9,0]
 };
