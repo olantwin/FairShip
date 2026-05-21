@@ -1157,6 +1157,7 @@ var namespaces_dup =
       [ "xx", "namespacerun__reco.html#a7e74d79c29b7ed5cbb9ac5c9787a66dc", null ]
     ] ],
     [ "run_simScript", "namespacerun__simScript.html", [
+      [ "_fraction_0_1", "namespacerun__simScript.html#afedbc79013bdd48d4a872216aa4c6cb4", null ],
       [ "checkOverlapsWithGeant4", "namespacerun__simScript.html#a0ba5fb603df27a98103959b42c5cdd8f", null ],
       [ "visualizeMagFields", "namespacerun__simScript.html#a0d8a3c689350819a350b633286a36197", null ],
       [ "action", "namespacerun__simScript.html#a6056f7d17a9444f227c9edf13d243928", null ],
@@ -1198,6 +1199,12 @@ var namespaces_dup =
       [ "gst", "namespacerun__simScript.html#aa3e34199d5fbf0a1ded3a5a739c356da", null ],
       [ "gst_copy", "namespacerun__simScript.html#a7d8ddabaf399fe627d86b2c91119fb14", null ],
       [ "help", "namespacerun__simScript.html#ab658890547af5e0465901c28dbaf5199", null ],
+      [ "histo_files", "namespacerun__simScript.html#acab2f81658cb96bd5076575a88e7a512", null ],
+      [ "histo_names", "namespacerun__simScript.html#a1a20f54743be73320a5210128d1da3af", null ],
+      [ "histo_vars", "namespacerun__simScript.html#a29d6ab12ab59ce84dcb46dd3381d0389", null ],
+      [ "histo_x", "namespacerun__simScript.html#a0bcbe79063b6424f479928d19844bf8b", null ],
+      [ "histo_y", "namespacerun__simScript.html#aa3221d609d5556de59ed9a83f349d65f", null ],
+      [ "histo_z", "namespacerun__simScript.html#a02e8eba17c633aef79dffe14bb5b5f9a", null ],
       [ "HNL", "namespacerun__simScript.html#a1dac2c9d322e66f5d1bcb8374999423b", null ],
       [ "inclusive", "namespacerun__simScript.html#a4483c0f1750d35b90b961b115d1a77a7", null ],
       [ "input_path", "namespacerun__simScript.html#a2ffceeab5f9a8f1e0a57af53bfac65fd", null ],
@@ -1252,6 +1259,7 @@ var namespaces_dup =
       [ "seed", "namespacerun__simScript.html#a7d8472b792e7e39ff6b5ee3f54e39b8d", null ],
       [ "selection_string", "namespacerun__simScript.html#a749a0f8ac4a71bac9bc5125a66b765b4", null ],
       [ "ship_geo", "namespacerun__simScript.html#a151c419ab07f58189111d09a490975f5", null ],
+      [ "sink", "namespacerun__simScript.html#ab28fa4e0bc561176e536feeece39e2d5", null ],
       [ "SND_design", "namespacerun__simScript.html#abfc0d3d48b6d07dad5d8363b594beef6", null ],
       [ "sTree", "namespacerun__simScript.html#ab849a0cc2206716284b2e90fbd3fa3ed", null ],
       [ "subparsers", "namespacerun__simScript.html#ae7ab5ab47fdc0841c3b3bd17bc4df157", null ],
@@ -1520,7 +1528,6 @@ var namespaces_dup =
     [ "shipRoot_conf", "namespaceshipRoot__conf.html", [
       [ "configure", "namespaceshipRoot__conf.html#a59bfc0b1b7bf8bc3e1a1270881622da6", null ],
       [ "forReadingOldFile", "namespaceshipRoot__conf.html#afe7a5abdf5ac74baa52b7d271a6b18ad", null ],
-      [ "pyExit", "namespaceshipRoot__conf.html#a5e5d2200a27772b5ef5cba873d91fee1", null ],
       [ "genfit_root", "namespaceshipRoot__conf.html#abe7f64e661e45192074d6aff22e9fa75", null ]
     ] ],
     [ "shipStrawTracking", "namespaceshipStrawTracking.html", [
